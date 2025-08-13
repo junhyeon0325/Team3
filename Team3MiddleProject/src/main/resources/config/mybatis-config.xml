@@ -10,6 +10,7 @@
   </settings>
 
   <typeAliases>
+  	<typeAlias alias= "product" type="com.yedam.vo.ProductVO"/>
     <!-- <typeAlias alias=" " type=""/>  -->
   </typeAliases>
 
@@ -26,7 +27,7 @@
   </environments>
 
   <mappers>
-    <package name="co.yedam.mapper"/>
+    <mapper resource="com/yedam/mapper/DetailMapper.xml"/>
   </mappers>
 
 </configuration>
