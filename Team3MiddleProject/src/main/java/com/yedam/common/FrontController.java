@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.MainControl;
+import com.yedam.control.ProductListControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -23,6 +24,7 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
+		map.put("/vegetable.do", new ProductListControl());
 	}
 	
 	@Override
