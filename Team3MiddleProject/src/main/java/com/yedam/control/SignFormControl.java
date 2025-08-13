@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 
-public class MainControl implements Control{
-	
+public class SignFormControl implements Control {
+
 	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp)// 
+	public void execute(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		//req.getRequestDispatcher("index.jsp").forward(req, resp);
-		req.getRequestDispatcher("product/signup_form.tiles")
+		
+		req.getRequestDispatcher("WEB-INF/html/signup_form.jsp")
 		.forward(req, resp);
 	}
+
 }

@@ -11,6 +11,7 @@
 
   <typeAliases>
     <!-- <typeAlias alias=" " type=""/>  -->
+    <typeAlias alias="member" type = "com.yedam.vo.MemberVO"/>
   </typeAliases>
 
   <environments default="development">
@@ -26,7 +27,7 @@
   </environments>
 
   <mappers>
-    <package name="co.yedam.mapper"/>
+  	<mapper resource="com/yedam/mapper/MemberMapper.xml"/>
   </mappers>
 
 </configuration>
