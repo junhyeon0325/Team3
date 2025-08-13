@@ -11,7 +11,8 @@ import com.yedam.common.Control;
 public class MainControl implements Control{
 	
 	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void execute(HttpServletRequest req, HttpServletResponse resp)// 
+			throws ServletException, IOException {
 		//req.getRequestDispatcher("index.jsp").forward(req, resp);
 		req.getRequestDispatcher("product/productMain.tiles").forward(req, resp);
 	}
