@@ -12,11 +12,9 @@
 					class="text-white">Email@Example.com</a></small>
 			</div>
 			<div class="top-link pe-2">
-				<a href="#" class="text-white"><small class="text-white mx-2">Privacy
-						Policy</small>/</a> <a href="#" class="text-white"><small
-					class="text-white mx-2">Terms of Use</small>/</a> <a href="#"
-					class="text-white"><small class="text-white ms-2">Sales
-						and Refunds</small></a>
+				<a href="#" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
+				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
+				<a href="#" class="text-white"><small class="text-white ms-2">게시판</small></a>
 			</div>
 		</div>
 	</div>
@@ -30,20 +28,20 @@
 			</button>
 			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 				<div class="navbar-nav mx-auto">
-					<a href="index.html" class="nav-item nav-link active">Home</a> <a
-						href="shop.html" class="nav-item nav-link">Shop</a> <a
-						href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+					<a href="index.html" class="nav-item nav-link active">채소</a> <a
+						href="shop.html" class="nav-item nav-link">정육·가공육·달걀</a> <a
+						href="shop-detail.html" class="nav-item nav-link">수산·해산·건어물</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">Pages</a>
+							data-bs-toggle="dropdown">이벤트</a>
 						<div class="dropdown-menu m-0 bg-secondary rounded-0">
-							<a href="cart.html" class="dropdown-item">Cart</a> <a
-								href="chackout.html" class="dropdown-item">Chackout</a> <a
-								href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-								href="404.html" class="dropdown-item">404 Page</a>
+							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a> <a
+								href="chackout.html" class="dropdown-item">임박 상품 특가</a> <a
+								href="testimonial.html" class="dropdown-item">미정</a> <a
+								href="404.html" class="dropdown-item">미정</a>
 						</div>
 					</div>
-					<a href="contact.html" class="nav-item nav-link">Contact</a>
+					<a href="contact.html" class="nav-item nav-link">게시판</a>
 				</div>
 				<div class="d-flex m-3 me-0">
 					<button
@@ -70,8 +68,7 @@
 	<div class="modal-dialog modal-fullscreen">
 		<div class="modal-content rounded-0">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Search by
-					keyword</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>

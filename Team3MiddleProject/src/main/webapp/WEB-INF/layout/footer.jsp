@@ -13,7 +13,8 @@
 						<p class="text-secondary mb-0">Fresh products</p>
 					</a>
 				</div>
-				<div class="col-lg-6">
+<!--				
+ 				<div class="col-lg-6">
 					<div class="position-relative mx-auto">
 						<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
 							type="number" placeholder="Your Email">
@@ -22,7 +23,8 @@
 							style="top: 0; right: 0;">Subscribe Now</button>
 					</div>
 				</div>
-				<div class="col-lg-3">
+ -->
+				<div class="col-lg-9">
 					<div class="d-flex justify-content-end pt-3">
 						<a
 							class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle"
@@ -37,6 +39,7 @@
 				</div>
 			</div>
 		</div>
+<!--  		
 		<div class="row g-5">
 			<div class="col-lg-3 col-md-6">
 				<div class="footer-item">
@@ -80,6 +83,7 @@
 				</div>
 			</div>
 		</div>
+ -->		
 	</div>
 </div>
 <!-- Footer End -->
