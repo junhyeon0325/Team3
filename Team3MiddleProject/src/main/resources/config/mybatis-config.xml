@@ -10,7 +10,7 @@
   </settings>
 
   <typeAliases>
-    <typeAlias alias=" " type=" "/>
+    <!-- <typeAlias alias=" " type=""/>  -->
   </typeAliases>
 
   <environments default="development">
