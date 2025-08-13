@@ -2,17 +2,24 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
- <mapper namespace="com.yedam.mapper.ProductListMapper">
- 
- 	<select id = "selectProductList" >
- 		
- 	
- 	</select>
- 
- 
- 
- 
- 
- 
- </mapper>
+
+<mapper namespace="com.yedam.mapper.ProductListMapper">
+
+	<select id="selectProductList">
+		select b.*
+		from(
+		select /* + index_desc(p pk_product) */ p.*,
+		rownum rn
+		from tbl_product p
+		) b
+		where b.rn > (:page -1) *9
+		and b.rn <= (:page *9);
+
+	</select>
+
+
+
+
+
+
+</mapper>
