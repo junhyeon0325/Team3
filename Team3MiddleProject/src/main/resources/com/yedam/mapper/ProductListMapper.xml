@@ -5,16 +5,18 @@
 
 <mapper namespace="com.yedam.mapper.ProductListMapper">
 
-	<select id="selectProductList" resultType = "com.yedam.vo.ProductVO">
-		select b.*
-			from(select /* + index_desc(p pk_product) */ p.*, rownum rn
+<select id="selectProductList" resultType = "com.yedam.vo.ProductVO">
+	select *
+	from tbl_product
+<!-- 	select b.*
+		from(select /* + index_desc(p pk_product) */ p.*, rownum rn
 				   from tbl_product p
-		) b
-		where b.rn > (:page -1) *9
-		<![CDATA[
-		and b.rn <= (:page *9)
-		]]>
-	</select>
+	) b
+	where b.rn > (:page -1) *9
+	<![CDATA[
+	and b.rn <= (:page *9)
+	]]> -->
+</select>
 
 
 

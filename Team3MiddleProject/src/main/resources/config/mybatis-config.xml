@@ -11,6 +11,7 @@
 
   <typeAliases>
   	<typeAlias alias= "product" type="com.yedam.vo.ProductVO"/>
+  	<typeAlias alias= "review" type="com.yedam.vo.ReviewVO"/>
     <!-- <typeAlias alias=" " type=""/>  -->
   </typeAliases>
 
@@ -28,6 +29,7 @@
 
   <mappers>
     <mapper resource="com/yedam/mapper/DetailMapper.xml"/>
+    <mapper resource="com/yedam/mapper/ProductListMapper.xml"/>
   </mappers>
 
 </configuration>

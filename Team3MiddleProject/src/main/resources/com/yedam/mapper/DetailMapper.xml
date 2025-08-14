@@ -9,8 +9,12 @@
 	  from tbl_product
 	  where product_no = #{productNo}
 	</select>
-
-
+	
+	<select id="">
+	SELECT COUNT(*) 
+	FROM EMPLOYEES
+	WHERE 
+	</select>
 
 
 </mapper>

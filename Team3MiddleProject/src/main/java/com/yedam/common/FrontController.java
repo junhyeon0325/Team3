@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet{
 		map.put("/main.do", new MainControl());
 
 		map.put("/productList.do", new ProductListControl());
-		map.put("/detailePage.do", new DetailSelectcontrol());
+		map.put("/detailPage.do", new DetailSelectcontrol());
 	}
 	
 	@Override

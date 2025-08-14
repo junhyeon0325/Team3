@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -27,13 +30,28 @@
 					<div class="col-lg-6">
 						<h4 class="fw-bold mb-3">${product.productName}</h4>
 						<p class="mb-3">${product.subCategory}</p>
-						<h5 class="fw-bold mb-3">${product.productPrice}원</h5>
-						<div class="d-flex mb-4">
-							<i class="fa fa-star text-secondary"></i> 
-							<i class="fa fa-star text-secondary"></i> 
-							<i class="fa fa-star text-secondary"></i> 
-							<i class="fa fa-star text-secondary"></i> 
-							<i class="fa fa-star"></i>
+						<h5 class="fw-bold mb-3"><fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true"/>원</h5>
+						<div class="d-flex mb-4 align-items-center" style="gap: 4px;">
+					<div class="d-flex mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+					    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
+					    <c:set var="hasHalfStar" value="${product.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+					    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+					    <!-- 꽉 찬 별 -->
+					    <c:forEach begin="1" end="${fullStars}">
+					        <i class="fa-solid fa-star text-warning"></i>
+					    </c:forEach>
+					    <!-- 반쪽 별 -->
+					    <c:if test="${hasHalfStar}">
+					        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+					    </c:if>
+					    <!-- 빈 별 -->
+					    <c:forEach begin="1" end="${emptyStars}">
+					        <i class="fa-regular fa-star text-warning"></i>
+					    </c:forEach>
+					    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+					        ${product.productScore}점
+					    </p>
+					</div>
 						</div>
 						<p class="mb-8">${product.productAbout}</p>
 						<div class="input-group quantity mb-5" style="width: 100px;">
@@ -184,7 +202,7 @@
 						</div>
 					</div>
 					<form action="#">
-						<h4 class="mb-5 fw-bold">Leave a Reply</h4>
+						<h4 class="mb-5 fw-bold">리뷰 남기기</h4>
 						<div class="row g-4">
 							<div class="col-lg-6">
 								<div class="border-bottom rounded">
@@ -208,12 +226,13 @@
 								<div class="d-flex justify-content-between py-3 mb-5">
 									<div class="d-flex align-items-center">
 										<p class="mb-0 me-3">Please rate:</p>
-										<div class="d-flex align-items-center"
-											style="font-size: 12px;">
-											<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i>
-											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i>
-										</div>
+									  <div class="d-flex align-items-center rating" style="font-size: 20px; gap: 2px">
+   										 <i class="fa-regular fa-star text-muted"></i>
+ 									     <i class="fa-regular fa-star text-muted"></i>
+   										 <i class="fa-regular fa-star text-muted"></i>
+   										 <i class="fa-regular fa-star text-muted"></i>
+   										 <i class="fa-regular fa-star text-muted"></i>
+									  </div>
 									</div>
 									<a href="#"
 										class="btn border border-secondary text-primary rounded-pill px-4 py-3">
@@ -581,4 +600,5 @@
 		</div>
 	</div>
 </div>
+
 <!-- Single Product End -->
