@@ -22,14 +22,9 @@ public class CartListControl implements Control {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// 저장된 id세션을 가져오기
-		//HttpSession session = req.getSession();	 
+		//HttpSession session = req.getSession();	
 		String memberId = "jjh";//(String) session.getAttribute("logId");
 
-		
-		
-		
-
-		
 		CartService svc = new CartServiceImpl();
 		List<ProductVO> list = svc.cartList(memberId);
 		System.out.println(list);

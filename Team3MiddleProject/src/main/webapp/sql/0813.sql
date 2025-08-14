@@ -1,3 +1,11 @@
+-- 상품데이터 조회
+select *
+from   tbl_product;
+
+-- 회원데이터 조회
+select *
+from   tbl_member;
+
 -- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력
 SELECT d.*
 FROM   tbl_member m
@@ -6,7 +14,6 @@ JOIN   tbl_cart c
 join   tbl_product d
   on   c.product_no = d.product_no
 WHERE  m.member_id = 'jjh';
-
 
 -- 장바구니 데이터 출력
 select *
