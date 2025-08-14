@@ -6,4 +6,5 @@ import com.yedam.vo.ProductVO;
 
 public interface ProductListService {
 	List<ProductVO> getProductList();
+	
 }

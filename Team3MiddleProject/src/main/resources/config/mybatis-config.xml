@@ -28,6 +28,7 @@
 
   <mappers>
     <mapper resource="com/yedam/mapper/DetailMapper.xml"/>
+    <mapper resource="com/yedam/mapper/ProductListMapper.xml"/>
   </mappers>
 
 </configuration>
