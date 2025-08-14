@@ -8,9 +8,11 @@ public class ProductVO {
 	private String productName;
 	private String productSeller;
 	private int productPrice;
-	private String subCategory;
+	private String maincategory;
+	private String subcategory;
 	private int productScore;
 	private String productImage;
 	private String productAbout;
 	private String expirationDate;
+	private String productDesc;
 }
