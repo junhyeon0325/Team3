@@ -14,7 +14,7 @@ public class CartProductVO {
 	private int productScore;
 	private String productImage;
 	private String productAbout;
-	private Date expirationDate;
+	private String expirationDate;
 	private int cartNo;
 	private int productPcs;
 	private int memberNo;

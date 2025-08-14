@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<style>
+[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-top: 25px;
+}
+</style>
 <!-- 메인제목(장바구니) -->
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -24,6 +31,7 @@
 			<table class="table">
 				<thead>
 					<tr>
+						<th scope="col"><input type="checkbox"></th>
 						<th scope="col">이미지</th>
 						<th scope="col">이름</th>
 						<th scope="col">가격</th>
@@ -36,6 +44,9 @@
 					<!-- 반복시작 -->
 					<c:forEach var="cp" items="${cp_list}">
 						<tr>
+							<td>
+								<input type="checkbox">
+							</td>
 							<th scope="row">
 								<div class="d-flex align-items-center">
 									<img src="imges/${cp.productImage}"
@@ -47,7 +58,7 @@
 								<p class="mb-0 mt-4">${cp.productName}</p>
 							</td>
 							<td>
-								<p class="mb-0 mt-4">${cp.productPrice}원</p>
+								<p class="mb-0 mt-4" id="productPrice">${cp.productPrice}</p>
 							</td>
 							<td>
 								<div class="input-group quantity mt-4" style="width: 100px;">
@@ -57,9 +68,9 @@
 											<i class="fa fa-minus"></i>
 										</button>
 									</div>
-									<input type="text"
+									<input type="text" id="productPcs"
 										class="form-control form-control-sm text-center border-0"
-										value="${cp.productPrice }">	<!-- 수정하기 -->
+										value="${cp.productPcs }">
 									<div class="input-group-btn">
 										<button
 											class="btn btn-sm btn-plus rounded-circle bg-light border">
@@ -69,7 +80,7 @@
 								</div>
 							</td>
 							<td>
-								<p class="mb-0 mt-4">${product.productPrice }</p>
+								<p id="totalPrice" class="mb-0 mt-4"></p>
 							</td>
 							<td>
 								<button class="btn btn-md rounded-circle bg-light border mt-4">
@@ -90,27 +101,32 @@
 						<h1 class="display-6 mb-4">결제 금액</h1>
 						<div class="d-flex justify-content-between mb-4">
 							<h5 class="mb-0 me-4">상품금액</h5>
-							<p class="mb-0">$96.00</p>
+							<p class="mb-0">js처리 </p>
 						</div>
 						<div class="d-flex justify-content-between">
 							<h5 class="mb-0 me-4">적립금</h5>
 							<div class="">
-								<p class="mb-0">Flat rate: $3.00</p>
+								<p class="mb-0">js처리</p>
 							</div>
 						</div>
-						<p class="mb-0 text-end">Shipping to Ukraine.</p>
 					</div>
 					<div
 						class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
 						<h5 class="mb-0 ps-4 me-4">결제 예정 금액</h5>
-						<p class="mb-0 pe-4">$99.00</p>
+						<p class="mb-0 pe-4">js처리</p>
 					</div>
 					<button
 						class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-						type="button">원 주문하기</button>
+						type="button">js처리원 주문하기</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- Cart Page End -->
+
+<script>
+	const cartList = ${cp_list};
+</script>
+<script src="js/cart.js"></script>
+

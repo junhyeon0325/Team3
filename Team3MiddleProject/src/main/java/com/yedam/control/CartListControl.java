@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
 import com.yedam.service.CartService;
 import com.yedam.service.CartServiceImpl;
@@ -28,14 +30,11 @@ public class CartListControl implements Control {
 		List<CartProductVO> list = svc.CartProductList(memberId);	// 현재 로그인한 ID의 장바구니 상품상세 출력 
 		System.out.println(list);
 		
-		
-		
-		
-		//Gson gson = new GsonBuilder().create();
-		//String json = gson.toJson(list);
+		Gson gson = new GsonBuilder().create();
+		String json = gson.toJson(list);
 		//resp.getWriter().print(json);
 		
-		req.setAttribute("cp_list", list);
+		req.setAttribute("cp_list", json);
 		req.getRequestDispatcher("product/cart.tiles").forward(req, resp);
 		
 	}
