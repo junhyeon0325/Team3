@@ -11,12 +11,10 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
-<<<<<<< HEAD
 import com.yedam.service.CartService;
 import com.yedam.service.CartServiceImpl;
 import com.yedam.vo.ProductVO;
-=======
->>>>>>> branch '장준현' of https://github.com/junhyeon0325/Team3.git
+
 
 public class CartListControl implements Control {
 
