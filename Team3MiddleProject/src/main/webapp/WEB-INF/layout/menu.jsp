@@ -20,8 +20,7 @@
 	</div>
 	<div class="container px-0">
 		<nav class="navbar navbar-light bg-white navbar-expand-xl">
-			<a href="index.html" class="navbar-brand"><h1
-					class="text-primary display-6">Fruitables</h1></a>
+			<a href="./index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
 			<button class="navbar-toggler py-2 px-3" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 				<span class="fa fa-bars text-primary"></span>
@@ -31,6 +30,9 @@
 					<a href="index.html" class="nav-item nav-link active">채소</a> <a
 						href="shop.html" class="nav-item nav-link">정육·가공육·달걀</a> <a
 						href="shop-detail.html" class="nav-item nav-link">수산·해산·건어물</a>
+					<a href="./index.html" class="nav-item nav-link active">Home</a> <a
+						href="./shop.html" class="nav-item nav-link">Shop</a> <a
+						href="./shop-detail.html" class="nav-item nav-link">Shop Detail</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown">이벤트</a>
@@ -39,9 +41,14 @@
 								href="chackout.html" class="dropdown-item">임박 상품 특가</a> <a
 								href="testimonial.html" class="dropdown-item">미정</a> <a
 								href="404.html" class="dropdown-item">미정</a>
+							<a href="./cart.html" class="dropdown-item">Cart</a> <a
+								href="./chackout.html" class="dropdown-item">Chackout</a> <a
+								href="./testimonial.html" class="dropdown-item">Testimonial</a> <a
+								href="./404.html" class="dropdown-item">404 Page</a>
 						</div>
 					</div>
 					<a href="contact.html" class="nav-item nav-link">게시판</a>
+					<a href="./contact.html" class="nav-item nav-link">Contact</a>
 				</div>
 				<div class="d-flex m-3 me-0">
 					<button

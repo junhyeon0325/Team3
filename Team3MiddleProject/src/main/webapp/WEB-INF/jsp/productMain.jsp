@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+   
 <div class="container-fluid py-5 mb-5 hero-header">
 	<div class="container py-5">
 		<div class="row g-5 align-items-center">
