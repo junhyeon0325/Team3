@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DBUtil;
 import com.yedam.mapper.CartMapper;
-import com.yedam.vo.ProductVO;
+import com.yedam.vo.CartProductVO;
 
 public class CartServiceImpl implements CartService {
 	SqlSession sqlSession = DBUtil.getInstance().openSession();
@@ -14,8 +14,8 @@ public class CartServiceImpl implements CartService {
 	
 
 	@Override
-	public List<ProductVO> cartList(String memberId) {
-		return mapper.selectCartList(memberId);
+	public List<CartProductVO> CartProductList(String memberId) {
+		return mapper.selectCartProductList(memberId);
 	}
 
 

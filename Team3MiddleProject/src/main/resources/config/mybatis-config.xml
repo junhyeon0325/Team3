@@ -10,7 +10,7 @@
   </settings>
 
   <typeAliases>
-    <typeAlias alias="product" type="com.yedam.vo.ProductVO"/>
+    <typeAlias alias="cp" type="com.yedam.vo.CartProductVO"/>
   </typeAliases>
 
   <environments default="development">

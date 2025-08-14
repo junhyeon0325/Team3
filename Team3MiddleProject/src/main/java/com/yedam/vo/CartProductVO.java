@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ProductVO {
+public class CartProductVO {
 	private int productNo;
 	private String productName;
 	private String productSeller;
@@ -15,5 +15,7 @@ public class ProductVO {
 	private String productImage;
 	private String productAbout;
 	private Date expirationDate;
-	
+	private int cartNo;
+	private int productPcs;
+	private int memberNo;
 }

@@ -7,7 +7,8 @@ select *
 from   tbl_member;
 
 -- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력
-SELECT d.*
+SELECT d.*,
+       c.*
 FROM   tbl_member m
 JOIN   tbl_cart c
   ON   m.member_no = c.member_no
@@ -19,9 +20,19 @@ WHERE  m.member_id = 'jjh';
 select *
 from   tbl_cart;
 
+-- 장바구니 데이터 삭제
+delete tbl_cart
+where  cart_no = 1;
+
 -- 장바구니 데이터 추가
 insert into tbl_cart
 values (10,1,1,1);
+insert into tbl_cart
+values (1,3,2,1);
+insert into tbl_cart
+values (2,2,3,1);
+insert into tbl_cart
+values (3,3,1,2);
 
 -- 회원 데이터 등록
 INSERT ALL
