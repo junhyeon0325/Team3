@@ -3,11 +3,11 @@ package com.yedam.vo;
 import lombok.Data;
 
 @Data
-public class ProductVO {
-	private int productNo;
-	private String productName;
-	private String productSeller;
-	private int productPrice;
+public class OrderVO {
+	private int orderNo;
+	private String orderAddress;
+	private int usedPoint;
+	private String orderDate;
 	private String maincategory;
 	private String subcategory;
 	private double productScore;
