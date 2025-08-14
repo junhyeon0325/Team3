@@ -11,17 +11,26 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
+<<<<<<< HEAD
 import com.yedam.service.CartService;
 import com.yedam.service.CartServiceImpl;
 import com.yedam.vo.ProductVO;
+=======
+>>>>>>> branch '장준현' of https://github.com/junhyeon0325/Team3.git
 
 public class CartListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		// 저장된 id세션을 가져오기
 		//HttpSession session = req.getSession();	 
 		String memberId = "jjh";//(String) session.getAttribute("logId");
+
+		
+		
+		
+
 		
 		CartService svc = new CartServiceImpl();
 		List<ProductVO> list = svc.cartList(memberId);
