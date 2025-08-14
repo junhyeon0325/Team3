@@ -1,6 +1,8 @@
 package com.yedam.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -18,5 +20,7 @@ public class ProductListServiceImpl implements ProductListService{
 		List<ProductVO> list = mapper.selectProductList();
 		return list;
 	}
+
+
 
 }
