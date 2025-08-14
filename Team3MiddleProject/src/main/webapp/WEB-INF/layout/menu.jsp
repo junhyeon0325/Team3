@@ -35,9 +35,9 @@
 						href="./shop-detail.html" class="nav-item nav-link">Shop Detail</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">이벤트</a>
+							data-bs-toggle="dropdown">이벤트·알뜰쇼핑</a>
 						<div class="dropdown-menu m-0 bg-secondary rounded-0">
-							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a> <a
+							<a href="cart.html" class="dropdown-item">오늘의 할인이벤트</a> <a
 								href="chackout.html" class="dropdown-item">임박 상품 특가</a> <a
 								href="testimonial.html" class="dropdown-item">미정</a> <a
 								href="404.html" class="dropdown-item">미정</a>
