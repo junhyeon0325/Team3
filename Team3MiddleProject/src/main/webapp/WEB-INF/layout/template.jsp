@@ -31,6 +31,8 @@
 
         <!-- Template Stylesheet -->
         <link href="./css/style.css" rel="stylesheet">
+        
+        
     </head>
 
     <body>
@@ -50,6 +52,7 @@
 		<!-- body 시작 -->
         <tiles:insertAttribute name="body" /> <!-- body.jsp연결 -->
         <!-- body 끝 -->
+        
 
 		
 		<!-- footer 시작 -->
@@ -67,7 +70,6 @@
 
     <!-- Template Javascript -->
     <script src="./js/main.js"></script>
-    
     </body>
 
 </html>

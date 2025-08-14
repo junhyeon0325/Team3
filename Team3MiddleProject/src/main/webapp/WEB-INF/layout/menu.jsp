@@ -12,11 +12,47 @@
 					class="text-white">Email@Example.com</a></small>
 			</div>
 			<div class="top-link pe-2">
-				<a href="#" class="text-white"><small class="text-white mx-2">Privacy
-						Policy</small>/</a> <a href="#" class="text-white"><small
-					class="text-white mx-2">Terms of Use</small>/</a> <a href="#"
-					class="text-white"><small class="text-white ms-2">Sales
-						and Refunds</small></a>
+				<a href=""
+					onclick="document.getElementById('id01').style.display='block'"
+					class="text-white"> <small class="text-white mx-2">Login</small>/
+				</a>
+
+
+				<div id="id01" class="modal">
+
+					<form class="modal-content animate" action="login.do" method="post">
+						<div class="imgcontainer">
+							<span
+								onclick="document.getElementById('id01').style.display='none'"
+								class="close" title="Close Modal">&times;</span> <img
+								src="http://www.w3schools.com/howto/img_avatar2.png"
+								alt="Avatar" class="avatar">
+						</div>
+		<!--  login 클릭 시 뜨는 modal화면 ㅁ -->
+						<div class="container">
+							<label for="uname"><b>Username</b></label> <input type="text"
+								placeholder="Enter Username" name="uname" required> <label
+								for="psw"><b>Password</b></label> <input type="password"
+								placeholder="Enter Password" name="psw" required>
+
+							<button type="submit">Login</button>
+							<label> <input type="checkbox" checked="checked"
+								name="remember"> Remember me
+							</label>
+						</div>
+
+						<div class="container" style="background-color: #f1f1f1">
+							<button type="button"
+								onclick="document.getElementById('id01').style.display='none'"
+								class="cancelbtn">Cancel</button>
+							<span class="psw">Forgot <a href="#">password?</a></span>
+						</div>
+					</form>
+				</div>
+
+
+				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
+				<a href="#" class="text-white"><small class="text-white ms-2">고객센터</small></a>
 			</div>
 		</div>
 	</div>

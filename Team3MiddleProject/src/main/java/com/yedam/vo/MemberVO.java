@@ -14,7 +14,6 @@ public class MemberVO {
 	private String memberAddress;
 	private String memberGender;
 	
-//	private String responsibility;		// 일반사용자, 관리자 구분
-
+	private String getResponsibility;
 	
 }

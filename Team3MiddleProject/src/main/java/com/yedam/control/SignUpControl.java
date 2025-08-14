@@ -33,7 +33,7 @@ public class SignUpControl implements Control {
 		MemberService svc = new MemberServiceImpl();
 		if ( svc.insertMember(param)) {
 			// 목록이동
-			resp.sendRedirect("boardList.do");
+			resp.sendRedirect("main.do");
 		} else {
 			System.out.println("Error발생");
 		}
