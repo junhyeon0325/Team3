@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.CartMapper">
+
+
+	<select id="selectCartList" resultType="product">
+		SELECT d.*
+		FROM   tbl_member m
+		JOIN   tbl_cart c
+		  ON   m.member_no = c.member_no
+		join   tbl_product d
+		  on   c.product_no = d.product_no
+		WHERE  m.member_id = #{member_id}
+	</select>
+	
+	
+</mapper>
+
+

@@ -1,7 +1,11 @@
 package com.yedam.service;
 
-import com.yedam.vo.MemberVO;
+import java.util.List;
 
-public class CartService {
-	public MemberVO searchMember(String mid);	// 회원조회
+import com.yedam.vo.ProductVO;
+
+public interface CartService {
+
+	List<ProductVO> CartList(String member_id);	// 장바구니 리스트
+
 }

@@ -10,7 +10,7 @@
   </settings>
 
   <typeAliases>
-    <!-- <typeAlias alias=" " type=""/>  -->
+    <typeAlias alias="product" type="com.yedam.vo.ProductVO"/>
   </typeAliases>
 
   <environments default="development">
@@ -26,7 +26,7 @@
   </environments>
 
   <mappers>
-    <package name="co.yedam.mapper"/>
+  	<mapper resource="com/yedam/mapper/CartMapper.xml"/>
   </mappers>
 
 </configuration>

@@ -1,29 +1,37 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
 import com.yedam.service.CartService;
+import com.yedam.service.CartServiceImpl;
+import com.yedam.vo.ProductVO;
 
 public class CartListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String mno = req.getParameter("mno");
-		String pno = req.getParameter("pno");
-		String ppcs = req.getParameter("ppcs");
+		// 저장된 id세션을 가져오기
+		HttpSession session = req.getSession();	 
+		String member_id = "jjh"; //(String) session.getAttribute("logId");
 		
-		ppcs = "5";	// 테스트
+		CartService svc = new CartServiceImpl();
+		List<ProductVO> list = svc.CartList(member_id);
+		System.out.println(list);
 		
-		//CartService svc = new CartServiceImpl();
+		Gson gson = new GsonBuilder().create();
+		String json = gson.toJson(list);
 		
-		req.setAttribute("productPcs", Integer.parseInt(ppcs) );
+		resp.getWriter().print(json);
 		
-		req.getRequestDispatcher("product/cart.tiles").forward(req, resp);
 	}
 
 }

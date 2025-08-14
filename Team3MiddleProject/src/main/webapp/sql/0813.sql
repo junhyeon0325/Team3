@@ -1,3 +1,21 @@
+-- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력
+SELECT d.*
+FROM   tbl_member m
+JOIN   tbl_cart c
+  ON   m.member_no = c.member_no
+join   tbl_product d
+  on   c.product_no = d.product_no
+WHERE  m.member_id = 'jjh';
+
+
+-- 장바구니 데이터 출력
+select *
+from   tbl_cart;
+
+-- 장바구니 데이터 추가
+insert into tbl_cart
+values (10,1,1,1);
+
 -- 회원 데이터 등록
 INSERT ALL
     INTO tbl_member VALUES (1, '장준현', 'jjh', 'qwer1234', '01026104902', 'jjh990325@gmail.com', '19990325', '경상북도 경산시 하양읍 하양로 29', '남', 100)
