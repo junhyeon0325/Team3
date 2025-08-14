@@ -6,6 +6,6 @@ import com.yedam.vo.ProductVO;
 
 public interface CartService {
 
-	List<ProductVO> CartList(String member_id);	// 장바구니 리스트
+	public List<ProductVO> cartList(String memberId);	// 장바구니 리스트
 
 }

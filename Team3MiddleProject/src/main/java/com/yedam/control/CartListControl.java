@@ -20,11 +20,11 @@ public class CartListControl implements Control {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 저장된 id세션을 가져오기
-		HttpSession session = req.getSession();	 
-		String member_id = "jjh"; //(String) session.getAttribute("logId");
+		//HttpSession session = req.getSession();	 
+		String memberId = "jjh";//(String) session.getAttribute("logId");
 		
 		CartService svc = new CartServiceImpl();
-		List<ProductVO> list = svc.CartList(member_id);
+		List<ProductVO> list = svc.cartList(memberId);
 		System.out.println(list);
 		
 		Gson gson = new GsonBuilder().create();

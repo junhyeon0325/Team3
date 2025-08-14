@@ -5,14 +5,14 @@
 <mapper namespace="com.yedam.mapper.CartMapper">
 
 
-	<select id="selectCartList" resultType="product">
-		SELECT d.*
+	<select id="selectCartList" resultType="com.yedam.vo.ProductVO">
+		<!-- SELECT d.*
 		FROM   tbl_member m
 		JOIN   tbl_cart c
 		  ON   m.member_no = c.member_no
 		join   tbl_product d
 		  on   c.product_no = d.product_no
-		WHERE  m.member_id = #{member_id}
+		WHERE  m.member_id = #{member_id} -->
 	</select>
 	
 	
