@@ -16,10 +16,22 @@ public class ProductListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProductListService svc = new ProductListServiceImpl();
-		List<ProductVO> list = svc.getProductList(); // 글목록.
 		
-		req.setAttribute("products",list);
+		//카테고리
+		/*String maincategory = req.getParameter("maincategory");
+		String subcategory = req.getParameter("subcategory");
+		
+		CategoryService ctg = new CategoryServiceImpl();
+		List<ProductVO> categoryList = ctg.getCategoryList();
+		
+		req.setAttribute("categoryList", categoryList);
+		*/
+
+		//상품리스트
+		ProductListService prd = new ProductListServiceImpl();
+		List<ProductVO> productList = prd.getProductList();
+		
+		req.setAttribute("productList", productList);
 		
 		req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
 	}

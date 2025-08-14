@@ -24,9 +24,6 @@ public class DetailSelectcontrol implements Control {
 		
 		req.getRequestDispatcher("product/productDetail.tiles")
 		.forward(req, resp);
-		
-		//리뷰 컨트롤
-		
 	}
 
 }
