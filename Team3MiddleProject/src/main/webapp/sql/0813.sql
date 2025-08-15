@@ -1,3 +1,50 @@
+-- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력 및 할인하는 물건 출력
+SELECT d.*,
+       c.*,
+       m.point,
+       e.event_no,
+       e.sale
+FROM   tbl_member m
+JOIN   tbl_cart c
+  ON   m.member_no = c.member_no
+join   tbl_product d
+  on   c.product_no = d.product_no
+left join tbl_event e
+  on   d.product_no = e.product_no
+WHERE  m.member_id = 'jjh';
+
+-- 할인 이벤트 상품 데이터 조회
+select *
+from   tbl_event;
+
+-- 할인 이벤트 상품 데이터 생성
+insert into tbl_event
+values (1,0.5,1);
+
+-- 할인 이벤트 상품 테이블 삭제
+DROP table tbl_event;
+
+-- 할인 이벤트 상품 테이블 생성
+create table tbl_event(
+    event_no number primary key,    -- primary key 필요할거 같아서 추가했는데 필요하신지 확인
+    sale number,
+    product_no number not null,
+    
+    constraint fk_event_product
+    foreign key(product_no)
+    references tbl_product(product_no)
+    --on delete cascade
+);
+
+-- 장바구니 수량 수정
+update tbl_cart
+set product_pcs = 3
+where cart_no = 10;
+
+-- 장바구니 데이터 출력
+select *
+from   tbl_cart;
+
 -- 상품데이터 조회
 select *
 from   tbl_product;
@@ -8,7 +55,8 @@ from   tbl_member;
 
 -- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력
 SELECT d.*,
-       c.*
+       c.*,
+       m.point
 FROM   tbl_member m
 JOIN   tbl_cart c
   ON   m.member_no = c.member_no
@@ -21,7 +69,7 @@ select *
 from   tbl_cart;
 
 -- 장바구니 데이터 삭제
-delete tbl_cart
+delete from tbl_cart
 where  cart_no = 1;
 
 -- 장바구니 데이터 추가

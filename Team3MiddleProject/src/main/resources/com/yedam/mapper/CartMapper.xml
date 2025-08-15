@@ -6,15 +6,31 @@
 
 
 	<select id="selectCartProductList" resultType="cp">
-		SELECT d.*,
-			   c.*
-		FROM   tbl_member m
-		JOIN   tbl_cart c
-		  ON   m.member_no = c.member_no
-		join   tbl_product d
-		  on   c.product_no = d.product_no
-		WHERE  m.member_id = #{member_id}
+		SELECT    d.*,
+			      c.*,
+			      m.point,
+			      e.event_no,
+			      e.sale
+		FROM      tbl_member m
+		JOIN      tbl_cart c
+		  ON      m.member_no = c.member_no
+		join      tbl_product d
+		  on      c.product_no = d.product_no
+		left join tbl_event e
+		  on      d.product_no = e.product_no   
+		WHERE     m.member_id = #{member_id}
 	</select>
+	
+	<delete id="deleteCartListSingle" parameterType="int">
+		delete from tbl_cart
+		where  cart_no = #{cart_no}
+	</delete>
+	
+	<update id="updateCartListSingle" parameterType="int">
+		update tbl_cart
+		set    product_pcs = #{productPcs}
+		where  cart_no = #{cartNo}
+	</update>
 	
 	
 </mapper>
