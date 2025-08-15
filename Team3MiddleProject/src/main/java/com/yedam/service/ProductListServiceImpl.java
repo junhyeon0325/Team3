@@ -1,8 +1,6 @@
 package com.yedam.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,13 +12,17 @@ public class ProductListServiceImpl implements ProductListService{
 	SqlSession sqlsession = DBUtil.getInstance().openSession();
 	ProductListMapper mapper = sqlsession.getMapper(ProductListMapper.class);
 	
+	@Override
+	public List<ProductVO> getProductList(int page, int pageSize, String sort) {
+		int startRow = (page - 1) * pageSize;
+        return mapper.selectProductList(startRow,pageSize, sort);
+	}
 	
 	@Override
-	public List<ProductVO> getProductList() {
-		List<ProductVO> list = mapper.selectProductList();
-		return list;
+	public int getTotalProductCount()
+	{
+		return mapper.countTotalProducts();
 	}
-
-
+	
 
 }

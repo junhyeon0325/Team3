@@ -5,12 +5,27 @@
 
 <mapper namespace="com.yedam.mapper.ProductListMapper">
 
-	<select id="selectProductList" resultType = "product">
-		select *
-		from tbl_product
-		
-	</select>
+	<select id="selectProductList" resultType="product">
+		<![CDATA[
+        SELECT ta.*
+        FROM (
+            SELECT /* + index_desc(b pk_product) */ ROWNUM rn, p.*
+            FROM (SELECT *
+                  FROM tbl_product
+                  ORDER BY
+                  	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
+                	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC
+       			) p
+            ) ta
+            WHERE ta.rn <= #{startRow} + #{pageSize}
+            AND ta.rn > #{startRow}
+        ]]>
+    </select>
 
+    <select id="countTotalProducts" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_product
+    </select>
 
 
 

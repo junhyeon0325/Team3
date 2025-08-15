@@ -9,7 +9,8 @@
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">식품관</h1>
 	<ol class="breadcrumb justify-content-center mb-0">
-		<li class="breadcrumb-item active text-white"><a href="productList.do?subcategoty=고구마·감자·당근">채소</a></li>
+		
+		<li class="breadcrumb-item active text-white"><a href="productList.do?">채소</a></li>
 		<li class="breadcrumb-item"><a href="#">정육</a></li>
 		<li class="breadcrumb-item active text-white">수산</li>
 		<li class="breadcrumb-item"><a href="#">미정</a></li>
@@ -37,12 +38,13 @@
 					<div class="col-xl-3">
 						<div
 							class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-							<label for="fruits">정렬 기준:</label> <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-								<option value="volvo">등록순</option>
-								<option value="saab">가격순</option>
-								<option value="opel">Organic</option>
-								<option value="audi">Fantastic</option>
+							<label for="fruits">정렬 기준:</label>
+							<select id="fruits" name="sort" class="border-0 form-select-sm bg-light me-3" form="fruitform" onchange="this.form.submit()">
+								<option value="createdDate" ${sort == 'createdDate' ? 'selected' : ''}>등록순</option>
+    							<option value="price" ${sort == 'price' ? 'selected' : ''}>가격순</option>
 							</select>
+							
+							<form id="fruitform" action="productList.do" method="get"></form>
 						</div>
 					</div>
 				</div>
@@ -90,6 +92,7 @@
 										for="rangeInput">0</output>
 								</div>
 							</div>
+<!-- 
 							<div class="col-lg-12">
 								<div class="mb-3">
 									<h4>검색 필터</h4>
@@ -120,6 +123,7 @@
 									</div>
 								</div>
 							</div>
+-->
 							<div class="col-lg-12">
 								<h4 class="mb-3">인기 상품</h4>
 								<div class="d-flex align-items-center justify-content-start">
@@ -231,14 +235,18 @@
 							
 
 							
-							
+							<!-- 페이징 -->
 							<div class="col-12">
 								<div class="pagination d-flex justify-content-center mt-5">
-									<a href="#" class="rounded">&laquo;</a> <a href="#"
-										class="active rounded">1</a> <a href="#" class="rounded">2</a>
-									<a href="#" class="rounded">3</a> <a href="#" class="rounded">4</a>
-									<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a>
-									<a href="#" class="rounded">&raquo;</a>
+									<c:if test="${currentPage > 1}">
+									<a href="productList.do?page=${currentPage - 1}" class="rounded">&laquo;</a>
+									</c:if>
+									<c:forEach begin="1" end="${totalPages}" var="i">
+									<a href="productList.do?page=${i}"class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+									</c:forEach>
+									<c:if test="${currentPage < totalPages}">
+									<a href="productList.do?page=${currentPage + 1}" class="rounded">&raquo;</a>
+									</c:if>
 								</div>
 							</div>
 						</div>
