@@ -13,6 +13,10 @@ left join tbl_event e
   on   d.product_no = e.product_no
 WHERE  m.member_id = 'jjh';
 
+-- 할인 이벤트 상풍 데이터 삭제
+delete from tbl_event
+where event_no = 2;
+
 -- 할인 이벤트 상품 데이터 조회
 select *
 from   tbl_event;
@@ -20,6 +24,10 @@ from   tbl_event;
 -- 할인 이벤트 상품 데이터 생성
 insert into tbl_event
 values (1,0.5,1);
+insert into tbl_event
+values (2,0.1,2);
+insert into tbl_event
+values (3,0.2,3);
 
 -- 할인 이벤트 상품 테이블 삭제
 DROP table tbl_event;
@@ -81,6 +89,8 @@ insert into tbl_cart
 values (2,2,3,1);
 insert into tbl_cart
 values (3,3,1,2);
+insert into tbl_cart
+values (4,1,4,1);
 
 -- 회원 데이터 등록
 INSERT ALL
@@ -94,7 +104,11 @@ INSERT ALL
     INTO tbl_product VALUES (1, '한통 양배추', '샛별배송', 3990, '채소', 4.6, 'cabbage.jpg', '아삭함이 오래가는 양배추', TO_DATE('2025-08-31', 'YYYY-MM-DD'))
     INTO tbl_product VALUES (2, '한통 양배추', '샛별배송', 3990, '채소', 4.8, 'cabbage.jpg', '아삭함이 오래가는 양배추', TO_DATE('2025-09-05', 'YYYY-MM-DD'))
     INTO tbl_product VALUES (3, '[KF365] 백다다기오이 3입', '샛별배송', 3490, '채소', 4.8, 'cucumber.jpg', '아삭하고 신선한 오이', TO_DATE('2025-08-26', 'YYYY-MM-DD'))
+    INTO tbl_product VALUES (4, '오이', '샛별배송', 2000, '채소', 4.8, 'cucumber.jpg', '아삭하고 신선한 오이', TO_DATE('2025-08-26', 'YYYY-MM-DD'))
 SELECT * FROM dual;    
+
+insert into tbl_product
+values (4, '오이', '샛별배송', 2000, '채소', 4.8, 'cucumber.jpg', '아삭하고 신선한 오이', TO_DATE('2025-08-26', 'YYYY-MM-DD'));
 
 drop table tbl_member;
 

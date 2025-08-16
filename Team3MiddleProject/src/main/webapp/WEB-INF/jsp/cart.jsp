@@ -59,12 +59,10 @@
 								<p class="mb-0 mt-4">${cp.productName}</p>
 							</td>
 
-							<td>
-								<p class="mb-0 mt-4 productPrice">
-									<fmt:formatNumber value="${cp.productPrice}" type="number" />
-									원
-								</p>
-								<p class="productSale">${cp.sale }</p>	<!-- 할인율 -->
+							<td class=pricetd>
+								<p class="mb-0 productPrice"><fmt:formatNumber value="${cp.productPrice}" type="number" />원</p>
+								<p class="mb-0 productSalePercent" style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>	<!-- 할인율 -->
+								<p class="mb-0 productSale" style="margin-bottom: 20px; color: red; font-size: 20px; font-weight: bold"></p>
 							</td>
 							<td>
 								<div class="input-group mt-4" style="width: 100px;">
@@ -121,7 +119,7 @@
 						</div>
 						<div class="d-flex justify-content-between mb-4">
 							<h5 class="mb-0 me-4">할인적용된 금액</h5>
-							<p class="mb-0 cartProductPoint">할인적용된 금액</p>
+							<p class="mb-0 cartProductSale">할인적용된 금액</p>
 						</div>
 					</div>
 					<div
