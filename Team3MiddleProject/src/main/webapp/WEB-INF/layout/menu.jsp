@@ -28,7 +28,7 @@
 			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 				<div class="navbar-nav mx-auto">
 					<a href="productList.do?maincategory=채소" class="nav-item nav-link active">식품관</a> <a
-						href="productList.do?maincategory=정육·가공육·달걀" class="nav-item nav-link">미정</a> <a
+						href="productList.do?maincategory=정육·가공육·달걀" class="nav-item nav-link">냉동식품관</a> <a
 						href="productList.do?maincategory=수산·해산·건어물" class="nav-item nav-link">미정</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
@@ -41,7 +41,6 @@
 						</div>
 					</div>
 					<a href="contact.html" class="nav-item nav-link">게시판</a>
-					<a href="./contact.html" class="nav-item nav-link">Contact</a>
 				</div>
 				<div class="d-flex m-3 me-0">
 					<button

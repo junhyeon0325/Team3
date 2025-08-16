@@ -13,16 +13,15 @@ public class ProductListServiceImpl implements ProductListService{
 	ProductListMapper mapper = sqlsession.getMapper(ProductListMapper.class);
 	
 	@Override
-	public List<ProductVO> getProductList(int page, int pageSize, String sort) {
+	public List<ProductVO> getProductList(int page, int pageSize, String sort, String maincategory) {
 		int startRow = (page - 1) * pageSize;
-        return mapper.selectProductList(startRow,pageSize, sort);
+        return mapper.selectProductList(startRow,pageSize, sort, maincategory);
 	}
 	
 	@Override
-	public int getTotalProductCount()
+	public int getTotalProductCount(String maincategory)
 	{
-		return mapper.countTotalProducts();
+		return mapper.countTotalProducts(maincategory);
 	}
-	
 
 }

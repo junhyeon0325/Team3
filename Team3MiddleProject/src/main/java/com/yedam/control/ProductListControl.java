@@ -20,7 +20,13 @@ public class ProductListControl implements Control {
 		ProductListService prdService = new ProductListServiceImpl();
 		int page = 1;
         int pageSize = 6;
-
+        
+        int vegetableCnt = prdService.getTotalProductCount("채소");
+        int meatCnt = prdService.getTotalProductCount("정육");
+        int fishCnt = prdService.getTotalProductCount("수산");
+        
+        String category = req.getParameter("maincategory");
+        
         // page 파라미터가 있으면 파싱
         String pageParam = req.getParameter("page");
         if (pageParam != null)
@@ -35,15 +41,19 @@ public class ProductListControl implements Control {
         }
         
 
-        List<ProductVO> productList = prdService.getProductList(page, pageSize, sort);
+        List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category);
         
-        int totalProducts = prdService.getTotalProductCount();
+        int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 
         req.setAttribute("productList", productList);
         req.setAttribute("currentPage", page);
         req.setAttribute("totalPages", totalPages);
         req.setAttribute("sort", sort);
+        req.setAttribute("currentCategory", category);
+        req.setAttribute("vegetableCnt", vegetableCnt);
+        req.setAttribute("meatCnt", meatCnt);
+        req.setAttribute("fishCnt", fishCnt);
 
         req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
         

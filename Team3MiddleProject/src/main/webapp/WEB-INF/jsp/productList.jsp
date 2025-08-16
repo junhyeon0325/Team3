@@ -9,11 +9,11 @@
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">식품관</h1>
 	<ol class="breadcrumb justify-content-center mb-0">
-		
-		<li class="breadcrumb-item active text-white"><a href="productList.do?">채소</a></li>
-		<li class="breadcrumb-item"><a href="#">정육</a></li>
-		<li class="breadcrumb-item active text-white">수산</li>
-		<li class="breadcrumb-item"><a href="#">미정</a></li>
+	                                                                           <!-- 버튼 이벤트 아직 구현 안됨 -->
+	                                                                           
+		<li class="breadcrumb-item ${currentCategory eq '채소' ? 'active text-white' : ''}"><a href="productList.do?maincategory=채소">채소</a></li>
+		<li class="breadcrumb-item ${currentCategory eq '정육' ? 'active text-white' : ''}"><a href="productList.do?maincategory=정육">정육</a></li>
+		<li class="breadcrumb-item ${currentCategory eq '수산' ? 'active text-white' : ''}"><a href="productList.do?maincategory=수산">수산</a></li>
 	</ol>
 </div>
 <!-- Single Page Header End -->
@@ -57,26 +57,20 @@
 									<ul class="list-unstyled fruite-categorie">
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="#"><i class="fas fa-apple-alt me-2"></i>채소</a>
-												<span>(3)</span>
+												<a href="productList.do?maincategory=채소"><i class="fas fa-apple-alt me-2"></i>채소</a>
+												<span>${vegetableCnt }</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="#"><i class="fas fa-apple-alt me-2"></i>정육</a>
-												<span>(5)</span>
+												<a href="productList.do?maincategory=정육"><i class="fas fa-apple-alt me-2"></i>정육</a>
+												<span>${meatCnt }</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="#"><i class="fas fa-apple-alt me-2"></i>수산</a>
-												<span>(2)</span>
-											</div>
-										</li>
-										<li>
-											<div class="d-flex justify-content-between fruite-name">
-												<a href="#"><i class="fas fa-apple-alt me-2"></i>미정</a>
-												<span>(8)</span>
+												<a href="productList.do?maincategory=수산"><i class="fas fa-apple-alt me-2"></i>수산</a>
+												<span>${fishCnt }</span>
 											</div>
 										</li>
 									</ul>
@@ -85,45 +79,11 @@
 							<div class="col-lg-12">
 								<div class="mb-3">
 									<h4 class="mb-2">가격</h4>
-									<input type="range" class="form-range w-100" id="rangeInput"
-										name="rangeInput" min="0" max="100000" value="0" step="1000"
+									<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="100000" value="0" step="1000"
 										oninput="amount.value=rangeInput.value">
-									<output id="amount" name="amount"
-										for="rangeInput">0</output>
+									<output id="amount" name="amount" for="rangeInput">0</output>
 								</div>
 							</div>
-<!--
-							<div class="col-lg-12">
-								<div class="mb-3">
-									<h4>검색 필터</h4>
-									<div class="mb-2">
-										<input type="radio" class="me-2" id="Categories-1"
-											name="Categories-1" value="Beverages"> <label
-											for="Categories-1"> Organic</label>
-									</div>
-									<div class="mb-2">
-										<input type="radio" class="me-2" id="Categories-2"
-											name="Categories-1" value="Beverages"> <label
-											for="Categories-2"> Fresh</label>
-									</div>
-									<div class="mb-2">
-										<input type="radio" class="me-2" id="Categories-3"
-											name="Categories-1" value="Beverages"> <label
-											for="Categories-3"> Sales</label>
-									</div>
-									<div class="mb-2">
-										<input type="radio" class="me-2" id="Categories-4"
-											name="Categories-1" value="Beverages"> <label
-											for="Categories-4"> Discount</label>
-									</div>
-									<div class="mb-2">
-										<input type="radio" class="me-2" id="Categories-5"
-											name="Categories-1" value="Beverages"> <label
-											for="Categories-5"> Expired</label>
-									</div>
-								</div>
-							</div>
--->
 							<div class="col-lg-12">
 								<h4 class="mb-3">인기 상품</h4>
 								<div class="d-flex align-items-center justify-content-start">
@@ -214,9 +174,9 @@
 									<a href="detailPage.do?productNo=${product.productNo}">
 										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt=""></a>
 									</div>
-									<div
-										class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-										style="top: 10px; left: 10px;">vegetable</div>
+									<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+										Fresh
+									</div>
 									<div
 										class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
 										<h4>${product.productName }</h4>

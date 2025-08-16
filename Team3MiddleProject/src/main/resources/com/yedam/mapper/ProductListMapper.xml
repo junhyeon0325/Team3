@@ -12,6 +12,7 @@
             SELECT /* + index_desc(b pk_product) */ ROWNUM rn, p.*
             FROM (SELECT *
                   FROM tbl_product
+                  WHERE maincategory = #{maincategory}
                   ORDER BY
                   	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
                 	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC
@@ -25,9 +26,8 @@
     <select id="countTotalProducts" resultType="int">
         SELECT COUNT(*)
         FROM tbl_product
+        WHERE maincategory = #{maincategory}
     </select>
-
-
 
 
 </mapper>
