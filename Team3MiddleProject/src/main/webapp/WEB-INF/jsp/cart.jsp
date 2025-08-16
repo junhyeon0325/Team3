@@ -114,10 +114,6 @@
 							<p class="mb-0 cartProductTotalPrice"></p>
 						</div>
 						<div class="d-flex justify-content-between mb-4">
-							<h5 class="mb-0 me-4">적립금</h5>
-							<p class="mb-0 cartProductPoint">${cp_list[0].point }</p>
-						</div>
-						<div class="d-flex justify-content-between mb-4">
 							<h5 class="mb-0 me-4">할인적용된 금액</h5>
 							<p class="mb-0 cartProductSale">할인적용된 금액</p>
 						</div>
