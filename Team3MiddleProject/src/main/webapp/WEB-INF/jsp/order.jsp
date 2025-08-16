@@ -17,16 +17,29 @@
 	display: flex;
 	justify-content: space-between;
 }
-</style>
 
+.orderProductPcs {
+	width: 60px;
+}
+.orderProductPrice {
+	margin: 0px;
+}
+.orderleft {
+	width: 40%;
+}
+.orderright {
+	width: 60%
+}
+.orderlabel {
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+</style>
+<!-- req.setAttribute("cp_list", list);	// CartProduct약자 cp
+	 req.setAttribute("om", vo);	// OrderMember약자 om -->
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">주문/결제</h1>
-	<ol class="breadcrumb justify-content-center mb-0">
-		<li class="breadcrumb-item"><a href="#">Home</a></li>
-		<li class="breadcrumb-item"><a href="#">Pages</a></li>
-		<li class="breadcrumb-item active text-white">Checkout</li>
-	</ol>
 </div>
 <!-- Single Page Header End -->
 
@@ -36,17 +49,19 @@
 	<div class="container py-5">
 		<h1 class="mb-4">상세정보</h1>
 		<form action="#">
-			<div class="row g-5">
-				<div class="col-md-12 col-lg-6 col-xl-7">
+			<div class="row g-5"> <!--  -->
+				<div class="col-md-12 col-lg-6 col-xl-7 orderleft">
 					<h4>배송지</h4>
 					<div class="divone">
 						<div class="form-item">
-							<label class="form-label my-3">받는이</label> <input
-								class="form-control" type="text" name="name" value="장준현">
+							<label class="form-label orderlabel">받는이</label> <input
+								class="form-control" type="text" name="name"
+								value="${om.memberName }">
 						</div>
 						<div class="form-item">
-							<label class="form-label my-3">전화번호</label> <input
-								class="form-control" type="tel" name="tel" value="01026104902">
+							<label class="form-label orderlabel">전화번호</label> <input
+								class="form-control" type="tel" name="tel"
+								value="${om.memberPhone }">
 						</div>
 						<div class="form-item">
 							<br> <input
@@ -56,7 +71,7 @@
 								class="form-control" type="text" id="sample3_postcode"
 								placeholder="우편번호"><br>주소<br> <input
 								class="form-control" type="text" id="sample3_address"
-								placeholder="주소"><br>상세주소 <input
+								placeholder="${om.memberAddress }"><br>상세주소 <input
 								class="form-control" type="text" id="sample3_detailAddress"
 								placeholder="상세주소"><br>참고항목 <input
 								class="form-control" type="text" id="sample3_extraAddress"
@@ -70,7 +85,7 @@
 							</div>
 						</div>
 						<div class="form-item">
-							<label class="form-label my-3">주문요청사항</label>
+							<label class="form-label orderlabel">주문요청사항</label>
 							<textarea name="text" class="form-control" spellcheck="false"
 								cols="30" rows="11" placeholder="주문요청사항을 입력해주세요(비워도됩니다.)"></textarea>
 						</div>
@@ -80,98 +95,66 @@
 						<h4>적립금</h4>
 						<div class="divone">
 							<div class="point-box">
-								<span>사용가능금액</span><span>100원</span>
+								<span>사용가능금액</span><span class="orderpoint">${cp_list[0].point}원</span>
 							</div>
 							<br>
 							<div>
-								<input class="form-control" placeholder="사용할금액을 입력해주세요"></input>
+								<input class="form-control orderPointInput" placeholder="사용할금액을 입력해주세요" value="100"></input>
 							</div>
 						</div>
 					</div>
-					<hr>
-					<div class="form-item">
-						<h4>결제수단</h4>
-						<div class="divone">
-							<label class="form-label my-3">결제수단</label> <input type="text"
-								class="form-control">
-						</div>
-					</div>
 				</div>
-				<div class="col-md-12 col-lg-6 col-xl-5">
+				<div class="col-md-12 col-lg-6 col-xl-5 orderright">
 					<div class="table-responsive">
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">Products</th>
-									<th scope="col">Name</th>
-									<th scope="col">Price</th>
-									<th scope="col">Quantity</th>
-									<th scope="col">Total</th>
+									<th scope="col">이미지</th>
+									<th scope="col">이름</th>
+									<th scope="col">가격</th>
+									<th scope="col">수량</th>
+									<th scope="col">총 가격</th>
 								</tr>
 							</thead>
 							<tbody>
+								<c:forEach var="cp" items="${cp_list}">
+									<!-- 주문상품 출력 반복문 -->
+									<tr class="cart">
+										<th scope="row">
+											<div class="d-flex align-items-center mt-2">
+												<img src="images/${cp.productImage }"
+													class="img-fluid rounded-circle"
+													style="width: 90px; height: 90px;" alt="">
+											</div>
+										</th>
+										<td class="py-5">${cp.productName }</td>
+										<td class="py-5 ordertd">
+											<p class="orderProductPrice"><fmt:formatNumber value="${cp.productPrice }" type="number" />원</p>
+											<p class="mb-0 productSalePercent" style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>	<!-- 할인율 -->
+											<p class="mb-0 productSale" style="color: red; font-size: 20px; font-weight: bold"></p>
+										</td>
+										<td class="py-5 orderProductPcs">${cp.productPcs }</td>
+										<td class="py-5 ordertotalPrice">총 가격</td>
+									</tr>
+								</c:forEach>
 								<tr>
-									<th scope="row">
-										<div class="d-flex align-items-center mt-2">
-											<img src="img/vegetable-item-2.jpg"
-												class="img-fluid rounded-circle"
-												style="width: 90px; height: 90px;" alt="">
-										</div>
-									</th>
-									<td class="py-5">Awesome Brocoli</td>
-									<td class="py-5">$69.00</td>
-									<td class="py-5">2</td>
-									<td class="py-5">$138.00</td>
-								</tr>
-								<tr>
-									<th scope="row">
-										<div class="d-flex align-items-center mt-2">
-											<img src="img/vegetable-item-5.jpg"
-												class="img-fluid rounded-circle"
-												style="width: 90px; height: 90px;" alt="">
-										</div>
-									</th>
-									<td class="py-5">Potatoes</td>
-									<td class="py-5">$69.00</td>
-									<td class="py-5">2</td>
-									<td class="py-5">$138.00</td>
-								</tr>
-								<tr>
-									<th scope="row">
-										<div class="d-flex align-items-center mt-2">
-											<img src="img/vegetable-item-3.png"
-												class="img-fluid rounded-circle"
-												style="width: 90px; height: 90px;" alt="">
-										</div>
-									</th>
-									<td class="py-5">Big Banana</td>
-									<td class="py-5">$69.00</td>
-									<td class="py-5">2</td>
-									<td class="py-5">$138.00</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td class="py-5"></td>
-									<td class="py-5"></td>
-									<td class="py-5">
-										<p class="mb-0 text-dark py-3">총 주문금액</p>
+									
+									<td colspan='2' class="py-5">
+										<p style="text-align: center; font-size: 20px; font-weight: bold;" class="mb-0 text-dark py-3">총 주문금액</p>
 									</td>
-									<td class="py-5">
+									<td colspan='3' class="py-5">
 										<div class="py-3 border-bottom border-top">
-											<p class="mb-0 text-dark">$414.00</p>
+											<p style="text-align: center; font-size: 20px; font-weight: bold;" class="mb-0 text-dark totalCartPrice">총 주문금액</p>
 										</div>
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"></th>
-									<td class="py-5">
-										<p class="mb-0 text-dark text-uppercase py-3">결제금액</p>
+									<td colspan='2' class="py-5">
+										<p style="text-align: center; font-size: 30px; font-weight: bold;" class="mb-0 text-dark text-uppercase py-3">결제금액</p>
 									</td>
-									<td class="py-5"></td>
-									<td class="py-5"></td>
-									<td class="py-5">
+									<td colspan='3' class="py-5">
 										<div class="py-3 border-bottom border-top">
-											<p class="mb-0 text-dark">$135.00</p>
+											<p style="text-align: center; font-size: 30px; font-weight: bold;" class="mb-0 text-dark totalOrderPrice">결제금액</p>
 										</div>
 									</td>
 								</tr>
@@ -193,6 +176,7 @@
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="js/order.js"></script>
 <script>
 	// 우편번호 찾기 찾기 화면을 넣을 element
 	var element_wrap = document.getElementById('wrap');

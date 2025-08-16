@@ -3,7 +3,6 @@
  * 
  */
 
-
 let price = 0;
 let salePrice = 0;
 //console.log(cartList);
@@ -33,7 +32,6 @@ function updateTotal() {
 		} else if (sale == 0) {
 			price = num;// 상품 가격
 		}
-		
 		
 		console.log('가격 : ' + num + '/ 세일적용된 가격 : ' + price + '/ 수량 : ' + pcs);
 		console.log('세일된 가격 : ' + (num * sale));

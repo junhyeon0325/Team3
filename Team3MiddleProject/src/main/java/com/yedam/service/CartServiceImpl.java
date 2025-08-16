@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.yedam.common.DBUtil;
 import com.yedam.mapper.CartMapper;
 import com.yedam.vo.CartProductVO;
+import com.yedam.vo.OrderMemberVO;
 
 public class CartServiceImpl implements CartService {
 	SqlSession sqlSession = DBUtil.getInstance().openSession();
@@ -28,7 +29,8 @@ public class CartServiceImpl implements CartService {
 		}
 		return false;
 	}
-
+	
+	// 장바구니 상품 목록 수정
 	@Override
 	public boolean modifyCartProductPcs(int productPcs, int cartNo) {
 		int r = mapper.updateCartListSingle(productPcs, cartNo);
@@ -38,5 +40,6 @@ public class CartServiceImpl implements CartService {
 		}
 		return false;
 	}
+
 
 }

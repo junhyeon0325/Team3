@@ -11,6 +11,7 @@
 
   <typeAliases>
     <typeAlias alias="cp" type="com.yedam.vo.CartProductVO"/>
+    <typeAlias alias="om" type="com.yedam.vo.OrderMemberVO"/>
   </typeAliases>
 
   <environments default="development">
@@ -27,6 +28,7 @@
 
   <mappers>
   	<mapper resource="com/yedam/mapper/CartMapper.xml"/>
+  	<mapper resource="com/yedam/mapper/OrderMapper.xml"/>
   </mappers>
 
 </configuration>

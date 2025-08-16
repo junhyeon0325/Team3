@@ -1,3 +1,11 @@
+-- 주문/결제에 필요한 회원정보 가져오기
+select member_no,
+       member_name,
+       member_phone,
+       member_address
+from   tbl_member
+where  member_id = 'jjh';
+
 -- 멤버 번호하고 장바구니 번호하고 같은 장바구니를 출력 및 할인하는 물건 출력
 SELECT d.*,
        c.*,
