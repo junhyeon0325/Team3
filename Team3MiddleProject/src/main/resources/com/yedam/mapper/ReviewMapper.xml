@@ -3,9 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ReviewMapper">
-	<!-- 상품상세 쿼리. -->
 	
-
-
+	<select id="authorityReview" parameterType="com.yedam.vo.ReviewVO" resultType="int">
+	  	select count(*)
+		from tbl_order o
+		join tbl_member m
+		on m.member_no = o.member_no
+		where m.member_id = #{member_id}
+		and o.product_no = #{product_no}
+	</select>
+	
+    <insert id="insertReview" parameterType="com.yedam.vo.ReviewVO">
+    <selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
+        SELECT review_seq.nextval FROM dual
+    </selectKey>
+   		 INSERT INTO tbl_review 
+        (review_no, review_score, review_content, review_image, review_date, product_no, order_no, member_name)
+   		 VALUES 
+        (#{reviewNo}, #{reviewScore}, #{reviewContent}, #{reviewImage}, SYSDATE, #{productNo}, #{orderNo}, #{memberName})
+	</insert>
+	
+	
 
 </mapper>

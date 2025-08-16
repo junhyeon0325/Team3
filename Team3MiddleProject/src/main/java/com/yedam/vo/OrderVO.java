@@ -8,11 +8,9 @@ public class OrderVO {
 	private String orderAddress;
 	private int usedPoint;
 	private String orderDate;
-	private String maincategory;
-	private String subcategory;
-	private double productScore;
-	private String productImage;
-	private String productAbout;
-	private String expirationDate;
-	private String productDesc;
+	private int orderPrice;
+	private String orderRequest;
+	private int memberNo;
+	private int productNo;
+	
 }

@@ -17,6 +17,8 @@ public class ReivewControl implements Control {
 		HttpSession session = req.getSession();
 		
 		
+		
+		
 	}
 
 }

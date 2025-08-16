@@ -24,12 +24,12 @@
 				<div class="row g-4">
 					<div class="col-lg-6">
 						<div class="border rounded">
-							<a href="#"><img src="./img/single-item.jpg" class="img-fluid rounded" alt="Image"></a>
+							<a href="#"><img src=${product.productImage } class="img-fluid rounded" alt="Image"></a>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<h4 class="fw-bold mb-3">${product.productName}</h4>
-						<p class="mb-3">${product.subcategory}</p>
+						<p class="mb-3">${product.maincategory}</p>
 						<h5 class="fw-bold mb-3"><fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true"/>원</h5>
 						<div class="d-flex mb-4 align-items-center" style="gap: 4px;">
 					<div class="d-flex mb-4 align-items-center" style="font-size: 20px; gap: 1px;">

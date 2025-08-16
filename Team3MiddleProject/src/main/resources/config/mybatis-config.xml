@@ -12,6 +12,7 @@
   <typeAliases>
   	<typeAlias alias= "product" type="com.yedam.vo.ProductVO"/>
   	<typeAlias alias= "review" type="com.yedam.vo.ReviewVO"/>
+  	<typeAlias alias= "order" type="com.yedam.vo.OrderVO"/>
     <!-- <typeAlias alias=" " type=""/>  -->
   </typeAliases>
 
