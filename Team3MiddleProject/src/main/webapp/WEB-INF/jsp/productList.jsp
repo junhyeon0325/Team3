@@ -9,11 +9,16 @@
 <div class="container-fluid page-header py-5">
 	<h1 class="text-center text-white display-6">식품관</h1>
 	<ol class="breadcrumb justify-content-center mb-0">
-	                                                                           <!-- 버튼 이벤트 아직 구현 안됨 -->
-	                                                                           
-		<li class="breadcrumb-item ${currentCategory eq '채소' ? 'active text-white' : ''}"><a href="productList.do?maincategory=채소">채소</a></li>
-		<li class="breadcrumb-item ${currentCategory eq '정육' ? 'active text-white' : ''}"><a href="productList.do?maincategory=정육">정육</a></li>
-		<li class="breadcrumb-item ${currentCategory eq '수산' ? 'active text-white' : ''}"><a href="productList.do?maincategory=수산">수산</a></li>
+	                                                                           <!-- 버튼 이벤트 li가 아니라 a태그에 적용해야 되는거였음 -->   
+		<li class="breadcrumb-item">
+		  <a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">채소</a>
+		</li>
+		<li class="breadcrumb-item">
+		  <a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">정육</a>
+		</li>
+		<li class="breadcrumb-item">
+		  <a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">수산</a>
+		</li>
 	</ol>
 </div>
 <!-- Single Page Header End -->
@@ -57,20 +62,23 @@
 									<ul class="list-unstyled fruite-categorie">
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=채소"><i class="fas fa-apple-alt me-2"></i>채소</a>
-												<span>${vegetableCnt }</span>
+												<a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>vegetable</a>
+												<span>(${vegetableCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=정육"><i class="fas fa-apple-alt me-2"></i>정육</a>
-												<span>${meatCnt }</span>
+												<a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>meat</a>
+												<span>(${meatCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=수산"><i class="fas fa-apple-alt me-2"></i>수산</a>
-												<span>${fishCnt }</span>
+												<a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>fish</a>
+												<span>(${fishCnt })</span>
 											</div>
 										</li>
 									</ul>

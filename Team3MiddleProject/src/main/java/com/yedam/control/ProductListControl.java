@@ -39,7 +39,6 @@ public class ProductListControl implements Control {
         {
         	sort = "createdDate";
         }
-        
 
         List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category);
         

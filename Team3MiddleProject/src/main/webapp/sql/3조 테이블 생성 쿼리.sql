@@ -5,7 +5,6 @@ create table tbl_member(
     member_pwd varchar2(30) not null,
     member_phone varchar2(11) not null,     -- 수정
     member_email varchar2(30) not null,
-    --member_age number not null,
     member_birth varchar2(20) not null,     -- 수정
     member_address varchar2(100) not null,
     member_gender varchar2(10) not null,
@@ -17,8 +16,7 @@ create table tbl_product(                   -- 수정
     product_name varchar2(100) not null,
     product_seller varchar2(100) not null,
     product_price number not null,
-    --maincategory varchar2(100) not null,
-    subcategory varchar2(100) not null,
+    maincategory varchar2(100) not null,
     product_score number, -- not null
     product_image varchar2(100) not null,
     product_about varchar2(500),
@@ -110,3 +108,104 @@ create table tbl_event(
     references tbl_product(product_no)
     --on delete cascade
 );
+
+create sequence product_seq;
+
+alter table tbl_product drop column subcategory;
+
+delete from tbl_product
+where product_name = '양념소불고기';
+
+select *
+from tbl_product;
+
+select product_seq.currval from dual;  -- 현재 시퀀스 값
+select max(product_no) from tbl_product;
+
+alter sequence product_seq increment by 300;
+select product_seq.nextval from dual;         -- 호출
+alter sequence product_seq increment by 1;    -- 다시 1로 복구
+
+
+
+commit;
+
+
+
+insert all 
+    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '감자', 'Team3', 3000, 4, 'product-IMG/감자.jpg', TO_DATE('2025-12-31', 'YYYY-MM-DD'),
+       '싱싱한 감자입니다', '채소')
+select * from dual;
+
+
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '꽃갈비살', 'Team3', 15000, 5, 'product-IMG/꽃갈비살.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 꽃갈비살!', '정육');         
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '살치살', 'Team3', 15000, 5, 'product-IMG/살치살.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 살치살!', '정육');         
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '등심', 'Team3', 15000, 5, 'product-IMG/등심.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 등심!', '정육');          
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '안심', 'Team3', 15000, 5, 'product-IMG/안심.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 안심!', '정육');       
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '와규', 'Team3', 15000, 5, 'product-IMG/와규.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 와규!', '정육');           
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '닭', 'Team3', 15000, 5, 'product-IMG/닭.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 닭!', '정육');    
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '달걀', 'Team3', 15000, 5, 'product-IMG/달걀.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 달걀!', '정육');
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '양념소불고기', 'Team3', 15000, 5, 'product-IMG/양념소불고기.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 양념소불고기!', '정육');
+
+
+insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '연어필렛', 'Team3', 15000, 5, 'product-IMG/연어필렛.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 연어필렛!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '키조개', 'Team3', 15000, 5, 'product-IMG/키조개.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 키조개!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '오징어', 'Team3', 15000, 5, 'product-IMG/오징어.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 오징어!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '방어', 'Team3', 15000, 5, 'product-IMG/방어.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 방어!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '낙지', 'Team3', 15000, 5, 'product-IMG/낙지.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 낙지!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '고등어', 'Team3', 15000, 5, 'product-IMG/고등어.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 고등어!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '갈치', 'Team3', 15000, 5, 'product-IMG/갈치.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 갈치!', '수산');
+insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
+                     product_image, expiration_date, product_about, maincategory)
+    values(product_seq.nextval, '가자미', 'Team3', 15000, 5, 'product-IMG/가자미.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '맛도 잡고 양도 잡은 가자미!', '수산');
+
+
+commit;
