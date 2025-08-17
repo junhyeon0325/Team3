@@ -35,6 +35,7 @@ public class FrontController extends HttpServlet{
 		
 		// 주문/결제
 		map.put("/orderform.do", new OrderFormControl());	// 주문/결제 화면 출력
+		
 	}
 	
 	@Override

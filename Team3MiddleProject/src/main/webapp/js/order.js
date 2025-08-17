@@ -46,7 +46,6 @@ function updateTotal() {
 	//document.querySelector('.cartProductTotalPrice').innerHTML = totalnum.toLocaleString() + '원';	// 상품금액
 	if (cartProductTotalPrice < 0) {	// 결제예상금액이 적립금에 의해서 -로 가면은 0으로 출력
 		document.querySelector('.totalCartPrice').innerHTML = 0 + '원';	// 결제 예정 금액
-		document.querySelector('.totalCartPriceButton').innerHTML = 0 + '원 주문하기';	// 결제 버튼
 		return
 	} // end if
 	
@@ -54,6 +53,7 @@ function updateTotal() {
 	//document.querySelector('.totalCartPriceButton').innerHTML = (cartProductTotalPrice).toLocaleString() + '원 주문하기';	// 결제버튼
 	document.querySelector('.totalCartPrice').innerHTML = (cartProductTotalPrice).toLocaleString() + '원';	// 결제 예정 금액
 	document.querySelector('.totalOrderPrice').innerHTML = (cartProductTotalPrice - document.querySelector('.orderPointInput').value).toLocaleString() + '원';	// 결제금액
+	document.querySelector('#couponAmount').innerHTML = document.querySelector('.orderPointInput').value;
 }// end function
 updateTotal();
 
@@ -82,6 +82,7 @@ document.addEventListener('input', (e) => {
 		let divone = e.target.closest('.divone');
 		let input = divone.querySelector('.orderPointInput');
 		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
+		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
 		console.log('포인트' + point);
 		if (Number(input.value) < 0) {
 			input.value = 0;

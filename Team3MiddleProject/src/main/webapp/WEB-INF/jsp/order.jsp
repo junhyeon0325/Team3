@@ -21,15 +21,19 @@
 .orderProductPcs {
 	width: 60px;
 }
+
 .orderProductPrice {
 	margin: 0px;
 }
+
 .orderleft {
 	width: 40%;
 }
+
 .orderright {
 	width: 60%
 }
+
 .orderlabel {
 	margin-top: 15px;
 	margin-bottom: 0px;
@@ -49,7 +53,8 @@
 	<div class="container py-5">
 		<h1 class="mb-4">상세정보</h1>
 		<form action="#">
-			<div class="row g-5"> <!--  -->
+			<div class="row g-5">
+				<!--  -->
 				<div class="col-md-12 col-lg-6 col-xl-7 orderleft">
 					<h4>배송지</h4>
 					<div class="divone">
@@ -99,8 +104,12 @@
 							</div>
 							<br>
 							<div>
-								<input class="form-control orderPointInput" placeholder="사용할금액을 입력해주세요" value="100"></input>
+								<input class="form-control orderPointInput"
+									placeholder="사용할금액을 입력해주세요" value=""></input>
 							</div>
+							<form id="discount-coupon">
+								<input type="checkbox" id="coupon"></input><span id="couponAmount"></span>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -130,41 +139,56 @@
 										<td class="py-5">${cp.productName }</td>
 										<td class="py-5 ordertd">
 											<p class="orderProductPrice"><fmt:formatNumber value="${cp.productPrice }" type="number" />원</p>
-											<p class="mb-0 productSalePercent" style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>	<!-- 할인율 -->
-											<p class="mb-0 productSale" style="color: red; font-size: 20px; font-weight: bold"></p>
+											<p class="mb-0 productSalePercent"
+												style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>
+											<!-- 할인율 -->
+											<p class="mb-0 productSale"
+												style="color: red; font-size: 20px; font-weight: bold"></p>
 										</td>
 										<td class="py-5 orderProductPcs">${cp.productPcs }</td>
 										<td class="py-5 ordertotalPrice">총 가격</td>
 									</tr>
 								</c:forEach>
 								<tr>
-									
+
 									<td colspan='2' class="py-5">
-										<p style="text-align: center; font-size: 20px; font-weight: bold;" class="mb-0 text-dark py-3">총 주문금액</p>
+										<p
+											style="text-align: center; font-size: 20px; font-weight: bold;"
+											class="mb-0 text-dark py-3">총 주문금액</p>
 									</td>
 									<td colspan='3' class="py-5">
 										<div class="py-3 border-bottom border-top">
-											<p style="text-align: center; font-size: 20px; font-weight: bold;" class="mb-0 text-dark totalCartPrice">총 주문금액</p>
+											<p
+												style="text-align: center; font-size: 20px; font-weight: bold;"
+												class="mb-0 text-dark totalCartPrice">총 주문금액</p>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<td colspan='2' class="py-5">
-										<p style="text-align: center; font-size: 30px; font-weight: bold;" class="mb-0 text-dark text-uppercase py-3">결제금액</p>
+										<p
+											style="text-align: center; font-size: 30px; font-weight: bold;"
+											class="mb-0 text-dark text-uppercase py-3">결제금액</p>
 									</td>
 									<td colspan='3' class="py-5">
 										<div class="py-3 border-bottom border-top">
-											<p style="text-align: center; font-size: 30px; font-weight: bold;" class="mb-0 text-dark totalOrderPrice">결제금액</p>
+											<p
+												style="text-align: center; font-size: 30px; font-weight: bold;"
+												class="mb-0 text-dark totalOrderPrice">결제금액</p>
 										</div>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<div
-						class="row g-4 text-center align-items-center justify-content-center pt-4">
-						<button type="button"
-							class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">결제하기</button>
+					
+					
+					<div id="payment-method"></div> <!-- 결제위젯 영역 렌더링 -->
+					<div id="agreement"></div> <!-- 약관 영역 렌더링 -->
+					<div class="row g-4 text-center align-items-center justify-content-center pt-4">
+						<button type="button" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
+							id="payment-button">결제하기
+						</button>
 					</div>
 				</div>
 			</div>
@@ -173,6 +197,50 @@
 </div>
 <!-- Checkout Page End -->
 
+<!-- sdk추가 -->
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<script>
+	
+	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm' // 상점을 특정하는 키
+	const customerKey = 'iVp36p5X5bUygP_hjr3e3' // 결제 고객을 특정하는 키
+	const amount = 15000 // 결제 금액
+	const couponAmount = 5000 // 할인할금액(이거 우리조는 적립금하면 될듯)
+
+	/*결제위젯 영역 렌더링*/
+	const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제 초기화
+	// const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제 초기화
+	paymentMethods = paymentWidget.renderPaymentMethods('#payment-method', amount)
+
+	/*약관 영역 렌더링*/
+	const paymentAgreement = paymentWidget.renderAgreement('#agreement')
+	
+	document.querySelector("#payment-button").addEventListener("click",()=>{
+		    paymentWidget.requestPayment({
+		    	orderId: "ORDER-" + new Date().getTime(),
+		    	orderName: '토스 티셔츠 외 2건',
+		    	successUrl: 'http://localhost:80/Team3MiddleProject/success.do',
+		    	failUrl: 'http://localhost:80/Team3MiddleProject/fail.do',
+		    	customerEmail: 'customer123@gmail.com', 
+		    	customerName: '김토스'
+		    }).catch(function (error) {
+		    	if (error.code === 'USER_CANCEL') {
+		    	// 결제 고객이 결제창을 닫았을 때 에러 처리
+		    	} if (error.code === 'INVALID_CARD_COMPANY') {
+	            // 유효하지 않은 카드 코드에 대한 에러 처리
+	          }
+	      })  
+	  })
+	console.log(paymentWidget.requestPayment);
+	document.querySelector("#coupon").addEventListener("click", applyDiscount);
+
+function applyDiscount(e) {
+  if (e.target.checked) {
+    paymentMethods.updateAmount(amount - couponAmount, "쿠폰")
+  } else {
+    paymentMethods.updateAmount(amount)
+  }
+ }
+</script>
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

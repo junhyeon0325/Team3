@@ -1,3 +1,23 @@
+-- 결제정보 테이블 조회
+select *
+from   payment_tbl;
+
+-- 결제정보 테이블
+create table payment_tbl (
+    pay_code        number       constraint pk_payment_code primary key,
+    odr_code        number       not null,
+    pay_method      varchar2(30) not null,
+    pay_date        date         default sysdate,
+    pay_tot_price   number       not null,
+    pay_rest_price  number       not null,
+    pay_nobank_user varchar2(20) null,
+    pay_nobank      varchar2(20) null
+);
+
+-- 결제정보테이블 pay_code시퀀스 번호 매기기
+create sequence seq_payment_code;
+commit;
+
 -- 주문/결제에 필요한 회원정보 가져오기
 select member_no,
        member_name,
