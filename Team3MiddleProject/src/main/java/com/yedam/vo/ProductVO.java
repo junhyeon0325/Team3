@@ -9,7 +9,6 @@ public class ProductVO {
 	private String productSeller;
 	private int productPrice;
 	private String maincategory;
-	private String subcategory;
 	private double productScore;
 	private String productImage;
 	private String productAbout;
