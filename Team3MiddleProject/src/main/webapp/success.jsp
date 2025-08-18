@@ -10,6 +10,7 @@
     <p id="paymentKey"></p>
     <p id="orderId"></p>
     <p id="amount"></p>
+    <pre id="fullResponse"></pre>
 
     <script>
       // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
@@ -40,10 +41,13 @@
           // 결제 실패 비즈니스 로직을 구현하세요.
           console.log(json);
           window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+          return;
         }
 
         // 결제 성공 비즈니스 로직을 구현하세요.
         console.log(json);
+        document.getElementById("fullResponse").textContent =
+            JSON.stringify(json, null, 2);
       }
       confirm();
 
