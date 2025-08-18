@@ -13,6 +13,11 @@
             FROM (SELECT *
                   FROM tbl_product
                   WHERE maincategory = #{maincategory}
+         ]]>
+                    <if test="maxPrice != null">
+			          AND product_price &lt;= #{maxPrice}
+			        </if>
+		<![CDATA[
                   ORDER BY
                   	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
                 	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC

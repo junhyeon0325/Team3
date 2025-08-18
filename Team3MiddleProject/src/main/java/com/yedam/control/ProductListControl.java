@@ -20,12 +20,19 @@ public class ProductListControl implements Control {
 		ProductListService prdService = new ProductListServiceImpl();
 		int page = 1;
         int pageSize = 6;
+        Integer maxPrice = null;
         
         int vegetableCnt = prdService.getTotalProductCount("채소");
         int meatCnt = prdService.getTotalProductCount("정육");
         int fishCnt = prdService.getTotalProductCount("수산");
         
         String category = req.getParameter("maincategory");
+        
+        String maxPriceParam = req.getParameter("maxPrice");
+        if(maxPriceParam != null && !maxPriceParam.isEmpty()) {
+            maxPrice = Integer.parseInt(maxPriceParam);
+        }
+        
         
         // page 파라미터가 있으면 파싱
         String pageParam = req.getParameter("page");
@@ -40,7 +47,7 @@ public class ProductListControl implements Control {
         	sort = "createdDate";
         }
 
-        List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category);
+        List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category, maxPrice);
         
         int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);

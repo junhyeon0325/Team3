@@ -42,15 +42,16 @@
 					</div>
 					<div class="col-6"></div>
 					<div class="col-xl-3">
-						<div
-							class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-							<label for="fruits">정렬 기준:</label>
-							<select id="fruits" name="sort" class="border-0 form-select-sm bg-light me-3" form="fruitform" onchange="this.form.submit()">
-								<option value="createdDate" ${sort == 'createdDate' ? 'selected' : ''}>등록순</option>
-    							<option value="price" ${sort == 'price' ? 'selected' : ''}>가격순</option>
-							</select>
-							
-							<form id="fruitform" action="productList.do" method="get"></form>
+						<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+							<form id="fruitform" action="productList.do" method="get">
+								<input type="hidden" name="maincategory" value="${currentCategory}">
+    							<input type="hidden" name="page" value="${currentPage}">
+									<label for="fruits">정렬 기준:</label>
+									<select id="fruits" name="sort" class="border-0 form-select-sm bg-light me-3" form="fruitform" onchange="this.form.submit()">
+										<option value="createdDate" <c:if test="${sort eq 'createdDate'}">selected</c:if>>등록순</option>
+										<option value="price" <c:if test="${sort eq 'price'}">selected</c:if>>가격순</option>
+									</select>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -85,17 +86,26 @@
 									</ul>
 								</div>
 							</div>
-							
-							
-							<div class="col-lg-12">
-								<div class="mb-3">
-									<h4 class="mb-2">가격</h4>
-									<input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="100000" value="0" step="1000"
-										oninput="amount.value=rangeInput.value">
-									<output id="amount" name="amount" for="rangeInput">0</output>
-								</div>
-							</div>
-							
+							<form action="productList.do" method="get" id="filterForm">
+								<input type="hidden" name="maincategory" value="${currentCategory}">
+							    <input type="hidden" name="page" value="1">
+							    <input type="hidden" name="sort" value="${sort}">
+							    
+									<div class="col-lg-12">
+											<h4 class="mb-2">가격</h4>
+										<div class="mb-3" align="right">
+											<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="100000" 
+												value="${param.maxPrice != null ? param.maxPrice : 0}" step="1000"
+												oninput="amount.value=this.value">
+											<output id="amount" name="amount" for="maxPrice">
+												<c:out value="${empty param.maxPrice ? 0 : param.maxPrice}"/>
+											</output>원
+										</div>
+										<div align="right">
+											<button type="submit" class="btn btn-primary btn-sm">적용</button>
+										</div>
+									</div>
+							</form>		
 							
 							<div class="col-lg-12">
 								<h4 class="mb-3">최저가 상품</h4>
@@ -154,15 +164,13 @@
 									<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
 										Fresh
 									</div>
-									<div
-										class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
+									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
 										<h4>${product.productName }</h4>
-										<p>${product.productDesc }</p>
-										<div class="d-flex justify-content-between flex-lg-wrap" align= "center">
-											<p class="text-dark fs-5 fw-bold mb-0">${product.productPrice }원 / kg
-											<a href="#"
-												class="btn border border-secondary rounded-pill px-3 text-primary"><i
-												class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a></p>
+										<p>${product.productAbout }</p>
+										<div class="d-block justify-content-between flex-lg-wrap" >
+											<p class="text-dark fs-5 fw-bold mb-0" align="center">${product.productPrice }원</p>
+											<a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+												<i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
 										</div>
 									</div>
 								</div>
@@ -176,13 +184,13 @@
 							<div class="col-12">
 								<div class="pagination d-flex justify-content-center mt-5">
 									<c:if test="${currentPage > 1}">
-									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}" class="rounded">&laquo;</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}" class="rounded">&laquo;</a>
 									</c:if>
 									<c:forEach begin="1" end="${totalPages}" var="i">
-									<a href="productList.do?maincategory=${currentCategory }&page=${i}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 									</c:forEach>
 									<c:if test="${currentPage < totalPages}">
-									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}" class="rounded">&raquo;</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}" class="rounded">&raquo;</a>
 									</c:if>
 								</div>
 							</div>
