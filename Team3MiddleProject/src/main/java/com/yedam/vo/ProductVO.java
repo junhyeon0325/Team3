@@ -10,7 +10,7 @@ public class ProductVO {
 	private int productPrice;
 	private String maincategory;
 	private String subcategory;
-	private int productScore;
+	private double productScore;
 	private String productImage;
 	private String productAbout;
 	private String expirationDate;
