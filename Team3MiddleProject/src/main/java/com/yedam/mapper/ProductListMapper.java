@@ -12,4 +12,5 @@ public interface ProductListMapper {
 											 @Param("maxPrice")Integer maxPrice);
 	int countTotalProducts(@Param("maincategory") String maincategory);
 	List<ProductVO> getLowestPriceProducts();
+	List<ProductVO> getLowestPriceFrozenProducts();
 }

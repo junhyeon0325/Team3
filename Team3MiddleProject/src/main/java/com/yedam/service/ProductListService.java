@@ -8,4 +8,5 @@ public interface ProductListService {
 	List<ProductVO> getProductList(int page, int pageSize, String sort, String maincategory, Integer maxPrice);
     int getTotalProductCount(String maincategory);
     List<ProductVO> getLowestPriceProducts();
+    List<ProductVO> getLowestPriceFrozenProducts();
 }

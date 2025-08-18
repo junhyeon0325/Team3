@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.DetailSelectcontrol;
+import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
@@ -30,6 +31,7 @@ public class FrontController extends HttpServlet{
 		map.put("/productList.do", new ProductListControl());
 		map.put("/detailPage.do", new DetailSelectcontrol());
 		map.put("/productSelect.do", new ProductSelectControl());
+		map.put("/frozenProductList.do", new FrozenProductListControl());
 	}
 	
 	@Override
@@ -42,6 +44,3 @@ public class FrontController extends HttpServlet{
 		sub.execute(req, resp);
 	}
 }
-
-// 상쥬니 작업중
-// jjh수정

@@ -41,4 +41,14 @@
 		ORDER BY product_price
 		FETCH FIRST 3 ROWS ONLY
 	</select>
+	
+	<select id="getLowestPriceFrozenProducts" resultType="product">
+		SELECT *
+		FROM tbl_product
+		where maincategory='냉동볶음밥'
+		   or maincategory='냉동과일'
+		   or maincategory='튀김류'
+		ORDER BY product_price
+		FETCH FIRST 3 ROWS ONLY
+	</select>
 </mapper>
