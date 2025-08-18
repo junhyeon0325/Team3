@@ -222,13 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	const paymentAgreement = paymentWidget.renderAgreement('#agreement')
 	// 결제부분
 	document.querySelector("#payment-button").addEventListener("click",()=>{
-		console.log('amount' + amount);
-		console.log('couponAmount' + couponAmount);
 	   		paymentWidget.requestPayment({
 		    	orderId: new Date().getTime(),
 		    	orderName: '토스 티셔츠 외 2건',
-		    	successUrl: 'http://localhost:80/Team3MiddleProject/success.do',
-		    	failUrl: 'http://localhost:80/Team3MiddleProject/fail.do',
+		    	successUrl: 'http://localhost:80/Team3MiddleProject/success.jsp',
+		    	failUrl: 'http://localhost:80/Team3MiddleProject/fail.jsp',
 		    	customerEmail: 'customer123@gmail.com', 
 		    	customerName: '김토스'
 	    	}).catch(function (error) {
