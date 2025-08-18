@@ -14,6 +14,8 @@ import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.MainControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
+import com.yedam.control.SalesControl;
+import com.yedam.control.SearchControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -30,6 +32,8 @@ public class FrontController extends HttpServlet{
 		map.put("/productList.do", new ProductListControl());
 		map.put("/detailePage.do", new DetailSelectcontrol());
 		map.put("/productSelect.do", new ProductSelectControl());
+		map.put("/Sales.do", new SalesControl());
+		map.put("/Search.do", new SearchControl());
 	}
 	
 	@Override
