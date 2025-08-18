@@ -103,13 +103,13 @@
 								<span>사용가능금액</span><span class="orderpoint">${cp_list[0].point}원</span>
 							</div>
 							<br>
+							<form id="discount-coupon">
+								<input type="checkbox" id="coupon"></input> 쿠폰사용하실려면 체크박스를 눌러서 활성화 해주세요.<span id="couponAmount"></span>
+							</form>
 							<div>
 								<input class="form-control orderPointInput"
-									placeholder="사용할금액을 입력해주세요" value=""></input>
+									placeholder="사용할금액을 입력해주세요" value=""  disabled></input>
 							</div>
-							<form id="discount-coupon">
-								<input type="checkbox" id="coupon"></input><span id="couponAmount"></span>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -200,10 +200,10 @@
 <!-- sdk추가 -->
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script>
-	
+	console.log();
 	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm' // 상점을 특정하는 키
 	const customerKey = 'iVp36p5X5bUygP_hjr3e3' // 결제 고객을 특정하는 키
-	const amount = 15000 // 결제 금액
+	const amount = ${cp.productPrice} // 결제 금액
 	const couponAmount = 5000 // 할인할금액(이거 우리조는 적립금하면 될듯)
 
 	/*결제위젯 영역 렌더링*/
@@ -215,6 +215,7 @@
 	const paymentAgreement = paymentWidget.renderAgreement('#agreement')
 	
 	document.querySelector("#payment-button").addEventListener("click",()=>{
+			
 		    paymentWidget.requestPayment({
 		    	orderId: "ORDER-" + new Date().getTime(),
 		    	orderName: '토스 티셔츠 외 2건',
@@ -232,14 +233,20 @@
 	  })
 	console.log(paymentWidget.requestPayment);
 	document.querySelector("#coupon").addEventListener("click", applyDiscount);
+	console.log(amount - couponAmount)
 
-function applyDiscount(e) {
+ function applyDiscount(e) {
   if (e.target.checked) {
-    paymentMethods.updateAmount(amount - couponAmount, "쿠폰")
+    paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
+    document.querySelector('.orderPointInput').disabled = false;
   } else {
-    paymentMethods.updateAmount(amount)
+    paymentMethods.updateAmount(amount);
+    document.querySelector('.orderPointInput').disabled = true;
+    document.querySelector('.orderPointInput').value = '';
+    document.querySelector('#couponAmount').innerHTML = '';
+    document.querySelector('.totalOrderPrice').innerHTML = document.querySelector('.totalCartPrice').innerHTML.toLocaleString();
   }
- }
+ } 
 </script>
 
 <script

@@ -1,8 +1,8 @@
--- 결제정보 테이블 조회
+-- 결제정보 테이블 조회 >> ?
 select *
 from   payment_tbl;
 
--- 결제정보 테이블
+-- 결제정보 테이블 >> ?
 create table payment_tbl (
     pay_code        number       constraint pk_payment_code primary key,
     odr_code        number       not null,
@@ -14,7 +14,7 @@ create table payment_tbl (
     pay_nobank      varchar2(20) null
 );
 
--- 결제정보테이블 pay_code시퀀스 번호 매기기
+-- 결제정보테이블 pay_code시퀀스 번호 매기기 >> ?
 create sequence seq_payment_code;
 commit;
 

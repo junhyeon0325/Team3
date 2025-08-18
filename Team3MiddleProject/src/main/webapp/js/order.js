@@ -53,7 +53,7 @@ function updateTotal() {
 	//document.querySelector('.totalCartPriceButton').innerHTML = (cartProductTotalPrice).toLocaleString() + '원 주문하기';	// 결제버튼
 	document.querySelector('.totalCartPrice').innerHTML = (cartProductTotalPrice).toLocaleString() + '원';	// 결제 예정 금액
 	document.querySelector('.totalOrderPrice').innerHTML = (cartProductTotalPrice - document.querySelector('.orderPointInput').value).toLocaleString() + '원';	// 결제금액
-	document.querySelector('#couponAmount').innerHTML = document.querySelector('.orderPointInput').value;
+	//document.querySelector('#couponAmount').innerHTML = document.querySelector('.orderPointInput').value;
 }// end function
 updateTotal();
 
@@ -84,10 +84,12 @@ document.addEventListener('input', (e) => {
 		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
 		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
 		console.log('포인트' + point);
+		//paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
 		if (Number(input.value) < 0) {
 			input.value = 0;
 		} else if (Number(input.value) > point){	// 현재 가지고 있는 포인트 값보다 크지 않게
 			input.value = point;
+			
 		}
 		updateTotal();
 	}
