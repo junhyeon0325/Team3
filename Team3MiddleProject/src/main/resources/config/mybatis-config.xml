@@ -12,8 +12,11 @@
   <typeAliases>
   	<typeAlias alias= "product" type="com.yedam.vo.ProductVO"/>
   	<typeAlias alias= "review" type="com.yedam.vo.ReviewVO"/>
+  	<typeAlias alias= "order" type="com.yedam.vo.OrderVO"/>
     <!-- <typeAlias alias=" " type=""/>  -->
     <typeAlias alias="member" type = "com.yedam.vo.MemberVO"/>
+    <typeAlias alias="cp" type="com.yedam.vo.CartProductVO"/>
+    <typeAlias alias="om" type="com.yedam.vo.OrderMemberVO"/>
   </typeAliases>
 
   <environments default="development">
@@ -31,7 +34,10 @@
   <mappers>
   	<mapper resource="com/yedam/mapper/MemberMapper.xml"/>
     <mapper resource="com/yedam/mapper/DetailMapper.xml"/>
+    <mapper resource="com/yedam/mapper/ReviewMapper.xml"/>
     <mapper resource="com/yedam/mapper/ProductListMapper.xml"/>
+  	<mapper resource="com/yedam/mapper/CartMapper.xml"/>
+  	<mapper resource="com/yedam/mapper/OrderMapper.xml"/>
   </mappers>
 
 </configuration>

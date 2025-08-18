@@ -30,7 +30,7 @@ public class ProductListControl implements Control {
 		//상품리스트
 		ProductListService prd = new ProductListServiceImpl();
 		List<ProductVO> productList = prd.getProductList();
-		
+		System.out.println(productList);
 		req.setAttribute("productList", productList);
 		
 		req.getRequestDispatcher("product/productList.tiles").forward(req, resp);

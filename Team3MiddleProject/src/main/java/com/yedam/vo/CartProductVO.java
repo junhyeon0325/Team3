@@ -1,18 +1,24 @@
 package com.yedam.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
-public class ProductVO {
+public class CartProductVO {
 	private int productNo;
 	private String productName;
 	private String productSeller;
 	private int productPrice;
-	private String maincategory;
 	private String subcategory;
-	private double productScore;
+	private int productScore;
 	private String productImage;
 	private String productAbout;
 	private String expirationDate;
-	private String productDesc;
+	private int cartNo;
+	private int productPcs;
+	private int memberNo;
+	private int point;
+	private int eventNo;
+	private double sale;
 }

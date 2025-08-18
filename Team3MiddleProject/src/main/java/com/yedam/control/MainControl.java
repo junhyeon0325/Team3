@@ -16,6 +16,7 @@ public class MainControl implements Control{
 		//req.getRequestDispatcher("index.jsp").forward(req, resp);
 		req.getRequestDispatcher("product/signup_form.tiles")
 		.forward(req, resp);
+	//	req.getRequestDispatcher("product/cart.tiles").forward(req, resp);
 	}
 	
 }
