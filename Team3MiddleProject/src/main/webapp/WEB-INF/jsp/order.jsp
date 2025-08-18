@@ -196,6 +196,7 @@
 	</div>
 </div>
 <!-- Checkout Page End -->
+<script src="js/order.js"></script>
 
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script>
@@ -219,27 +220,58 @@
     
     // 5. 결제 버튼 클릭 시 결제를 요청합니다.
     document.getElementById("payment-button").addEventListener("click", function() {
-        const orderId = new Date().getTime().toString();
-        const orderName = "상품명 외 1건";
+        // 1. 주문/결제 화면에서 사용자 입력 데이터 가져오기
+        const orderAddress = document.getElementById("sample3_address").value;
+        const orderDetailAddress = document.getElementById("sample3_detailAddress").value;
+        const orderRequest = document.querySelector('textarea[name="text"]').value;
+        const usedPoint = Number(document.querySelector('.orderPointInput').value);
+        // memberNo는 JSP에서 서버로부터 받아서 사용할 수 있도록 ${om.memberNo}와 같이 가져와야 합니다.
+        // 또는 세션에 이미 저장되어 있다고 가정하고 서버에서 꺼내도 됩니다.
+        const memberNo = "${om.memberNo}"; // JSP에서 memberNo 가져오는 예시
 
-        paymentWidget.requestPayment({
-            orderId: orderId,
-            orderName: orderName,
-            customerName: "${om.memberName}",
-            successUrl: window.location.origin + "/Team3MiddleProject/payment/success",
-            failUrl: window.location.origin + "/Team3MiddleProject/payment/fail",
+        // 2. 임시 저장할 데이터 객체 생성
+        const temporaryOrderData = {
+            orderAddress: orderAddress,
+            orderDetailAddress: orderDetailAddress,
+            orderRequest: orderRequest,
+            usedPoint: usedPoint,
+            // memberNo는 서버에서 세션에서 가져오는게 더 안전합니다.
+        };
+
+        // 3. AJAX 요청으로 서버에 임시 주문 정보 저장
+        fetch(window.location.origin + "/Team3MiddleProject/saveTemporaryOrderData.do", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(temporaryOrderData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                console.log("임시 주문 정보 서버에 저장 성공:", data.message);
+                // 4. 임시 저장 성공 후, Toss Payments Widget 호출
+                const orderId = new Date().getTime().toString();
+                const orderName = "상품명 외 1건"; // 실제 상품명으로 변경
+
+                paymentWidget.requestPayment({
+                    orderId: orderId,
+                    orderName: orderName,
+                    customerName: "${om.memberName}",
+                    successUrl: window.location.origin + "/Team3MiddleProject/paymentSuccess.do",
+                    failUrl: window.location.origin + "/Team3MiddleProject/paymentFail.do",
+                });
+            } else {
+                alert("주문 정보를 저장하는 데 실패했습니다. 다시 시도해 주세요.");
+                console.error("임시 주문 정보 저장 실패:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error saving temporary order data:", error);
+            alert("주문 정보를 저장하는 중 오류가 발생했습니다.");
         });
     });
 </script>
-
-
-
-
-
-<script src="js/order.js"></script>
-
-
-
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

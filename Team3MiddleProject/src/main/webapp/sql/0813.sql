@@ -1,3 +1,5 @@
+--
+
 -- 결제 완료 후 생성되는 주문데이터 상세 테이블(수량)
 create table tbl_order_items(
     order_item_no number primary key,
@@ -37,7 +39,7 @@ create table tbl_order(
     foreign key(product_no)
     references tbl_product(product_no)
 );
-
+--20250819
 
 -- 주문/결제에 필요한 회원정보 가져오기
 select member_no,

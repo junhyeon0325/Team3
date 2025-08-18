@@ -36,7 +36,7 @@
             <strong>Payment Key:</strong> ${paymentKey}
         </div>
         <p style="text-align: center; margin-top: 20px;">
-            <a href="/" style="text-decoration: none; color: #007bff;">홈으로 돌아가기</a>
+            <a href="${pageContext.request.contextPath}/main.do" style="text-decoration: none; color: #007bff;">홈으로 돌아가기</a>
         </p>
     </div>
 </body>

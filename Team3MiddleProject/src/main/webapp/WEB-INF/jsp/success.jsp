@@ -12,7 +12,7 @@
         const orderId = urlParams.get("orderId");
         const amount = urlParams.get("amount");
 
-        fetch(window.location.origin + "/Team3MiddleProject/payment/confirm", {
+        fetch(window.location.origin + "/Team3MiddleProject/paymentConfirm.do", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,16 +29,16 @@
         .then(function(data) {
             if (data.code && data.message) {
                 alert("결제 실패: " + data.message);
-                window.location.href = window.location.origin + "/Team3MiddleProject/payment/fail.do?code=" + data.code + "&message=" + data.message;
+                window.location.href = window.location.origin + "/Team3MiddleProject/paymentFail.do?code=" + data.code + "&message=" + data.message;
             } else {
                 alert("결제 성공!");
-                window.location.href = window.location.origin + "/Team3MiddleProject/payment/detail.do?orderId=" + data.orderId;
+                window.location.href = window.location.origin + "/Team3MiddleProject/paymentDetail.do?orderId=" + data.orderId;
             }
         })
         .catch(function(error) {
             console.error("Error:", error);
             alert("결제 실패: 서버 오류 발생");
-            window.location.href = window.location.origin + "/Team3MiddleProject/payment/fail.do";
+            window.location.href = window.location.origin + "/Team3MiddleProject/paymentFail.do";
         });
     </script>
     <h1>결제 처리 중...</h1>
