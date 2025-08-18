@@ -3,15 +3,15 @@ create table tbl_member(
     member_name varchar2(10) not null,
     member_id varchar2(30) not null,
     member_pwd varchar2(30) not null,
-    member_phone varchar2(11) not null,     -- ¼öÁ¤
+    member_phone varchar2(11) not null,     -- ï¿½ï¿½ï¿½ï¿½
     member_email varchar2(30) not null,
-    member_birth varchar2(20) not null,     -- ¼öÁ¤
+    member_birth varchar2(20) not null,     -- ï¿½ï¿½ï¿½ï¿½
     member_address varchar2(100) not null,
     member_gender varchar2(10) not null,
     point number not null
 );
 
-create table tbl_product(                   -- ¼öÁ¤
+create table tbl_product(                   -- ï¿½ï¿½ï¿½ï¿½
     product_no number primary key,
     product_name varchar2(100) not null,
     product_seller varchar2(100) not null,
@@ -20,12 +20,12 @@ create table tbl_product(                   -- ¼öÁ¤
     product_score number, -- not null
     product_image varchar2(100) not null,
     product_about varchar2(500),
-    expiration_date date not null           -- ¼öÁ¤
+    expiration_date date not null           -- ï¿½ï¿½ï¿½ï¿½
 );
 
 create table tbl_cart(
     cart_no number primary key,
-    product_pcs number not null,    -- pcs = piecesÀÇ ¾àÀÚ·Î 1pcs = 1°³¸¦ ¶æÇÔ
+    product_pcs number not null,    -- pcs = piecesï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ 1pcs = 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     product_no number not null,
     member_no number not null,
     
@@ -44,8 +44,8 @@ create table tbl_order_items(
     order_item_no number primary key,
     product_pcs number not null,
     product_no number not null,
-    /*order_no number not null  --> ÁÖ¹® »ó¼¼°¡ ¸ÕÀúÀÌ¸é ÁÖ¹®ÀÇ ÁÖ¹®¹øÈ£ primary key º¸´Ù ¸ÕÀú ¸¸µé¾îÁö´Âµ¥
-    foreign key·Î ¸¸µé¾î¼­ ¾²´Â°Ô ¸Â´ÂÁö È®ÀÎ*/
+    /*order_no number not null  --> ï¿½Ö¹ï¿½ ï¿½ó¼¼°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½È£ primary key ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½
+    foreign keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ È®ï¿½ï¿½*/
     
     constraint fk_items_product
     foreign key(product_no)
@@ -61,17 +61,17 @@ create table tbl_order_items(
 create table tbl_order(
     order_no number primary key,
     order_address varchar2(100) not null,
-    used_point number default 0 not null, -- default °ª 0
-    order_date date default sysdate,      -- default °ª sysdate
+    used_point number default 0 not null, -- default ï¿½ï¿½ 0
+    order_date date default sysdate,      -- default ï¿½ï¿½ sysdate
     order_price number not null,
-    order_request varchar2(100),          -- ¼öÁ¤
+    order_request varchar2(100),          -- ï¿½ï¿½ï¿½ï¿½
     member_no number not null,
     product_no number not null,
     
     constraint fk_order_member
     foreign key(member_no)
     references tbl_member(member_no),
-    --on delete cascade   -->ÁÖ¹®³»¿ªÀº È¸¿øÁ¤º¸°¡ »èÁ¦µÇ¾îµµ °¡Áö°í ÀÖÀ»Áö È®ÀÎ
+    --on delete cascade   -->ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     
     constraint fk_order_product
     foreign key(product_no)
@@ -82,8 +82,8 @@ create table tbl_review(
     review_no number primary key,
     review_content varchar2(1000) not null,
     review_image varchar2(100),
-    --review_score number,  tbl_product¿¡ product_score ÀÖ´Âµ¥ ¾î¶»°Ô »ç¿ëÇÒÁö È®ÀÎ
-    review_date date default sysdate,             --default °ª sysdate
+    --review_score number,  tbl_productï¿½ï¿½ product_score ï¿½Ö´Âµï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    review_date date default sysdate,             --default ï¿½ï¿½ sysdate
     product_no number not null,
     order_no number not null,
     
@@ -99,7 +99,7 @@ create table tbl_review(
 );
 
 create table tbl_event(
-    event_no number primary key,    -- primary key ÇÊ¿äÇÒ°Å °°¾Æ¼­ Ãß°¡Çß´Âµ¥ ÇÊ¿äÇÏ½ÅÁö È®ÀÎ
+    event_no number primary key,    -- primary key ï¿½Ê¿ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ß°ï¿½ï¿½ß´Âµï¿½ ï¿½Ê¿ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     sale number,
     product_no number not null,
     
@@ -114,17 +114,17 @@ create sequence product_seq;
 alter table tbl_product drop column subcategory;
 
 delete from tbl_product
-where product_name = '¾ç³ä¼ÒºÒ°í±â';
+where product_name = 'ï¿½ï¿½ï¿½ÒºÒ°ï¿½ï¿½';
 
 select *
 from tbl_product;
 
-select product_seq.currval from dual;  -- ÇöÀç ½ÃÄö½º °ª
+select product_seq.currval from dual;  -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 select max(product_no) from tbl_product;
 
 alter sequence product_seq increment by 300;
-select product_seq.nextval from dual;         -- È£Ãâ
-alter sequence product_seq increment by 1;    -- ´Ù½Ã 1·Î º¹±¸
+select product_seq.nextval from dual;         -- È£ï¿½ï¿½
+alter sequence product_seq increment by 1;    -- ï¿½Ù½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -132,80 +132,87 @@ commit;
 
 
 
+create sequence product_seq;
+
+delete from tbl_product;
+
+alter table tbl_product add maincategory varchar2(100);
+
 insert all 
     into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '°¨ÀÚ', 'Team3', 3000, 4, 'product-IMG/°¨ÀÚ.jpg', TO_DATE('2025-12-31', 'YYYY-MM-DD'),
-       '½Ì½ÌÇÑ °¨ÀÚÀÔ´Ï´Ù', 'Ã¤¼Ò')
+    values(product_seq.nextval, 'ê°ì', 'Team3', 3000, 4, 'product-IMG/ê°ì.jpg', TO_DATE('2025-12-31', 'YYYY-MM-DD'),
+       'ì‹±ì‹±í•œ ê°ìì…ë‹ˆë‹¤', 'ì±„ì†Œ')
 select * from dual;
 
 
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '²É°¥ºñ»ì', 'Team3', 15000, 5, 'product-IMG/²É°¥ºñ»ì.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ²É°¥ºñ»ì!', 'Á¤À°');         
+    values(product_seq.nextval, 'ê½ƒê°ˆë¹„ì‚´', 'Team3', 15000, 5, 'product-IMG/ê½ƒê°ˆë¹„ì‚´.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ê½ƒê°ˆë¹„ì‚´!', 'ì •ìœ¡');         
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '»ìÄ¡»ì', 'Team3', 15000, 5, 'product-IMG/»ìÄ¡»ì.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº »ìÄ¡»ì!', 'Á¤À°');         
+    values(product_seq.nextval, 'ì‚´ì¹˜ì‚´', 'Team3', 15000, 5, 'product-IMG/ì‚´ì¹˜ì‚´.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì‚´ì¹˜ì‚´!', 'ì •ìœ¡');         
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, 'µî½É', 'Team3', 15000, 5, 'product-IMG/µî½É.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº µî½É!', 'Á¤À°');          
+    values(product_seq.nextval, 'ë“±ì‹¬', 'Team3', 15000, 5, 'product-IMG/ë“±ì‹¬.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ë“±ì‹¬!', 'ì •ìœ¡');          
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¾È½É', 'Team3', 15000, 5, 'product-IMG/¾È½É.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¾È½É!', 'Á¤À°');       
+    values(product_seq.nextval, 'ì•ˆì‹¬', 'Team3', 15000, 5, 'product-IMG/ì•ˆì‹¬.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì•ˆì‹¬!', 'ì •ìœ¡');       
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¿Í±Ô', 'Team3', 15000, 5, 'product-IMG/¿Í±Ô.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¿Í±Ô!', 'Á¤À°');           
+    values(product_seq.nextval, 'ì™€ê·œ', 'Team3', 15000, 5, 'product-IMG/ì™€ê·œ.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì™€ê·œ!', 'ì •ìœ¡');           
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '´ß', 'Team3', 15000, 5, 'product-IMG/´ß.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ´ß!', 'Á¤À°');    
+    values(product_seq.nextval, 'ë‹­', 'Team3', 15000, 5, 'product-IMG/ë‹­.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ë‹­!', 'ì •ìœ¡');    
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '´Ş°¿', 'Team3', 15000, 5, 'product-IMG/´Ş°¿.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ´Ş°¿!', 'Á¤À°');
+    values(product_seq.nextval, 'ë‹¬ê±€', 'Team3', 15000, 5, 'product-IMG/ë‹¬ê±€.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ë‹¬ê±€!', 'ì •ìœ¡');
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¾ç³ä¼ÒºÒ°í±â', 'Team3', 15000, 5, 'product-IMG/¾ç³ä¼ÒºÒ°í±â.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¾ç³ä¼ÒºÒ°í±â!', 'Á¤À°');
+    values(product_seq.nextval, 'ì–‘ë…ì†Œë¶ˆê³ ê¸°', 'Team3', 15000, 5, 'product-IMG/ì–‘ë…ì†Œë¶ˆê³ ê¸°.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì–‘ë…ì†Œë¶ˆê³ ê¸°!', 'ì •ìœ¡');
 
 
 insert into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¿¬¾îÇÊ·¿', 'Team3', 15000, 5, 'product-IMG/¿¬¾îÇÊ·¿.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¿¬¾îÇÊ·¿!', '¼ö»ê');
+    values(product_seq.nextval, 'ì—°ì–´í•„ë ›', 'Team3', 15000, 5, 'product-IMG/ì—°ì–´í•„ë ›.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì—°ì–´í•„ë ›!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, 'Å°Á¶°³', 'Team3', 15000, 5, 'product-IMG/Å°Á¶°³.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº Å°Á¶°³!', '¼ö»ê');
+    values(product_seq.nextval, 'í‚¤ì¡°ê°œ', 'Team3', 15000, 5, 'product-IMG/í‚¤ì¡°ê°œ.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ í‚¤ì¡°ê°œ!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¿ÀÂ¡¾î', 'Team3', 15000, 5, 'product-IMG/¿ÀÂ¡¾î.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¿ÀÂ¡¾î!', '¼ö»ê');
+    values(product_seq.nextval, 'ì˜¤ì§•ì–´', 'Team3', 15000, 5, 'product-IMG/ì˜¤ì§•ì–´.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ì˜¤ì§•ì–´!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '¹æ¾î', 'Team3', 15000, 5, 'product-IMG/¹æ¾î.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ¹æ¾î!', '¼ö»ê');
+    values(product_seq.nextval, 'ë°©ì–´', 'Team3', 15000, 5, 'product-IMG/ë°©ì–´.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ë°©ì–´!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '³«Áö', 'Team3', 15000, 5, 'product-IMG/³«Áö.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº ³«Áö!', '¼ö»ê');
+    values(product_seq.nextval, 'ë‚™ì§€', 'Team3', 15000, 5, 'product-IMG/ë‚™ì§€.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ë‚™ì§€!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '°íµî¾î', 'Team3', 15000, 5, 'product-IMG/°íµî¾î.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº °íµî¾î!', '¼ö»ê');
+    values(product_seq.nextval, 'ê³ ë“±ì–´', 'Team3', 15000, 5, 'product-IMG/ê³ ë“±ì–´.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ê³ ë“±ì–´!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '°¥Ä¡', 'Team3', 15000, 5, 'product-IMG/°¥Ä¡.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº °¥Ä¡!', '¼ö»ê');
+    values(product_seq.nextval, 'ê°ˆì¹˜', 'Team3', 15000, 5, 'product-IMG/ê°ˆì¹˜.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ê°ˆì¹˜!', 'ìˆ˜ì‚°');
 insert    into tbl_product(product_no, product_name, product_seller, product_price, product_score,
                      product_image, expiration_date, product_about, maincategory)
-    values(product_seq.nextval, '°¡ÀÚ¹Ì', 'Team3', 15000, 5, 'product-IMG/°¡ÀÚ¹Ì.jpg',
-           TO_DATE('2025-12-31', 'YYYY-MM-DD'), '¸Àµµ Àâ°í ¾çµµ ÀâÀº °¡ÀÚ¹Ì!', '¼ö»ê');
+    values(product_seq.nextval, 'ê°€ìë¯¸', 'Team3', 15000, 5, 'product-IMG/ê°€ìë¯¸.jpg',
+           TO_DATE('2025-12-31', 'YYYY-MM-DD'), 'ë§›ë„ ì¡ê³  ì–‘ë„ ì¡ì€ ê°€ìë¯¸!', 'ìˆ˜ì‚°');
 
 
 commit;
+

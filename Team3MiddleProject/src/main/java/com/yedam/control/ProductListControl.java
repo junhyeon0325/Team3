@@ -44,6 +44,8 @@ public class ProductListControl implements Control {
         
         int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        
+        List<ProductVO> lowestProduct = prdService.getLowestPriceProducts();
 
         req.setAttribute("productList", productList);
         req.setAttribute("currentPage", page);
@@ -53,25 +55,11 @@ public class ProductListControl implements Control {
         req.setAttribute("vegetableCnt", vegetableCnt);
         req.setAttribute("meatCnt", meatCnt);
         req.setAttribute("fishCnt", fishCnt);
+        req.setAttribute("lowestProduct", lowestProduct);
+        
+        
 
         req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
         
     }
 }
-
-
-		
-		
-		
-		
-
-		//상품리스트
-		/*ProductListService prd = new ProductListServiceImpl();
-		List<ProductVO> productList = prd.getProductList();
-		
-		req.setAttribute("productList", productList);
-		
-		req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
-		*/
-	
-

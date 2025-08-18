@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 
@@ -63,27 +64,29 @@
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
 												<a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>vegetable</a>
+													<i class="fas fa-apple-alt me-2"></i>Vegetable</a>
 												<span>(${vegetableCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
 												<a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>meat</a>
+													<i class="fas fa-apple-alt me-2"></i>Meat</a>
 												<span>(${meatCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
 												<a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>fish</a>
+													<i class="fas fa-apple-alt me-2"></i>Fish</a>
 												<span>(${fishCnt })</span>
 											</div>
 										</li>
 									</ul>
 								</div>
 							</div>
+							
+							
 							<div class="col-lg-12">
 								<div class="mb-3">
 									<h4 class="mb-2">가격</h4>
@@ -92,71 +95,37 @@
 									<output id="amount" name="amount" for="rangeInput">0</output>
 								</div>
 							</div>
+							
+							
 							<div class="col-lg-12">
-								<h4 class="mb-3">인기 상품</h4>
-								<div class="d-flex align-items-center justify-content-start">
-									<div class="rounded me-4" style="width: 100px; height: 100px;">
-										<img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
-									</div>
-									<div>
-										<h6 class="mb-2">Big Banana</h6>
-										<div class="d-flex mb-2">
-											<i class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
-										</div>
-										<div class="d-flex mb-2">
-											<h5 class="fw-bold me-2">2.99 $</h5>
-											<h5 class="text-danger text-decoration-line-through">4.11
-												$</h5>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex align-items-center justify-content-start">
-									<div class="rounded me-4" style="width: 100px; height: 100px;">
-										<img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-									</div>
-									<div>
-										<h6 class="mb-2">Big Banana</h6>
-										<div class="d-flex mb-2">
-											<i class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
-										</div>
-										<div class="d-flex mb-2">
-											<h5 class="fw-bold me-2">2.99 $</h5>
-											<h5 class="text-danger text-decoration-line-through">4.11
-												$</h5>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex align-items-center justify-content-start">
-									<div class="rounded me-4" style="width: 100px; height: 100px;">
-										<img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-									</div>
-									<div>
-										<h6 class="mb-2">Big Banana</h6>
-										<div class="d-flex mb-2">
-											<i class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i
-												class="fa fa-star text-secondary"></i> <i class="fa fa-star"></i>
-										</div>
-										<div class="d-flex mb-2">
-											<h5 class="fw-bold me-2">2.99 $</h5>
-											<h5 class="text-danger text-decoration-line-through">4.11
-												$</h5>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex justify-content-center my-4">
-									<a href="#"
-										class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
-										More</a>
-								</div>
+								<h4 class="mb-3">최저가 상품</h4>
+										<c:forEach var="lowest" items="${lowestProduct }">
+											<div class="d-flex align-items-center justify-content-start">
+												<div class="rounded me-4" style="width: 110px; height: 110px; padding=5px;">
+													<img src="${lowest.productImage }" class="img-fluid rounded" style="width: 100px; height: 100px; padding=5px;" alt="">
+												</div>
+												<div>
+														<h6 class="mb-2">${lowest.productName }</h6>
+														<div class="d-flex mb-2">
+															<i class="fa fa-star text-secondary"></i>
+															<i class="fa fa-star text-secondary"></i>
+															<i class="fa fa-star text-secondary"></i>
+															<i class="fa fa-star text-secondary"></i>
+															<i class="fa fa-star"></i>
+														</div>
+														<div class="d-flex mb-2">
+															<h5 class="fw-bold me-2">${lowest.productPrice }원</h5>
+														</div>
+												</div>
+											</div>
+										</c:forEach>
+											<div class="d-flex justify-content-center my-4">
+												<a href="productList.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+											</div>
 							</div>
+															<!-- <h5 class="text-danger text-decoration-line-through">4.11원</h5> -->
+							
+							
 							<div class="col-lg-12">
 								<div class="position-relative">
 									<img src="img/banner-fruits.jpg"
@@ -207,13 +176,13 @@
 							<div class="col-12">
 								<div class="pagination d-flex justify-content-center mt-5">
 									<c:if test="${currentPage > 1}">
-									<a href="productList.do?page=${currentPage - 1}" class="rounded">&laquo;</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}" class="rounded">&laquo;</a>
 									</c:if>
 									<c:forEach begin="1" end="${totalPages}" var="i">
-									<a href="productList.do?page=${i}"class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${i}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 									</c:forEach>
 									<c:if test="${currentPage < totalPages}">
-									<a href="productList.do?page=${currentPage + 1}" class="rounded">&raquo;</a>
+									<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}" class="rounded">&raquo;</a>
 									</c:if>
 								</div>
 							</div>

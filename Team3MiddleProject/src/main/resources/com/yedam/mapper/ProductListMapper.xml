@@ -30,4 +30,10 @@
     </select>
 
 
+	<select id="getLowestPriceProducts" resultType="product">
+		SELECT *
+		FROM tbl_product
+		ORDER BY product_price
+		FETCH FIRST 3 ROWS ONLY
+	</select>
 </mapper>
