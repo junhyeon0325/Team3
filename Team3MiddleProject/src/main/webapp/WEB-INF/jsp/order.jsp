@@ -197,13 +197,14 @@
 </div>
 <!-- Checkout Page End -->
 
+<script src="js/order.js"></script>
 <!-- sdk추가 -->
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script>
 	console.log();
 	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm' // 상점을 특정하는 키
 	const customerKey = 'iVp36p5X5bUygP_hjr3e3' // 결제 고객을 특정하는 키
-	const amount = ${cp.productPrice} // 결제 금액
+	const amount = totalOrderPrice // 결제 금액
 	const couponAmount = 5000 // 할인할금액(이거 우리조는 적립금하면 될듯)
 
 	/*결제위젯 영역 렌더링*/
@@ -251,7 +252,6 @@
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="js/order.js"></script>
 <script>
 	// 우편번호 찾기 찾기 화면을 넣을 element
 	var element_wrap = document.getElementById('wrap');
