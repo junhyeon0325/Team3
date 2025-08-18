@@ -8,17 +8,17 @@
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-	<h1 class="text-center text-white display-6">식품관</h1>
+	<h1 class="text-center text-white display-6">냉동식품관</h1>
 	<ol class="breadcrumb justify-content-center mb-0">
 	                                                                           <!-- 버튼 이벤트 li가 아니라 a태그에 적용해야 되는거였음 -->   
 		<li class="breadcrumb-item">
-		  <a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">채소</a>
+		  <a href="frozenProductList.do?maincategory=냉동볶음밥" class="${currentCategory eq '냉동볶음밥' ? 'active text-white bg-secondary rounded px-2' : ''}">냉동볶음밥</a>
 		</li>
 		<li class="breadcrumb-item">
-		  <a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">정육</a>
+		  <a href="frozenProductList.do?maincategory=냉동과일" class="${currentCategory eq '냉동과일' ? 'active text-white bg-secondary rounded px-2' : ''}">냉동과일</a>
 		</li>
 		<li class="breadcrumb-item">
-		  <a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">수산</a>
+		  <a href="frozenProductList.do?maincategory=튀김류" class="${currentCategory eq '튀김류' ? 'active text-white bg-secondary rounded px-2' : ''}">튀김류</a>
 		</li>
 	</ol>
 </div>
@@ -28,7 +28,7 @@
 <!-- Fruits Shop Start-->
 <div class="container-fluid fruite py-5">
 	<div class="container py-5">
-		<h1 class="mb-4">Fresh foods shop</h1>
+		<h1 class="mb-4">Frozen foods shop</h1>
 		<div class="row g-4">
 			<div class="col-lg-12">
 				<div class="row g-4">
@@ -64,23 +64,23 @@
 									<ul class="list-unstyled fruite-categorie">
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>Vegetable</a>
-												<span>(${vegetableCnt })</span>
+												<a href="frozenProductList.do?maincategory=냉동볶음밥" class="${currentCategory eq '냉동볶음밥' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Frozen Rice</a>
+												<span>(${riceCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>Meat</a>
-												<span>(${meatCnt })</span>
+												<a href="frozenProductList.do?maincategory=냉동과일" class="${currentCategory eq '냉동과일' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Frozen Fruit</a>
+												<span>(${fruitCnt })</span>
 											</div>
 										</li>
 										<li>
 											<div class="d-flex justify-content-between fruite-name">
-												<a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">
-													<i class="fas fa-apple-alt me-2"></i>Fish</a>
-												<span>(${fishCnt })</span>
+												<a href="frozenProductList.do?maincategory=튀김류" class="${currentCategory eq '튀김류' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Fried</a>
+												<span>(${friedCnt })</span>
 											</div>
 										</li>
 									</ul>
@@ -109,7 +109,7 @@
 							
 							<div class="col-lg-12">
 								<h4 class="mb-3">최저가 상품</h4>
-										<c:forEach var="lowest" items="${lowestProduct }">
+										<c:forEach var="lowest" items="${lowestFrozenProduct }">
 											<div class="d-flex align-items-center justify-content-start">
 												<div class="rounded me-4" style="width: 110px; height: 110px; padding=5px;">
 													<img src="${lowest.productImage }" class="img-fluid rounded" style="width: 100px; height: 100px; padding=5px;" alt="">
@@ -143,7 +143,7 @@
 									<div class="position-absolute"
 										style="top: 50%; right: 10px; transform: translateY(-50%);">
 										<h3 class="text-secondary fw-bold">
-											Fresh <br> Foods <br> Banner
+											Frozen <br> Foods <br> Banner
 										</h3>
 									</div>
 								</div>
@@ -184,13 +184,13 @@
 					<div class="col-12">
 						<div class="pagination d-flex justify-content-center mt-5">
 							<c:if test="${currentPage > 1}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
+							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
 							</c:if>
 							<c:forEach begin="1" end="${totalPages}" var="i">
-							<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 							</c:forEach>
 							<c:if test="${currentPage < totalPages}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
+							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
 							</c:if>
 						</div>
 					</div>

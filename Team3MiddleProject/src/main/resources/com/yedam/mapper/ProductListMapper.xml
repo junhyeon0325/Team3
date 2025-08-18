@@ -13,6 +13,11 @@
             FROM (SELECT *
                   FROM tbl_product
                   WHERE maincategory = #{maincategory}
+         ]]>
+                    <if test="maxPrice != null">
+			          AND product_price &lt;= #{maxPrice}
+			        </if>
+		<![CDATA[
                   ORDER BY
                   	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
                 	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC
@@ -33,6 +38,16 @@
 	<select id="getLowestPriceProducts" resultType="product">
 		SELECT *
 		FROM tbl_product
+		ORDER BY product_price
+		FETCH FIRST 3 ROWS ONLY
+	</select>
+	
+	<select id="getLowestPriceFrozenProducts" resultType="product">
+		SELECT *
+		FROM tbl_product
+		where maincategory='냉동볶음밥'
+		   or maincategory='냉동과일'
+		   or maincategory='튀김류'
 		ORDER BY product_price
 		FETCH FIRST 3 ROWS ONLY
 	</select>

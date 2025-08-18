@@ -13,10 +13,10 @@ public class ProductListServiceImpl implements ProductListService{
 	ProductListMapper mapper = sqlsession.getMapper(ProductListMapper.class);
 	
 	@Override
-	public List<ProductVO> getProductList(int page, int pageSize, String sort, String maincategory)
+	public List<ProductVO> getProductList(int page, int pageSize, String sort, String maincategory, Integer maxPrice)
 	{
 		int startRow = (page - 1) * pageSize;
-        return mapper.selectProductList(startRow,pageSize, sort, maincategory);
+        return mapper.selectProductList(startRow, pageSize, sort, maincategory, maxPrice);
 	}
 	
 	@Override
@@ -29,6 +29,12 @@ public class ProductListServiceImpl implements ProductListService{
 	public List<ProductVO> getLowestPriceProducts()
 	{
 		return mapper.getLowestPriceProducts();
+	}
+
+	@Override
+	public List<ProductVO> getLowestPriceFrozenProducts()
+	{
+		return mapper.getLowestPriceFrozenProducts();
 	}
 
 }

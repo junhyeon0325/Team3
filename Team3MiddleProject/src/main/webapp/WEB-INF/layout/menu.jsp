@@ -25,11 +25,13 @@
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 				<span class="fa fa-bars text-primary"></span>
 			</button>
+			
+			
 			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 				<div class="navbar-nav mx-auto">
-					<a href="productList.do?maincategory=채소" class="nav-item nav-link active">식품관</a> <a
-						href="productList.do?maincategory=정육·가공육·달걀" class="nav-item nav-link">냉동식품관</a> <a
-						href="productList.do?maincategory=수산·해산·건어물" class="nav-item nav-link">미정</a>
+					<a href="productList.do?maincategory=채소" class="nav-item nav-link ${param.maincategory == '채소' ? 'active' : ''}">식품관</a>
+    				<a href="frozenProductList.do?maincategory=냉동볶음밥"  class="nav-item nav-link ${param.maincategory == '냉동볶음밥' ? 'active' : ''}">냉동식품관</a>
+					<a href="productList.do?maincategory=수산·해산·건어물" class="nav-item nav-link ${param.maincategory == '수산·해산·건어물' ? 'active' : ''}">미정</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown">이벤트</a>
