@@ -37,4 +37,9 @@ public class ProductListServiceImpl implements ProductListService{
 		return mapper.getLowestPriceFrozenProducts();
 	}
 
+	@Override
+	public List<ProductVO> selectAllProducts() {
+		return mapper.selectAllProducts();
+	}
+
 }

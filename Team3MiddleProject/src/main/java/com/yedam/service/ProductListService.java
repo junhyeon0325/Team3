@@ -9,4 +9,5 @@ public interface ProductListService {
     int getTotalProductCount(String maincategory);
     List<ProductVO> getLowestPriceProducts();
     List<ProductVO> getLowestPriceFrozenProducts();
+    List<ProductVO> selectAllProducts();
 }
