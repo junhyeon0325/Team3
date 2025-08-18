@@ -60,6 +60,56 @@ function updateTotal() {
 }// end function
 updateTotal();
 
+
+
+// order.js 파일의 기존 updateTotal() 함수 호출 아래에 추가합니다.
+
+// TODO: 'YOUR_CLIENT_KEY'를 실제 토스페이먼츠 클라이언트 키로 변경하세요.
+const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+const customerKey = 'en4-UGNlgbLPI0ZkpBOXo'; // 고객을 식별하는 값, 고유한 값으로 생성해야 합니다.
+let amount = Number(document.querySelector('.totalOrderPrice').innerHTML.replace(/,/g, "").slice(0, -1));
+
+// 결제 위젯 렌더링
+const paymentWidget = PaymentWidget(clientKey, customerKey);
+
+const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+  '#payment-method',
+  { value: amount }
+);
+
+paymentWidget.renderAgreement('#agreement');
+
+// 결제하기 버튼 클릭 이벤트
+document.getElementById('payment-button').addEventListener('click', function() {
+  // 결제 정보 업데이트 (결제 금액이 바뀔 수 있으므로 버튼 클릭 시점에 다시 가져옵니다.)
+  amount = Number(document.querySelector('.totalOrderPrice').innerHTML.replace(/,/g, "").slice(0, -1));
+  paymentMethodsWidget.updateAmount(amount);
+
+  // 결제 요청
+  paymentWidget.requestPayment({
+    orderId: 'T' + new Date().getTime(), // 주문 ID, 고유한 값으로 생성해야 합니다.
+    orderName: 'Fruitables 상품', // 주문명, 여러 상품일 경우 대표 상품명으로 지정합니다.
+    successUrl: window.location.origin + '/success.jsp', // 결제 성공 시 리다이렉트될 URL
+    failUrl: window.location.origin + '/fail.jsp', // 결제 실패 시 리다이렉트될 URL
+  });
+});
+
+// 기존의 updateTotal() 함수 내에서 결제 금액이 변경될 때마다 결제 위젯 금액을 업데이트합니다.
+// updateTotal() 함수 끝 부분에 다음 코드를 추가하세요.
+function updateTotal() {
+  // ... (기존 코드)
+
+  // 결제 금액이 변경될 때마다 결제 위젯의 금액도 업데이트
+  const finalAmount = cartProductTotalPrice - document.querySelector('.orderPointInput').value;
+  document.querySelector('.totalOrderPrice').innerHTML = finalAmount.toLocaleString() + '원';
+  
+  if (paymentMethodsWidget) {
+    paymentMethodsWidget.updateAmount(finalAmount);
+  }
+}
+
+
+
 // 상품할인 취소선 및 태그위치변경
 document.querySelectorAll('.cart').forEach(elem => {
 	const p1 = elem.querySelector('.orderProductPrice');	// 상품가격

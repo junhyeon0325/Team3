@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> <%-- 이 줄을 추가합니다. --%>
+
 <style>
 .divone {
 	background-color: #F3F5F7;
@@ -195,51 +197,49 @@
 </div>
 <!-- Checkout Page End -->
 
-<script src="js/order.js"></script>
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
-<!-- sdk추가 -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-	
-	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm'; // 상점을 특정하는 키
-	const customerKey = 'iVp36p5X5bUygP_hjr3e3'; // 결제 고객을 특정하는 키
-	
-	//let amount = 14000; // 결제 금액
-	let amount = document.querySelector('.totalOrderPrice').innerText;
-	amount = parseInt(amount.replace(/,/g, ""));
-	
-	//let couponAmount = 2000; // 할인할금액(이거 우리조는 적립금하면 될듯)
-	let couponAmount = 0;
-	document.addEventListener('input', (e) => {
-		couponAmount = document.querySelector('.orderPointInput').value;
-		paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
-	});
+    // 결제 금액을 동적으로 가져오는 코드
+    // order.js 파일에 있는 updateTotal() 함수가 먼저 실행되어 'totalOrderPrice'가 올바르게 설정된 후에 이 코드가 실행되어야 합니다.
+    const totalOrderPriceElement = document.querySelector('.totalOrderPrice');
+    const totalOrderPriceText = totalOrderPriceElement.innerText;
+    const amount = Number(totalOrderPriceText.replace(/[^0-9]/g, ''));
 
-	/*결제위젯 영역 렌더링*/
-	const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제 초기화
-	paymentMethods = paymentWidget.renderPaymentMethods('#payment-method', amount)
-	/*약관 영역 렌더링*/
-	const paymentAgreement = paymentWidget.renderAgreement('#agreement')
-	// 결제부분
-	document.querySelector("#payment-button").addEventListener("click",()=>{
-	   		paymentWidget.requestPayment({
-		    	orderId: new Date().getTime(),
-		    	orderName: '토스 티셔츠 외 2건',
-		    	successUrl: 'http://localhost:80/Team3MiddleProject/success.jsp',
-		    	failUrl: 'http://localhost:80/Team3MiddleProject/fail.jsp',
-		    	customerEmail: 'customer123@gmail.com', 
-		    	customerName: '김토스'
-	    	}).catch(function (error) {
-		    	if (error.code === 'USER_CANCEL') {
-		    	// 결제 고객이 결제창을 닫았을 때 에러 처리
-		    	} if (error.code === 'INVALID_CARD_COMPANY') {
-	            // 유효하지 않은 카드 코드에 대한 에러 처리
-          	}
-      	})  
-  	})
+    // 1. 토스페이먼츠 클라이언트 키를 입력하세요.
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    
+    // 2. 결제 위젯을 초기화합니다.
+    const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
+    
+    // 3. 결제 수단 영역을 렌더링합니다.
+    paymentWidget.renderPaymentMethods('#payment-method', { value: amount }, { variantKey: "DEFAULT" });
+    
+    // 4. 이용 약관 영역을 렌더링합니다.
+    paymentWidget.renderAgreement('#agreement', { variantKey: "DEFAULT" });
+    
+    // 5. 결제 버튼 클릭 시 결제를 요청합니다.
+    document.getElementById("payment-button").addEventListener("click", function() {
+        const orderId = new Date().getTime().toString();
+        const orderName = "상품명 외 1건";
 
-});
+        paymentWidget.requestPayment({
+            orderId: orderId,
+            orderName: orderName,
+            customerName: "${om.memberName}",
+            successUrl: window.location.origin + "/Team3MiddleProject/payment/success",
+            failUrl: window.location.origin + "/Team3MiddleProject/payment/fail",
+        });
+    });
 </script>
+
+
+
+
+
+<script src="js/order.js"></script>
+
+
+
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

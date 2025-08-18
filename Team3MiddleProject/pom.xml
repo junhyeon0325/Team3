@@ -64,9 +64,9 @@
 
 	<!-- https://tiles.apache.org/download.html -->
 	<dependency>
-		<groupId>org.apache.tiles</groupId>
-		<artifactId>tiles-extras</artifactId>
-		<version>3.0.8</version>
+    	<groupId>org.apache.tiles</groupId>
+    	<artifactId>tiles-extras</artifactId>
+    	<version>3.0.8</version>
 	</dependency>
 	<dependency>
 		<groupId>org.apache.tiles</groupId>
@@ -90,6 +90,11 @@
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
     </dependency>
+    <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.17.0</version>
+</dependency>
 	
   </dependencies>
   
