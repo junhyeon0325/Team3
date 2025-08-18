@@ -1,22 +1,43 @@
--- °áÁ¦Á¤º¸ Å×ÀÌºí Á¶È¸ >> ?
-select *
-from   payment_tbl;
-
--- °áÁ¦Á¤º¸ Å×ÀÌºí >> ?
-create table payment_tbl (
-    pay_code        number       constraint pk_payment_code primary key,
-    odr_code        number       not null,
-    pay_method      varchar2(30) not null,
-    pay_date        date         default sysdate,
-    pay_tot_price   number       not null,
-    pay_rest_price  number       not null,
-    pay_nobank_user varchar2(20) null,
-    pay_nobank      varchar2(20) null
+-- °áÁ¦ ¿Ï·á ÈÄ »ý¼ºµÇ´Â ÁÖ¹®µ¥ÀÌÅÍ »ó¼¼ Å×ÀÌºí(¼ö·®)
+create table tbl_order_items(
+    order_item_no number primary key,
+    product_pcs number not null,
+    product_no number not null,
+    /*order_no number not null  --> ï¿½Ö¹ï¿½ ï¿½ó¼¼°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½È£ primary key ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿?
+    foreign keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼? ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ È®ï¿½ï¿½*/
+    
+    constraint fk_items_product
+    foreign key(product_no)
+    references tbl_product(product_no)
+    on delete cascade
+    
+    /*constraint fk_items_order
+    foreign key(order_no)
+    references tbl_order(order_no)
+    on delete cascade*/
 );
 
--- °áÁ¦Á¤º¸Å×ÀÌºí pay_code½ÃÄö½º ¹øÈ£ ¸Å±â±â >> ?
-create sequence seq_payment_code;
-commit;
+-- °áÁ¦ ¿Ï·áÈÄ »ý¼ºµÇ´Â ÁÖ¹®µ¥ÀÌÅÍ Å×ÀÌºí
+create table tbl_order(
+    order_no number primary key,
+    order_address varchar2(100) not null,
+    used_point number default 0 not null, -- default ï¿½ï¿½ 0
+    order_date date default sysdate,      -- default ï¿½ï¿½ sysdate
+    order_price number not null,
+    order_request varchar2(100),          -- ï¿½ï¿½ï¿½ï¿½
+    member_no number not null,
+    product_no number not null,
+    
+    constraint fk_order_member
+    foreign key(member_no)
+    references tbl_member(member_no),
+    --on delete cascade   -->ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    
+    constraint fk_order_product
+    foreign key(product_no)
+    references tbl_product(product_no)
+);
+
 
 -- ÁÖ¹®/°áÁ¦¿¡ ÇÊ¿äÇÑ È¸¿øÁ¤º¸ °¡Á®¿À±â
 select member_no,
@@ -125,7 +146,12 @@ INSERT ALL
     INTO tbl_member VALUES (1, 'ÀåÁØÇö', 'jjh', 'qwer1234', '01026104902', 'jjh990325@gmail.com', '19990325', '°æ»óºÏµµ °æ»ê½Ã ÇÏ¾çÀ¾ ÇÏ¾ç·Î 29', '³²', 100)
     INTO tbl_member VALUES (2, 'È«±æµ¿', 'hgd', 'qwer1234', '01027156901', 'hhd942325@gmail.com', '20001201', '°æ»óºÏµµ °æ»ê½Ã ÇÏ¾çÀ¾ ÇÏ¾ç·Î 01', '¿©', 150)
     INTO tbl_member VALUES (3, '°­±æµ¿', 'ggd', 'qwer1234', '01027556811', 'ghd922525@gmail.com', '19901201', '°æ»óºÏµµ °æ»ê½Ã ÇÏ¾çÀ¾ ÇÏ¾ç·Î 12', '³²', 10)
-SELECT * FROM dual;   
+SELECT * FROM dual;
+
+update tbl_member
+   set point = 10000
+where  member_no = 1;
+
 
 -- »óÇ° µ¥ÀÌÅÍ µî·Ï
 INSERT ALL

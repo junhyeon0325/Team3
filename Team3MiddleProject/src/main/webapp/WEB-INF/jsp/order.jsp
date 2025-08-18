@@ -108,7 +108,7 @@
 							</form>
 							<div>
 								<input class="form-control orderPointInput"
-									placeholder="사용할금액을 입력해주세요" value=""  disabled></input>
+									placeholder="사용할금액을 입력해주세요" value=""></input>
 							</div>
 						</div>
 					</div>
@@ -181,8 +181,6 @@
 							</tbody>
 						</table>
 					</div>
-					
-					
 					<div id="payment-method"></div> <!-- 결제위젯 영역 렌더링 -->
 					<div id="agreement"></div> <!-- 약관 영역 렌더링 -->
 					<div class="row g-4 text-center align-items-center justify-content-center pt-4">
@@ -198,56 +196,51 @@
 <!-- Checkout Page End -->
 
 <script src="js/order.js"></script>
-<!-- sdk추가 -->
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<!-- sdk추가 -->
 <script>
-	console.log();
-	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm' // 상점을 특정하는 키
-	const customerKey = 'iVp36p5X5bUygP_hjr3e3' // 결제 고객을 특정하는 키
-	const amount = totalOrderPrice // 결제 금액
-	const couponAmount = 5000 // 할인할금액(이거 우리조는 적립금하면 될듯)
+document.addEventListener('DOMContentLoaded', function() {
+	
+	const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm'; // 상점을 특정하는 키
+	const customerKey = 'iVp36p5X5bUygP_hjr3e3'; // 결제 고객을 특정하는 키
+	
+	//let amount = 14000; // 결제 금액
+	let amount = document.querySelector('.totalOrderPrice').innerText;
+	amount = parseInt(amount.replace(/,/g, ""));
+	
+	//let couponAmount = 2000; // 할인할금액(이거 우리조는 적립금하면 될듯)
+	let couponAmount = 0;
+	document.addEventListener('input', (e) => {
+		couponAmount = document.querySelector('.orderPointInput').value;
+		paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
+	});
 
 	/*결제위젯 영역 렌더링*/
 	const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제 초기화
-	// const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제 초기화
 	paymentMethods = paymentWidget.renderPaymentMethods('#payment-method', amount)
-
 	/*약관 영역 렌더링*/
 	const paymentAgreement = paymentWidget.renderAgreement('#agreement')
-	
+	// 결제부분
 	document.querySelector("#payment-button").addEventListener("click",()=>{
-			
-		    paymentWidget.requestPayment({
-		    	orderId: "ORDER-" + new Date().getTime(),
+		console.log('amount' + amount);
+		console.log('couponAmount' + couponAmount);
+	   		paymentWidget.requestPayment({
+		    	orderId: new Date().getTime(),
 		    	orderName: '토스 티셔츠 외 2건',
 		    	successUrl: 'http://localhost:80/Team3MiddleProject/success.do',
 		    	failUrl: 'http://localhost:80/Team3MiddleProject/fail.do',
 		    	customerEmail: 'customer123@gmail.com', 
 		    	customerName: '김토스'
-		    }).catch(function (error) {
+	    	}).catch(function (error) {
 		    	if (error.code === 'USER_CANCEL') {
 		    	// 결제 고객이 결제창을 닫았을 때 에러 처리
 		    	} if (error.code === 'INVALID_CARD_COMPANY') {
 	            // 유효하지 않은 카드 코드에 대한 에러 처리
-	          }
-	      })  
-	  })
-	console.log(paymentWidget.requestPayment);
-	document.querySelector("#coupon").addEventListener("click", applyDiscount);
-	console.log(amount - couponAmount)
+          	}
+      	})  
+  	})
 
- function applyDiscount(e) {
-  if (e.target.checked) {
-    paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
-    document.querySelector('.orderPointInput').disabled = false;
-  } else {
-    paymentMethods.updateAmount(amount);
-    document.querySelector('.orderPointInput').disabled = true;
-    document.querySelector('.orderPointInput').value = '';
-    document.querySelector('#couponAmount').innerHTML = '';
-    document.querySelector('.totalOrderPrice').innerHTML = document.querySelector('.totalCartPrice').innerHTML.toLocaleString();
-  }
- } 
+});
 </script>
 
 <script

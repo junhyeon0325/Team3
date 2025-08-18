@@ -1,6 +1,8 @@
 /**
  * order.js
  */
+
+
 function updateTotal() {
 	// 상품 가격 초기화
 	let cartProductTotalPrice = 0;
@@ -36,7 +38,7 @@ function updateTotal() {
 		elem.querySelector('.productSale').innerHTML = price.toLocaleString() + '원';
 		elem.querySelector('.ordertotalPrice').innerHTML = (price * pcs).toLocaleString() + '원';	// 수량에 따라 가격 변화를 태그에 넣기 총가격
 		cartProductTotalPrice = cartProductTotalPrice + (price * pcs);	// 모든 상품의 가격을 구하기 위한 계산식
-
+		
 	})
 
 	console.log(document.querySelectorAll('.cart'));
@@ -53,18 +55,19 @@ function updateTotal() {
 	//document.querySelector('.totalCartPriceButton').innerHTML = (cartProductTotalPrice).toLocaleString() + '원 주문하기';	// 결제버튼
 	document.querySelector('.totalCartPrice').innerHTML = (cartProductTotalPrice).toLocaleString() + '원';	// 결제 예정 금액
 	document.querySelector('.totalOrderPrice').innerHTML = (cartProductTotalPrice - document.querySelector('.orderPointInput').value).toLocaleString() + '원';	// 결제금액
-	//document.querySelector('#couponAmount').innerHTML = document.querySelector('.orderPointInput').value;
+	console.log(cartProductTotalPrice - document.querySelector('.orderPointInput').value);
+	console.log(document.querySelector('.orderPointInput').value);
 }// end function
 updateTotal();
 
+// 상품할인 취소선 및 태그위치변경
 document.querySelectorAll('.cart').forEach(elem => {
-
 	const p1 = elem.querySelector('.orderProductPrice');	// 상품가격
-	console.log(p1);
+	//console.log(p1);
 	const p2 = elem.querySelector('.productSale');	// 상품할인된 가격
 	const p3 = elem.querySelector('.productSalePercent');	// 할인퍼센트
 	const container = elem.querySelector('.ordertd');	// 위에 태그들의 부모태그
-	console.log(elem.querySelector('.productSalePercent').innerHTML.slice(0,-1));
+	//console.log(elem.querySelector('.productSalePercent').innerHTML.slice(0,-1));
 	// sale부분 원레가격에 취소선 만들고 새로운 가격 찍기
 	if ((elem.querySelector('.productSalePercent').innerHTML.slice(0,-1)) > 0) {
 		addStrikethrough(p1);	// 기존 가격 취소선 추가
@@ -84,15 +87,14 @@ document.addEventListener('input', (e) => {
 		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
 		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
 		console.log('포인트' + point);
-		//paymentMethods.updateAmount(amount - couponAmount, "쿠폰");
 		if (Number(input.value) < 0) {
 			input.value = 0;
 		} else if (Number(input.value) > point){	// 현재 가지고 있는 포인트 값보다 크지 않게
-			input.value = point;
-			
+			input.value = 0;
+			alert('현재 포인트값보다 큽니다 다시적어주세요.');
 		}
-		updateTotal();
-	}
+		updateTotal();	
+	}	
 })
 
 function addStrikethrough(element) {
