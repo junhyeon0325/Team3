@@ -40,5 +40,4 @@ document.addEventListener('click', (e) => {
         updateStars();
     }
 });
-
 updateStars();

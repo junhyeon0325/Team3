@@ -201,46 +201,39 @@
 							</div>
 						</div>
 					</div>
-					<form action="#">
-						<h4 class="mb-5 fw-bold">리뷰 남기기</h4>
+					<div class="review-box">
+					<h4 class="mb-5 fw-bold">리뷰 남기기</h4>
+					<form id="reviewForm" action="#">
 						<div class="row g-4">
-							<div class="col-lg-6">
+							<div class="col-lg-2">
 								<div class="border-bottom rounded">
-									<input type="text" class="form-control border-0 me-4"
-										placeholder="Yur Name *">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="border-bottom rounded">
-									<input type="email" class="form-control border-0"
-										placeholder="Your Email *">
+									<input type="text" id= "writer" value= "<%-- ${sessionScope.member_name} --%>woong" class="form-control border-0 me-4" readonly>
 								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="border-bottom rounded my-4">
-									<textarea name="" id="" class="form-control border-0" cols="30"
-										rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+									<textarea name="reviewContent" id="reviewContent" class="form-control border-0" cols="30"
+										rows="8" placeholder="리뷰를 등록하세요." spellcheck="false"></textarea>
 								</div>
 							</div>
 							<div class="col-lg-12">
 								<div class="d-flex justify-content-between py-3 mb-5">
 									<div class="d-flex align-items-center">
-										<p class="mb-0 me-3">Please rate:</p>
-									  <div class="d-flex align-items-center rating" style="font-size: 20px; gap: 2px">
-   										 <i class="fa-regular fa-star text-muted"></i>
- 									     <i class="fa-regular fa-star text-muted"></i>
-   										 <i class="fa-regular fa-star text-muted"></i>
-   										 <i class="fa-regular fa-star text-muted"></i>
-   										 <i class="fa-regular fa-star text-muted"></i>
-									  </div>
+										<p class="mb-0 me-3">별점:</p>
+										  <div class="d-flex align-items-center rating" style="font-size: 20px; gap: 2px">
+   											 <i class="fa-regular fa-star text-muted"></i>
+ 										     <i class="fa-regular fa-star text-muted"></i>
+   											 <i class="fa-regular fa-star text-muted"></i>
+   											 <i class="fa-regular fa-star text-muted"></i>
+   											 <i class="fa-regular fa-star text-muted"></i>
+										  </div>
+										</div>
+										<button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3">등록</button>
 									</div>
-									<a href="#"
-										class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-										Post Comment</a>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-xl-3">
