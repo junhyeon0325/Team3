@@ -350,6 +350,19 @@
     position: relative;
 }
 
+.rating i {
+    display: inline-block;
+    width: 1em;       /* 모든 별 동일한 너비 */
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.rating i.fa-star,
+.rating i.fa-star-half-stroke {
+    font-size: 20px;  /* 고정 크기 */
+}
+
 .vesitable .owl-nav .owl-prev {
     position: absolute;
     top: -8px;

@@ -12,6 +12,7 @@
 					class="text-white">Email@Example.com</a></small>
 			</div>
 			<div class="top-link pe-2">
+
 				<a href=""
 					onclick="document.getElementById('id01').style.display='block'"
 					class="text-white"> <small class="text-white mx-2">Login</small>/
@@ -24,16 +25,16 @@
 						<div class="imgcontainer">
 							<span
 								onclick="document.getElementById('id01').style.display='none'"
-								class="close" title="Close Modal">&times;</span> <img
-								src="http://www.w3schools.com/howto/img_avatar2.png"
+								class="close" title="Close Modal">&times;</span> 
+								<img src="http://www.w3schools.com/howto/img_avatar2.png"
 								alt="Avatar" class="avatar">
 						</div>
 		<!--  login 클릭 시 뜨는 modal화면 ㅁ -->
 						<div class="container">
 							<label for="uname"><b>Username</b></label> <input type="text"
-								placeholder="Enter Username" name="uname" required> <label
+								placeholder="Enter Username" name="id" required> <label
 								for="psw"><b>Password</b></label> <input type="password"
-								placeholder="Enter Password" name="psw" required>
+								placeholder="Enter Password" name="pw" required>
 
 							<button type="submit">Login</button>
 							<label> <input type="checkbox" checked="checked"
@@ -53,33 +54,38 @@
 
 				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
 				<a href="#" class="text-white"><small class="text-white ms-2">고객센터</small></a>
+=======
+				<a href="#" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
+				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
+				<a href="#" class="text-white"><small class="text-white ms-2">게시판</small></a>
+
 			</div>
 		</div>
 	</div>
 	<div class="container px-0">
 		<nav class="navbar navbar-light bg-white navbar-expand-xl">
-			<a href="index.html" class="navbar-brand"><h1
-					class="text-primary display-6">Fruitables</h1></a>
+			<a href="main.do" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
 			<button class="navbar-toggler py-2 px-3" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
 				<span class="fa fa-bars text-primary"></span>
 			</button>
 			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 				<div class="navbar-nav mx-auto">
-					<a href="index.html" class="nav-item nav-link active">Home</a> <a
-						href="shop.html" class="nav-item nav-link">Shop</a> <a
-						href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+					<a href="productList.do?maincategory=채소" class="nav-item nav-link active">식품관</a> <a
+						href="productList.do?maincategory=정육·가공육·달걀" class="nav-item nav-link">미정</a> <a
+						href="productList.do?maincategory=수산·해산·건어물" class="nav-item nav-link">미정</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">Pages</a>
+							data-bs-toggle="dropdown">이벤트</a>
 						<div class="dropdown-menu m-0 bg-secondary rounded-0">
-							<a href="cart.html" class="dropdown-item">Cart</a> <a
-								href="chackout.html" class="dropdown-item">Chackout</a> <a
-								href="testimonial.html" class="dropdown-item">Testimonial</a> <a
-								href="404.html" class="dropdown-item">404 Page</a>
+							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a> <a
+								href="chackout.html" class="dropdown-item">임박 상품 특가</a> <a
+								href="testimonial.html" class="dropdown-item">미정</a> <a
+								href="404.html" class="dropdown-item">미정</a>
 						</div>
 					</div>
-					<a href="contact.html" class="nav-item nav-link">Contact</a>
+					<a href="contact.html" class="nav-item nav-link">게시판</a>
+					<a href="./contact.html" class="nav-item nav-link">Contact</a>
 				</div>
 				<div class="d-flex m-3 me-0">
 					<button
@@ -106,8 +112,7 @@
 	<div class="modal-dialog modal-fullscreen">
 		<div class="modal-content rounded-0">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Search by
-					keyword</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>

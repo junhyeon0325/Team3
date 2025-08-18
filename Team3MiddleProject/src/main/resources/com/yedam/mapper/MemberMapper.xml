@@ -9,11 +9,11 @@
 								member_pwd, member_phone, member_email,
 								member_birth,member_address, member_gender)
 			values            (#{memberNo}, #{memberName}, #{memberId},
-							   #{memberPwd), #{memberPhone}, #{membereEmail},
+							   #{memberPwd}, #{memberPhone}, #{memberEmail},
 							   #{memberBirth},#{memberAddress}, #{memberGender})
 	</insert>
 	
-	<select id="selectMember" parameterType="string" resultType="member">
+	<select id="selectMember" resultType="com.yedam.vo.MemberVO">
 		select *
 		from tbl_member
 		where member_id = #{id}

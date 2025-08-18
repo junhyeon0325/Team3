@@ -17,8 +17,8 @@ public class LoginControl implements Control {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// param : uname, psw
-		String id = req.getParameter("uname");
-		String pw = req.getParameter("psw");
+		String id = req.getParameter("id");
+		String pw = req.getParameter("pw");
 		
 		// DB 처리
 		MemberService svc = new MemberServiceImpl();
@@ -26,14 +26,14 @@ public class LoginControl implements Control {
 
 		//세션정보활용
 		if (member == null) {
-			
+			resp.sendRedirect("loginForm.do");
 		} else {
 			// 세션을 활용하여 정보저장
 			// 정상적으로 id, pw를 입력했다는 의미
 			HttpSession session = req.getSession();	//쿠키정보를 확인해서 session객체를 만들어줌
 			session.setAttribute("logId", id);	// logid라는 속성 = 로그인아이디
 			session.setAttribute("auth", member.getGetResponsibility());  // user / 관리자
-			resp.sendRedirect("login.do");
+			resp.sendRedirect("main.do");
 		}
 	}
 

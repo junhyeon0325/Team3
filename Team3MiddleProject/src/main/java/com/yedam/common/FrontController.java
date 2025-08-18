@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
+import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.MainControl;
+import com.yedam.control.ProductListControl;
+import com.yedam.control.ProductSelectControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -26,6 +29,11 @@ public class FrontController extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
 		//map.put("/login.do", new LoginFormControl());
+
+		map.put("/productList.do", new ProductListControl());
+		map.put("/detailPage.do", new DetailSelectcontrol());
+		map.put("/productSelect.do", new ProductSelectControl());
+		map.put("/login.do", new LoginControl());
 	}
 	
 	@Override
