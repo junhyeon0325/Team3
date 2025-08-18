@@ -11,6 +11,7 @@
       <li class="breadcrumb-item"><a href="#">Home</a></li>
     </ol>
  </div>
+ 
 <title>회원가입</title>
 <style>
 .container h1 {
@@ -33,7 +34,8 @@ label {
 
 /* 입력창 스타일 */
 input[type=text], input[type=password] {
-  width: 100%;
+  text-align: center;
+  width: 40%;
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
@@ -53,7 +55,7 @@ input[type=text], input[type=password] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 48%;
+  width: 20%;
   font-size: 16px;
 }
 

@@ -13,7 +13,7 @@
 			</div>
 			<div class="top-link pe-2">
 
-				<a href=""
+				<a href="#"
 					onclick="document.getElementById('id01').style.display='block'"
 					class="text-white"> <small class="text-white mx-2">Login</small>/
 				</a>
@@ -31,10 +31,10 @@
 						</div>
 		<!--  login 클릭 시 뜨는 modal화면 ㅁ -->
 						<div class="container">
-							<label for="uname"><b>Username</b></label> <input type="text"
-								placeholder="Enter Username" name="" required> <label
-								for="psw"><b>Password</b></label> <input type="password"
-								placeholder="Enter Password" name="pw" required>
+							<label for="uname"><b>Username</b></label> 
+							<input type="text" placeholder="ID를 입력하세요" name="id" required> 
+							<label for="pwd"><b>Password</b></label> 
+							<input type="password" placeholder="비밀번호를 입력하세요" name="pwd" required>
 
 							<button type="submit">Login</button>
 							<label> <input type="checkbox" checked="checked"

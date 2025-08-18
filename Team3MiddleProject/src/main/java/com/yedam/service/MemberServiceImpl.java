@@ -22,8 +22,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public MemberVO userCheck(String id, String pw) {
-		return mapper.selectMember(id, pw);
+	public MemberVO userCheck(String id, String pwd) {
+		return mapper.selectMember(id, pwd);
 	}
 	
 	

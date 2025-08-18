@@ -6,5 +6,5 @@ import com.yedam.vo.MemberVO;
 
 public interface MemberService {
 	public boolean insertMember(MemberVO member);
-	public MemberVO userCheck(String id, String pw);
+	public MemberVO userCheck(String id, String pwd);
 }
