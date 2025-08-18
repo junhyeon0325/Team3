@@ -13,7 +13,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public boolean addReview(ReviewVO review) {
 		int r = mapper.authorityReview(review);
 		if (r > 0) {
-			mapper.insertReivew(review);
+			mapper.insertReview(review);
 			sqlSession.commit();
 			return true;
 		}
