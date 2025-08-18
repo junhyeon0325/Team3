@@ -1,24 +1,24 @@
 package com.yedam.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class SearchVO {
-	private int id;
-	private String description;
-	private int categoryId;
-	private Date createdAt;
-	
+public class CartProductVO {
 	private int productNo;
 	private String productName;
 	private String productSeller;
 	private int productPrice;
-	private String maincategory;
 	private String subcategory;
 	private int productScore;
 	private String productImage;
 	private String productAbout;
-	private int expiration_date;
+	private String expirationDate;
+	private int cartNo;
+	private int productPcs;
+	private int memberNo;
+	private int point;
+	private int eventNo;
+	private double sale;
 }

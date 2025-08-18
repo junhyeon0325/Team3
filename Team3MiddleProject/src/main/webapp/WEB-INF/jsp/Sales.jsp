@@ -2,17 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-
-
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-	<h1 class="text-center text-white display-6">식품관</h1>
+	<h1 class="text-center text-white display-6">오늘의 할인 이벤트</h1>
 	<ol class="breadcrumb justify-content-center mb-0">
 		<li class="breadcrumb-item active text-white"><a href="productList.do?subcategoty=고구마·감자·당근">채소</a></li>
 		<li class="breadcrumb-item"><a href="#">정육</a></li>
 		<li class="breadcrumb-item active text-white">수산</li>
-		<li class="breadcrumb-item"><a href="#">미정</a></li>
 	</ol>
 </div>
 <!-- Single Page Header End -->
@@ -21,7 +17,7 @@
 <!-- Fruits Shop Start-->
 <div class="container-fluid fruite py-5">
 	<div class="container py-5">
-		<h1 class="mb-4">Fresh foods shop</h1>
+		<h1 class="mb-4">Today Sales List</h1>
 		<div class="row g-4">
 			<div class="col-lg-12">
 				<div class="row g-4">
@@ -219,6 +215,7 @@
 										<p>${product.productDesc }</p>
 										<div class="d-flex justify-content-between flex-lg-wrap" align= "center">
 											<p class="text-dark fs-5 fw-bold mb-0">${product.productPrice }원 / kg
+											<p class="text-dark fs-5 fw-bold mb-0">${sales.salesPrice }원 / kg
 											<a href="#"
 												class="btn border border-secondary rounded-pill px-3 text-primary"><i
 												class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a></p>

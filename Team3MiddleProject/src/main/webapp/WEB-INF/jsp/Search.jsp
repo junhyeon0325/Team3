@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
-
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Search</title>
+</head>
+<body>
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -203,31 +207,37 @@
 						<div class="row g-4 justify-content-center">
 						
 						<!-- 메인 반복 -->
-						<c:forEach var = "product" items = "${productList }">
-							<div class="col-md-6 col-lg-6 col-xl-4">
-								<div class="rounded position-relative fruite-item">
-									<div class="fruite-img">
-									<a href="detailPage.do?productNo=${product.productNo}">
-										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt=""></a>
-									</div>
-									<div
-										class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-										style="top: 10px; left: 10px;">vegetable</div>
-									<div
-										class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
-										<h4>${product.productName }</h4>
-										<p>${product.productDesc }</p>
-										<div class="d-flex justify-content-between flex-lg-wrap" align= "center">
-											<p class="text-dark fs-5 fw-bold mb-0">${product.productPrice }원 / kg
-											<a href="#"
-												class="btn border border-secondary rounded-pill px-3 text-primary"><i
-												class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a></p>
+								<c:forEach var="product" items="${results}">
+									<div class="col-md-6 col-lg-6 col-xl-4">
+										<div class="rounded position-relative fruite-item">
+											<div class="fruite-img">
+												<a href="detailPage.do?productNo=${product.productNo}">
+													<img src="${product.productImage}"
+													class="img-fluid w-100 rounded-top"
+													style="height: 200px; object-fit: cover;" alt="">
+												</a>
+											</div>
+											<div
+												class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+												style="top: 10px; left: 10px;">${product.category}</div>
+											<div
+												class="p-4 border border-secondary border-top-0 rounded-bottom"
+												align="center">
+												<h4>${product.productName}</h4>
+												<p>${product.productDesc}</p>
+												<div class="d-flex justify-content-between flex-lg-wrap">
+													<p class="text-dark fs-5 fw-bold mb-0">${product.productPrice}원
+														/ kg</p>
+													<a href="#"
+														class="btn border border-secondary rounded-pill px-3 text-primary">
+														<i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기
+													</a>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							</c:forEach>
-							<!-- 메인 반복 끝 -->
+								</c:forEach>
+								<!-- 메인 반복 끝 -->
 							
 
 							
@@ -249,3 +259,11 @@
 	</div>
 </div>
 <!-- Fruits Shop End-->
+
+	<h2>검색 결과</h2>
+	<c:forEach var="item" items="${results}">
+    <p>${item}</p>
+	</c:forEach>
+
+</body>
+</html>
