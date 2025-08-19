@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.CartListControl;
+import com.yedam.control.CheckIdControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.LoginControl;
@@ -39,6 +40,7 @@ public class FrontController extends HttpServlet{
 		map.put("/signup.do", new SignUpControl());
 		map.put("/loginForm.do", new LoginControl());
 		map.put("/signForm.do", new SignFormControl());
+		map.put("/checkId.do", new CheckIdControl());
 		
 		map.put("/productList.do", new ProductListControl());
 		map.put("/detailPage.do", new DetailSelectcontrol());
@@ -68,4 +70,3 @@ public class FrontController extends HttpServlet{
 		sub.execute(req, resp);
 	}
 }
-

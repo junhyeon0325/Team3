@@ -8,4 +8,6 @@ public interface MemberMapper {
 	public int insertMember(MemberVO member);	// 회원등록
 	public MemberVO selectMember(@Param("id") String id, @Param("pwd") String pwd);		//회원조회
 		//파라미터가 2개이상이면 class만들어줘도 좋음
+	public int checkId(String id);
+	public int updateMember(MemberVO vo);
 }

@@ -15,5 +15,6 @@ public class MemberVO {
 	private String memberGender;
 	
 	private String getResponsibility;
-	
+
+
 }

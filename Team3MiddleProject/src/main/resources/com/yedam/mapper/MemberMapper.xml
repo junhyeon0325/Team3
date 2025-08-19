@@ -19,4 +19,18 @@
 		where member_id = #{id}
 		and member_pwd = #{pwd}
 	</select>
+
+
+<update id="updateMember" parameterType="com.yedam.vo.MemberVO">
+   UPDATE tbl_member
+     SET 	pwd = #{pwd},
+           name = #{name},
+           phone = #{phone},
+           gender = #{gender},
+           email = #{email},
+           birth = #{birth},
+           address = #{address}
+     WHERE id = #{id}
+</update>
+
 </mapper>

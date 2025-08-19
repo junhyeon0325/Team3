@@ -93,8 +93,6 @@ input[type=text], input[type=password] {
 </style>
 <script>
 
-const existingIds = ["user1", "admin", "testuser"]; 
-
 function checkPasswordMatch() {
     let pwd = document.getElementById("pwd").value;
     let pwdConfirm = document.getElementById("pwdConfirm").value;
@@ -119,18 +117,37 @@ function checkIdDuplicate() {
 
     if (userId.length > 0) {
         // AJAX를 사용해 서버에 요청
+        // 이 부분은 실제로 동작하는 서버 API가 있어야 합니다.
+        // 여기서는 임시로 'user1'과 'admin'을 중복 ID로 가정합니다.
+        const existingIds = ["user1", "admin", "testuser"];
+        
+        if (existingIds.includes(userId)) {
+            message.style.color = "red";
+            message.textContent = "같은 ID가 있습니다.";
+        } else {
+            message.style.color = "green";
+            message.textContent = "ID 등록이 가능합니다.";
+        }
+
+        // 실제 fetch를 사용하는 경우 (주석 해제 후 사용)
+        /*
         fetch("checkId.do?id=" + userId)
             .then(response => response.json())
             .then(data => {
                 if (data.isDuplicate) {
                     message.style.color = "red";
-                    message.textContent = "이미 사용 중인 아이디입니다.";
+                    message.textContent = "같은 ID가 있습니다.";
                 } else {
                     message.style.color = "green";
-                    message.textContent = "사용 가능한 아이디입니다.";
+                    message.textContent = "ID 등록이 가능합니다.";
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                message.style.color = "red";
+                message.textContent = "ID 중복 확인 중 오류가 발생했습니다.";
+            });
+        */
     } else {
         message.textContent = "";
     }
@@ -150,7 +167,10 @@ function checkIdDuplicate() {
         <hr>
         
         <label for="id">ID</label>
-        <input type="text" id="id" placeholder="아이디를 입력하세요" name="id" onblur="checkIdDuplicate()" required>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+          <input type="text" id="id" placeholder="아이디를 입력하세요" name="id" required>
+          <button type="button" onclick="checkIdDuplicate()">중복확인</button>
+        </div>
         <div id="idMessage"></div>
 
         <label for="pwd">Password</label>
@@ -193,4 +213,3 @@ function checkIdDuplicate() {
 </body>
 
 </html>
-
