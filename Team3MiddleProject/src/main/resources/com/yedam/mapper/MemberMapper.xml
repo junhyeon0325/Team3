@@ -7,10 +7,10 @@
 	<insert id = "insertMember" parameterType="member">
 		insert into  tbl_member (member_no, member_name, member_id, 
 								member_pwd, member_phone, member_email,
-								member_birth,member_address, member_gender)
-			values            (#{memberNo}, #{memberName}, #{memberId},
+								member_birth,member_address, member_gender, point)
+			values            (member_seq.nextval, #{memberName}, #{memberId},
 							   #{memberPwd}, #{memberPhone}, #{memberEmail},
-							   #{memberBirth},#{memberAddress}, #{memberGender})
+							   #{memberBirth},#{memberAddress}, #{memberGender}, 1000)
 	</insert>
 	
 	<select id="selectMember" parameterType="string" resultType="member">

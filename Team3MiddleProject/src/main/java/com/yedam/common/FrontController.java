@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.control.LoginControl;
-import com.yedam.control.LoginFormControl;
-import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.CartListControl;
+import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
+import com.yedam.control.LoginControl;
 import com.yedam.control.MainControl;
-import com.yedam.control.ProductListControl;
-import com.yedam.control.ProductSelectControl;
 import com.yedam.control.ModifyCartProductPcsControl;
 import com.yedam.control.OrderFormControl;
+import com.yedam.control.ProductListControl;
+import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
+import com.yedam.control.SignFormControl;
+import com.yedam.control.SignUpControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -35,13 +36,15 @@ public class FrontController extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
 		//map.put("/login.do", new LoginFormControl());
-
+		map.put("/signup.do", new SignUpControl());
+		map.put("/loginForm.do", new LoginControl());
+		map.put("/signForm.do", new SignFormControl());
+		
 		map.put("/productList.do", new ProductListControl());
 		map.put("/detailPage.do", new DetailSelectcontrol());
 		map.put("/review.do", new ReviewControl());
 		
 		map.put("/productSelect.do", new ProductSelectControl());
-		map.put("/loginForm.do", new LoginControl());
 		
 		// 장바구니
 		map.put("/cartlistform.do", new CartListControl());	// 장바구니 목록 출력

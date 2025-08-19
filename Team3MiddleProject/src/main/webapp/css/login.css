@@ -7,11 +7,13 @@ body {
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
-	width: 50%;
-	padding: 12px;
-	margin: 6px 0;
-	display: flex;
+.modal-style input[type=text],  
+.modal-style input[type=password] {
+	width: 80%;  /* 모달 가로의 80%만 차지 */
+	max-width: 400px; /* 너무 커지지 않게 제한 */
+	padding: 6px;
+	margin: 8px 0;
+	display: block;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 	text-align: center;
@@ -51,8 +53,8 @@ img.avatar {
 	border-radius: 50%;
 }
 
-.container {
-	padding: 12px;
+.jstyle {
+	padding: 8px;
     display: flex;
     flex-direction: column; /* 위에서 아래로 쌓기 */
     align-items: center;    /* 수평 가운데 정렬 */
@@ -80,11 +82,11 @@ span.psw {
 }
 
 /* Modal Content/Box */
-.modal-content {
+.modal-style {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 상하좌우 가운데 */
     border: 1px solid #888;
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +94,7 @@ span.psw {
 }
 
 /* The Close Button (x) */
-.close {
+.out {
 	position: absolute;
 	right: 25px;
 	top: 0;
@@ -101,12 +103,21 @@ span.psw {
 	font-weight: bold;
 }
 
-.close:hover, .close:focus {
+.out:hover, .out:focus {
 	color: red;
 	cursor: pointer;
 }
 
 /* Add Zoom Animation */
+/* Zoom 애니메이션 */
+.animate {
+  animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
@@ -114,7 +125,7 @@ span.psw {
 		display: block;
 		float: none;
 	}
-	.cancelbtn {
+	.outbtn {
 		width: 100%;
 	}
 }

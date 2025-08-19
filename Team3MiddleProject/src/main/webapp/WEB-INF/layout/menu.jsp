@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
 	<div class="container topbar bg-primary d-none d-lg-block">
@@ -13,43 +14,13 @@
 			</div>
 			<div class="top-link pe-2">
 
-				<a href="login_form.jsp"
+				<a href="#"
 					onclick="document.getElementById('id01').style.display='block'"
 					class="text-white"> <small class="text-white mx-2">Login</small>/
 				</a>
 
 
-				<div id="id01" class="modal">
-
-					<form class="modal-content animate" action="login.do" method="post">
-						<div class="imgcontainer">
-							<span
-								onclick="document.getElementById('id01').style.display='none'"
-								class="close" title="Close Modal">&times;</span> 
-								<img src="http://www.w3schools.com/howto/img_avatar2.png"
-								alt="Avatar" class="avatar">
-						</div>
-		<!--  login 클릭 시 뜨는 modal화면 ㅁ -->
-						<div class="container">
-							<label for="uname"><b>Username</b></label> 
-							<input type="text" placeholder="ID를 입력하세요" name="id" required> 
-							<label for="pwd"><b>Password</b></label> 
-							<input type="password" placeholder="비밀번호를 입력하세요" name="pwd" required>
-
-							<button type="submit">Login</button>
-							<label> <input type="checkbox" checked="checked"
-								name="remember"> 자동저장
-							</label>
-						</div>
-
-						<div class="container" style="background-color: #f1f1f1">
-							<button type="button"
-								onclick="document.getElementById('id01').style.display='none'"
-								class="cancelbtn">Cancel</button>
-							<span class="psw">Forgot <a href="#">password?</a></span>
-						</div>
-					</form>
-				</div>
+				<%@ include file="/WEB-INF/jsp/login_form.jsp" %>
 
 
 				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>

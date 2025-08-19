@@ -25,6 +25,9 @@
   color: #555;
 }
 
+.container  {
+text-align: center;
+}
 /* 라벨 */
 label {
   display: block;
@@ -44,9 +47,12 @@ input[type=text], input[type=password] {
 }
 
 /* 비밀번호 확인 메시지 */
-#pwdMessage {
+#pwdMessage, #idMessage {
   font-size: 14px;
   margin-top: 5px;
+}
+#idMessage {
+  text-align: center;
 }
 
 /* 버튼 스타일 */
@@ -80,11 +86,15 @@ input[type=text], input[type=password] {
 /* 버튼 컨테이너 */
 .clearfix {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   margin-top: 20px;
 }
 </style>
 <script>
+
+const existingIds = ["user1", "admin", "testuser"]; 
+
 function checkPasswordMatch() {
     let pwd = document.getElementById("pwd").value;
     let pwdConfirm = document.getElementById("pwdConfirm").value;
@@ -102,7 +112,31 @@ function checkPasswordMatch() {
         message.textContent = "";
     }
 }
+
+function checkIdDuplicate() {
+    let userId = document.getElementById("id").value;
+    let message = document.getElementById("idMessage");
+
+    if (userId.length > 0) {
+        // AJAX를 사용해 서버에 요청
+        fetch("checkId.do?id=" + userId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.isDuplicate) {
+                    message.style.color = "red";
+                    message.textContent = "이미 사용 중인 아이디입니다.";
+                } else {
+                    message.style.color = "green";
+                    message.textContent = "사용 가능한 아이디입니다.";
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        message.textContent = "";
+    }
+}
 </script>
+
 </head>
 <body>
 
@@ -116,7 +150,8 @@ function checkPasswordMatch() {
         <hr>
         
         <label for="id">ID</label>
-        <input type="text" placeholder="아이디를 입력하세요" name="id" required>
+        <input type="text" id="id" placeholder="아이디를 입력하세요" name="id" onblur="checkIdDuplicate()" required>
+        <div id="idMessage"></div>
 
         <label for="pwd">Password</label>
         <input type="password" id="pwd" placeholder="비밀번호를 입력하세요" name="pwd" required>
@@ -129,8 +164,7 @@ function checkPasswordMatch() {
         <input type="text" placeholder="실명을 입력하세요" name="name" required>
         
         <label for="phone">전화번호</label>
-        <input type="text" placeholder="숫자만 입력해주세요" name="phone" required>
-        
+        <input class="phonetest" type="tel" placeholder="숫자만 입력해주세요" name="phone" required>
         
         <label for="gender"><b>성별</b></label>
 			<div>
@@ -148,14 +182,15 @@ function checkPasswordMatch() {
         <input type="text" placeholder="주소를 입력하세요" name="address" required>
 
         <div class="clearfix">
-          <button type="button" onclick="history.back()" class="cancelbtn">취소</button>
+          <button type="button" onclick="location.href='singup_form.jsp'" class="cancelbtn">취소</button>
           <button type="submit" class="signupbtn">회원가입</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
 	
 </body>
+
 </html>
+
