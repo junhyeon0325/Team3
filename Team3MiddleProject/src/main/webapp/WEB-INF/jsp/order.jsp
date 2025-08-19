@@ -71,25 +71,9 @@
 								value="${om.memberPhone }">
 						</div>
 						<div class="form-item">
-							<br> <input
-								class="divonebtn btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
-								type="button" onclick="sample3_execDaumPostcode()"
-								value="우편번호 찾기"><br> <br>우편번호<br> <input
-								class="form-control" type="text" id="sample3_postcode"
-								value=""><br>주소<br> <input
-								class="form-control" type="text" id="sample3_address"
-								value="${om.memberAddress }"><br>상세주소 <input
-								class="form-control" type="text" id="sample3_detailAddress"
-								value=""><br>참고항목 <input
-								class="form-control" type="text" id="sample3_extraAddress"
-								value=""><br>
-							<div id="wrap"
-								style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
-								<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
-									id="btnFoldWrap"
-									style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
-									onclick="foldDaumPostcode()" alt="접기 버튼">
-							</div>
+							<br>주소*<input type="text" id="sample5_address" placeholder="주소" value="${om.memberAddress}" class="form-control"><br>
+							<input class="form-control" type="button" onclick="sample5_execDaumPostcode()" value="주소입력" ><br>
+							<div class="form-control" id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 						</div>
 						<div class="form-item">
 							<label class="form-label orderlabel">주문요청사항</label>
@@ -105,12 +89,12 @@
 								<span>사용가능금액</span><span class="orderpoint">${cp_list[0].point}원</span>
 							</div>
 							<br>
-							<form id="discount-coupon">
-								<input type="checkbox" id="coupon"></input> 쿠폰사용하실려면 체크박스를 눌러서 활성화 해주세요.<span id="couponAmount"></span>
-							</form>
+							<div> <%--form 태그를 div로 변경 --%>
+								<input type="checkbox" id="usePointCheckbox"></input> 적립금을 사용하시려면 체크박스를 눌러 활성화해주세요. <span id="currentUsedPoint" style="font-weight: bold; color: green;">0원</span> <%-- 🌟 수정: id 추가, 사용금액 표시 span 추가 --%>
+							</div>
 							<div>
-								<input class="form-control orderPointInput"
-									placeholder="사용할금액을 입력해주세요" value=""></input>
+								<input class="form-control" id="pointInput" <%-- id 추가 --%>
+									placeholder="사용할 금액을 입력해주세요" value="0" disabled></input> <%--value="0", disabled 추가 --%>
 							</div>
 						</div>
 					</div>
@@ -196,108 +180,120 @@
 	</div>
 </div>
 <!-- Checkout Page End -->
-<script src="js/order.js"></script>
+<script src="js/order.js"></script> <%-- order.js는 총 상품 금액(할인 적용 후, 적립금 사용 전)을 계산합니다. --%>
 
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script>
-    // 결제 금액을 동적으로 가져오는 코드
-    // order.js 파일에 있는 updateTotal() 함수가 먼저 실행되어 'totalOrderPrice'가 올바르게 설정된 후에 이 코드가 실행되어야 합니다.
+    // 결제 금액 관련 DOM 요소
     const totalOrderPriceElement = document.querySelector('.totalOrderPrice');
-    const totalOrderPriceText = totalOrderPriceElement.innerText;
-    const amount = Number(totalOrderPriceText.replace(/[^0-9]/g, ''));
-
-    // 1. 토스페이먼츠 클라이언트 키를 입력하세요.
-    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
     
+    // 적립금 관련 DOM 요소 (HTML 변경에 맞춰 ID 수정)
+    const usePointCheckbox = document.getElementById('usePointCheckbox'); 
+    const pointInput = document.getElementById('pointInput');             
+    const currentUsedPointSpan = document.getElementById('currentUsedPoint'); 
+    const availablePoint = Number("${om.point}"); 
+
+    // 최종 결제 금액을 업데이트하고 결제 위젯에 반영하는 함수
+    function updateFinalPaymentAmount() {
+        // order.js의 updateTotal() 함수가 먼저 실행된 후, totalCartPrice가 업데이트된 상태에서 시작합니다.
+        const currentCalculatedTotalPrice = Number(document.querySelector('.totalCartPrice').innerText.replace(/[^0-9]/g, ''));
+        const originalTotalOrderPrice = currentCalculatedTotalPrice; // 적립금 사용 전 순수 총 결제 금액을 여기서 가져옵니다.
+
+        let usedPoint = 0;
+        if (usePointCheckbox.checked) {
+            let inputPoint = Number(pointInput.value.replace(/[^0-9]/g, '')); 
+
+            // 1. 입력된 적립금이 사용 가능 금액을 초과하는지 체크
+            if (inputPoint > availablePoint) {
+                inputPoint = availablePoint; 
+                pointInput.value = inputPoint; 
+                alert("사용 가능한 적립금을 초과했습니다. 최대 " + availablePoint.toLocaleString() + "원까지 사용할 수 있습니다.");
+            }
+
+            // 2. 최종 결제 금액이 0원 미만이 되는 것을 방지 (결제 금액보다 적립금이 많은 경우)
+            if (originalTotalOrderPrice - inputPoint < 0) {
+                inputPoint = originalTotalOrderPrice; // 결제 금액만큼만 사용
+                pointInput.value = inputPoint;
+                if (originalTotalOrderPrice > 0) { 
+                    alert("결제 금액보다 많은 적립금을 사용할 수 없습니다. 최대 " + originalTotalOrderPrice.toLocaleString() + "원까지 사용할 수 있습니다.");
+                }
+            }
+            usedPoint = inputPoint;
+
+        } else { // 체크박스가 해제된 경우
+            usedPoint = 0;
+            pointInput.value = 0; // 입력 필드도 0으로 초기화
+        }
+
+        const finalAmount = originalTotalOrderPrice - usedPoint;
+        currentUsedPointSpan.innerText = usedPoint.toLocaleString() + '원'; // 사용 금액 화면 업데이트
+        
+        // 화면에 표시되는 '결제금액' (totalOrderPrice) 업데이트
+        totalOrderPriceElement.innerText = finalAmount.toLocaleString() + '원';
+        
+        // paymentWidget이 정의되었고 updatePaymentMethods 함수가 존재하는지 확인 후 호출
+        if (typeof paymentWidget !== 'undefined' && typeof paymentWidget.updatePaymentMethods === 'function') {
+            paymentWidget.updatePaymentMethods({ value: finalAmount });
+        } else {
+            console.warn("결제 위젯이 아직 초기화되지 않았거나 'updatePaymentMethods' 함수를 찾을 수 없습니다.");
+        }
+    }
+    
+    // 1. 토스페이먼츠 클라이언트 키를 입력하세요.
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; 
+
     // 2. 결제 위젯을 초기화합니다.
     const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
     
-    // 3. 결제 수단 영역을 렌더링합니다.
-    paymentWidget.renderPaymentMethods('#payment-method', { value: amount }, { variantKey: "DEFAULT" });
-    
-    // 4. 이용 약관 영역을 렌더링합니다.
-    paymentWidget.renderAgreement('#agreement', { variantKey: "DEFAULT" });
-    
-    // 5. 결제 버튼 클릭 시 결제를 요청합니다.
-    document.getElementById("payment-button").addEventListener("click", function() {
-        // 1. 주문/결제 화면에서 사용자 입력 데이터 가져오기
-        const orderAddress = document.getElementById("sample3_address").value;
-        const orderDetailAddress = document.getElementById("sample3_detailAddress").value;
-        const orderRequest = document.querySelector('textarea[name="text"]').value;
-        const usedPoint = Number(document.querySelector('.orderPointInput').value);
-        // memberNo는 JSP에서 서버로부터 받아서 사용할 수 있도록 ${om.memberNo}와 같이 가져와야 합니다.
-        // 또는 세션에 이미 저장되어 있다고 가정하고 서버에서 꺼내도 됩니다.
-        const memberNo = "${om.memberNo}"; // JSP에서 memberNo 가져오는 예시
-
-        // 2. 임시 저장할 데이터 객체 생성
-        const temporaryOrderData = {
-            orderAddress: orderAddress,
-            orderDetailAddress: orderDetailAddress,
-            orderRequest: orderRequest,
-            usedPoint: usedPoint,
-            // memberNo는 서버에서 세션에서 가져오는게 더 안전합니다.
-        };
-
-        // 3. AJAX 요청으로 서버에 임시 주문 정보 저장
-        fetch(window.location.origin + "/Team3MiddleProject/saveTemporaryOrderData.do", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(temporaryOrderData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                console.log("임시 주문 정보 서버에 저장 성공:", data.message);
-                // 4. 임시 저장 성공 후, Toss Payments Widget 호출
-                const orderId = new Date().getTime().toString();
-                const orderName = "상품명 외 1건"; // 실제 상품명으로 변경
-
-                paymentWidget.requestPayment({
-                    orderId: orderId,
-                    orderName: orderName,
-                    customerName: "${om.memberName}",
-                    successUrl: window.location.origin + "/Team3MiddleProject/paymentSuccess.do",
-                    failUrl: window.location.origin + "/Team3MiddleProject/paymentFail.do",
-                });
-            } else {
-                alert("주문 정보를 저장하는 데 실패했습니다. 다시 시도해 주세요.");
-                console.error("임시 주문 정보 저장 실패:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error saving temporary order data:", error);
-            alert("주문 정보를 저장하는 중 오류가 발생했습니다.");
-        });
-    });
-</script>
-
-<script>
-    document.getElementById("payment-button").addEventListener("click", function() {
-        // 1. 주문/결제 화면에서 사용자 입력 데이터 가져오기 (주소 필드 값 확인)
-        const postcode = document.getElementById("sample3_postcode").value; // 우편번호
-        const address = document.getElementById("sample3_address").value;     // 기본 주소
-        const detailAddress = document.getElementById("sample3_detailAddress").value; // 상세 주소
-        // const extraAddress = document.getElementById("sample3_extraAddress").value; // 참고 항목 (필요시 사용)
-
-        const orderRequest = document.querySelector('textarea[name="text"]').value;
-        const usedPoint = Number(document.querySelector('.orderPointInput').value);
+    // 3. 페이지 로드 시 초기 설정
+    document.addEventListener('DOMContentLoaded', function() {
+        // order.js의 updateTotal() 함수가 정의되었는지 확인하고 호출 (총 주문금액 계산)
+        if (typeof updateTotal === 'function') { 
+            updateTotal(); 
+        } else {
+            console.warn("order.js의 updateTotal() 함수가 정의되지 않았습니다. 총 금액 계산 로직을 확인하세요.");
+        }
         
-        // memberNo는 서버(OrderFormControl)에서 세션에 저장했으므로, 여기서 가져올 필요 없음.
-        // cartList도 서버(OrderFormControl)에서 세션에 저장했으므로, 여기서 가져올 필요 없음.
+        // 초기 결제 위젯 렌더링 (totalCartPrice를 기반으로 초기 금액 설정)
+        const initialAmount = Number(document.querySelector('.totalCartPrice').innerText.replace(/[^0-9]/g, ''));
+        paymentWidget.renderPaymentMethods('#payment-method', { value: initialAmount }, { variantKey: "DEFAULT" });
+        paymentWidget.renderAgreement('#agreement', { variantKey: "DEFAULT" });
+        
+        // 🌟 오류 수정: paymentWidget 렌더링 완료 후 적립금 로직 초기 상태 설정 및 최종 금액 업데이트 호출을 지연
+        // 지연 시간을 100ms에서 500ms로 늘려봅니다.
+        setTimeout(() => {
+            pointInput.disabled = !usePointCheckbox.checked; // 체크박스 상태에 따라 활성화/비활성화
+            updateFinalPaymentAmount(); // 적립금 초기 상태 반영 (0원 사용)
+        }, 500); // 🌟 수정: 짧은 지연 시간 (500ms로 증가)
+    });
 
-        // 2. 임시 저장할 데이터 객체 생성: 주소 필드 값들을 여기에 포함
+    // 4. 적립금 체크박스 및 입력 필드 이벤트 리스너
+    usePointCheckbox.addEventListener('change', function() {
+        pointInput.disabled = !this.checked; // 체크박스 상태에 따라 활성화/비활성화
+        updateFinalPaymentAmount(); // 체크박스 변경 시 최종 금액 업데이트
+    });
+
+    pointInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, ''); // 숫자만 입력되도록 강제
+        updateFinalPaymentAmount(); // 입력 필드 값 변경 시 최종 금액 업데이트
+    });
+
+    // 5. 결제 버튼 클릭 시 결제 요청
+    document.getElementById("payment-button").addEventListener("click", function() {
+        const orderAddress = document.getElementById("sample5_address").value; 
+        const orderRequest = document.querySelector('textarea[name="text"]').value;
+        
+        let usedPoint = 0;
+        if (usePointCheckbox.checked) { 
+            usedPoint = Number(pointInput.value);
+        }
+        
         const temporaryOrderData = {
-            postcode: postcode,           // 우편번호
-            orderAddress: address,        // 기본 주소
-            orderDetailAddress: detailAddress, // 상세 주소
-            // extraAddress: extraAddress, // 필요시 추가
+            orderAddress: orderAddress, 
             orderRequest: orderRequest,
-            usedPoint: usedPoint
+            usedPoint: usedPoint 
         };
-
-        // 3. AJAX 요청으로 서버에 임시 주문 정보 저장
+        
         fetch(window.location.origin + "/Team3MiddleProject/saveTemporaryOrderData.do", {
             method: "POST",
             headers: {
@@ -305,114 +301,98 @@
             },
             body: JSON.stringify(temporaryOrderData),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) { 
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.status === "success") {
                 console.log("임시 주문 정보 서버에 저장 성공:", data.message);
-                // 4. 임시 저장 성공 후, Toss Payments Widget 호출
-                const orderId = new Date().getTime().toString();
-                const orderName = "상품명 외 1건"; // 실제 상품명으로 변경
+                
+                const finalAmountForToss = Number(totalOrderPriceElement.innerText.replace(/[^0-9]/g, ''));
 
-                // customerName은 OrderMemberVO에서 가져온 ${om.memberName} 사용
                 paymentWidget.requestPayment({
-                    orderId: orderId,
-                    orderName: orderName,
-                    customerName: "${om.memberName}", 
+                    orderId: new Date().getTime().toString(), 
+                    orderName: "상품명 외 1건", 
+                    customerName: "${om.memberName}",
+                    amount: finalAmountForToss, 
                     successUrl: window.location.origin + "/Team3MiddleProject/paymentSuccess.do",
                     failUrl: window.location.origin + "/Team3MiddleProject/paymentFail.do",
                 });
             } else {
-                alert("주문 정보를 저장하는 데 실패했습니다. 다시 시도해 주세요.");
-                console.error("임시 주문 정보 저장 실패:", data.message);
+                alert("주문 정보를 저장하는 데 실패했습니다.");
             }
         })
         .catch(error => {
             console.error("Error saving temporary order data:", error);
-            alert("주문 정보를 저장하는 중 오류가 발생했습니다. 자세한 내용은 콘솔을 확인해주세요.");
+            alert("주문 처리 중 오류가 발생했습니다.");
         });
     });
 </script>
 
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Kakao Map API 스크립트 (유지) -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c1ef6149adfa2169a2a57b60f170c60&libraries=services"></script>
 <script>
-	// 우편번호 찾기 찾기 화면을 넣을 element
-	var element_wrap = document.getElementById('wrap');
+// 전역 변수로 선언합니다. (유지)
+var mapContainer, map, geocoder, marker;
 
-	function foldDaumPostcode() {
-		// iframe을 넣은 element를 안보이게 한다.
-		element_wrap.style.display = 'none';
-	}
+// 페이지 로딩이 완료되면 이 코드가 실행됩니다. (유지)
+window.onload = function() {
+    mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
 
-	function sample3_execDaumPostcode() {
-		// 현재 scroll 위치를 저장해놓는다.
-		var currentScroll = Math.max(document.body.scrollTop,
-				document.documentElement.scrollTop);
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-						// 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    //지도를 미리 생성
+    map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.537187, 127.005476),
+        map: map
+    });
+};
 
-						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						var addr = ''; // 주소 변수
-						var extraAddr = ''; // 참고항목 변수
+// 🌟 오류 수정: daum.Postcode가 로드될 때까지 기다리는 로직 강화
+// setTimeout 지연 시간을 200ms에서 500ms로 늘려봅니다.
+function sample5_execDaumPostcode() {
+    if (typeof daum === 'undefined' || typeof daum.Postcode === 'undefined') {
+        console.warn("daum.Postcode 스크립트가 아직 로드되지 않았습니다. 잠시 후 재시도합니다.");
+        setTimeout(sample5_execDaumPostcode, 500); // 🌟 수정: 500ms 후에 다시 시도
+        return;
+    }
 
-						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-							addr = data.roadAddress;
-						} else { // 사용자가 지번 주소를 선택했을 경우(J)
-							addr = data.jibunAddress;
-						}
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = data.address; // 최종 주소 변수
 
-						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-						if (data.userSelectedType === 'R') {
-							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-							if (data.bname !== ''
-									&& /[동|로|가]$/g.test(data.bname)) {
-								extraAddr += data.bname;
-							}
-							// 건물명이 있고, 공동주택일 경우 추가한다.
-							if (data.buildingName !== ''
-									&& data.apartment === 'Y') {
-								extraAddr += (extraAddr !== '' ? ', '
-										+ data.buildingName : data.buildingName);
-							}
-							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-							if (extraAddr !== '') {
-								extraAddr = ' (' + extraAddr + ')';
-							}
-							// 조합된 참고항목을 해당 필드에 넣는다.
-							document.getElementById("sample3_extraAddress").value = extraAddr;
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("sample5_address").value = addr;
+            // 주소로 상세 정보를 검색
+            geocoder.addressSearch(data.address, function(results, status) {
+                // 정상적으로 검색이 완료됐으면
+                if (status === daum.maps.services.Status.OK) {
 
-						} else {
-							document.getElementById("sample3_extraAddress").value = '';
-						}
+                    var result = results[0]; //첫번째 결과의 값을 활용
 
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('sample3_postcode').value = data.zonecode;
-						document.getElementById("sample3_address").value = addr;
-						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("sample3_detailAddress")
-								.focus();
-
-						// iframe을 넣은 element를 안보이게 한다.
-						// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-						element_wrap.style.display = 'none';
-
-						// 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
-						document.body.scrollTop = currentScroll;
-					},
-					// 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
-					onresize : function(size) {
-						element_wrap.style.height = size.height + 'px';
-					},
-					width : '100%',
-					height : '100%'
-				}).embed(element_wrap);
-
-		// iframe을 넣은 element를 보이게 한다.
-		element_wrap.style.display = 'block';
-	}
+                    // 해당 주소에 대한 좌표를 받아서
+                    var coords = new daum.maps.LatLng(result.y, result.x);
+                    // 지도를 보여준다.
+                    mapContainer.style.display = "block";
+                    map.relayout();
+                    // 지도 중심을 변경한다.
+                    map.setCenter(coords);
+                    // 마커를 결과값으로 받은 위치로 옮긴다.
+                    marker.setPosition(coords)
+                }
+            });
+        }
+    }).open();
+}
 </script>
+
+
