@@ -12,7 +12,7 @@ import com.yedam.service.ProductListService;
 import com.yedam.service.ProductListServiceImpl;
 import com.yedam.vo.ProductVO;
 
-public class ProductListControl implements Control {
+public class FrozenProductListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,9 +22,9 @@ public class ProductListControl implements Control {
         int pageSize = 6;
         Integer maxPrice = null;
         
-        int vegetableCnt = prdService.getTotalProductCount("채소");
-        int meatCnt = prdService.getTotalProductCount("정육");
-        int fishCnt = prdService.getTotalProductCount("수산");
+        int riceCnt = prdService.getTotalProductCount("냉동볶음밥");
+        int fruitCnt = prdService.getTotalProductCount("냉동과일");
+        int friedCnt = prdService.getTotalProductCount("튀김류");
         
         String category = req.getParameter("maincategory");
         
@@ -47,27 +47,26 @@ public class ProductListControl implements Control {
         	sort = "createdDate";
         }
 
-		
         List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category, maxPrice);
         
         int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         
-        List<ProductVO> lowestProduct = prdService.getLowestPriceProducts();
+        List<ProductVO> lowestFrozenProduct = prdService.getLowestPriceFrozenProducts();
 
         req.setAttribute("productList", productList);
         req.setAttribute("currentPage", page);
         req.setAttribute("totalPages", totalPages);
         req.setAttribute("sort", sort);
         req.setAttribute("currentCategory", category);
-        req.setAttribute("vegetableCnt", vegetableCnt);
-        req.setAttribute("meatCnt", meatCnt);
-        req.setAttribute("fishCnt", fishCnt);
-        req.setAttribute("lowestProduct", lowestProduct);
+        req.setAttribute("riceCnt", riceCnt);
+        req.setAttribute("fruitCnt", fruitCnt);
+        req.setAttribute("friedCnt", friedCnt);
+        req.setAttribute("lowestFrozenProduct", lowestFrozenProduct);
         
         
 
-        req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
+        req.getRequestDispatcher("product/frozenProductList.tiles").forward(req, resp);
         
     }
 }

@@ -7,7 +7,7 @@ import com.yedam.mapper.ReviewMapper;
 import com.yedam.vo.ReviewVO;
 
 public class ReviewServiceImpl implements ReviewService {
-	SqlSession sqlSession = DBUtil.getInstance().openSession(true);
+	SqlSession sqlSession = DBUtil.getInstance().openSession();
 	ReviewMapper mapper = sqlSession.getMapper(ReviewMapper.class);
 	
 	public boolean addReview(ReviewVO review) {

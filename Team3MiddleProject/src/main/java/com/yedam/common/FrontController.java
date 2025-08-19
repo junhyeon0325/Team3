@@ -14,6 +14,7 @@ import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.CartListControl;
+import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
@@ -50,6 +51,7 @@ public class FrontController extends HttpServlet{
 		// 주문/결제
 		map.put("/orderform.do", new OrderFormControl());	// 주문/결제 화면 출력
 		
+		map.put("/frozenProductList.do", new FrozenProductListControl());
 	}
 	
 	@Override
