@@ -133,8 +133,6 @@
 												<a href="productList.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
 											</div>
 							</div>
-															<!-- <h5 class="text-danger text-decoration-line-through">4.11원</h5> -->
-							
 							
 							<div class="col-lg-12">
 								<div class="position-relative">
@@ -142,9 +140,9 @@
 										class="img-fluid w-100 rounded" alt="">
 									<div class="position-absolute"
 										style="top: 50%; right: 10px; transform: translateY(-50%);">
-										<h3 class="text-secondary fw-bold">
-											Fresh <br> Foods <br> Banner
-										</h3>
+										<h2 class="text-secondary fw-bold">
+											Fresh <br> Delicious <br> Foods
+										</h2>
 									</div>
 								</div>
 							</div>
@@ -159,13 +157,35 @@
 								<div class="rounded position-relative fruite-item">
 									<div class="fruite-img">
 									<a href="detailPage.do?productNo=${product.productNo}">
-										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt=""></a>
+										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:300px; object-fit:cover;" alt=""></a>
 									</div>
 									<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
 										Fresh
 									</div>
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
 										<h4>${product.productName }</h4>
+				<!-- 평점 -->			
+						<div class="d-flex mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${product.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        ${product.productScore}점
+						    </p>
+						</div>
+				<!-- 평점end -->	
 										<p>${product.productAbout }</p>
 										<div class="d-block justify-content-between flex-lg-wrap" >
 											<p class="text-dark fs-5 fw-bold mb-0" align="center">${product.productPrice }원</p>
@@ -184,13 +204,13 @@
 					<div class="col-12">
 						<div class="pagination d-flex justify-content-center mt-5">
 							<c:if test="${currentPage > 1}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
+								<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
 							</c:if>
 							<c:forEach begin="1" end="${totalPages}" var="i">
-							<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+								<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 							</c:forEach>
 							<c:if test="${currentPage < totalPages}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
+								<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
 							</c:if>
 						</div>
 					</div>

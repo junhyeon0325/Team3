@@ -142,9 +142,9 @@
 										class="img-fluid w-100 rounded" alt="">
 									<div class="position-absolute"
 										style="top: 50%; right: 10px; transform: translateY(-50%);">
-										<h3 class="text-secondary fw-bold">
-											Frozen <br> Foods <br> Banner
-										</h3>
+										<h2 class="text-secondary fw-bold">
+											Frozen <br> Delicious <br> Foods
+										</h2>
 									</div>
 								</div>
 							</div>

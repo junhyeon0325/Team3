@@ -31,15 +31,7 @@
 				<div class="navbar-nav mx-auto">
 					<a href="productList.do?maincategory=채소" class="nav-item nav-link ${param.maincategory == '채소' ? 'active' : ''}">식품관</a>
     				<a href="frozenProductList.do?maincategory=냉동볶음밥"  class="nav-item nav-link ${param.maincategory == '냉동볶음밥' ? 'active' : ''}">냉동식품관</a>
-					
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">이벤트</a>
-						<div class="dropdown-menu m-0 bg-secondary rounded-0">
-							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a>
-							<a href="chackout.html" class="dropdown-item">임박 상품 특가</a>
-							<a href="testimonial.html" class="dropdown-item">미정</a>
-						</div>
-					</div>
+					<a href="saleProduct.do" class="nav-item nav-link">임박상품특가</a>
 					<a href="contact.html" class="nav-item nav-link">게시판</a>
 				</div>
 				<div class="d-flex m-3 me-0">

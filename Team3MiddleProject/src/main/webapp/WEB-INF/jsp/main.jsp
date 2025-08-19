@@ -263,7 +263,7 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                     <h4 class="mb-3">${high.productPrice }</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
                                 </div>
                             </div>
                         </div>
