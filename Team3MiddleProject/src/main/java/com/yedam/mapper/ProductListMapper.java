@@ -14,4 +14,7 @@ public interface ProductListMapper {
 	List<ProductVO> getLowestPriceProducts();
 	List<ProductVO> getLowestPriceFrozenProducts();
 	List<ProductVO> selectAllProducts();
+	List<ProductVO> getFreshFoodList();
+	List<ProductVO> getFrozenFoodList();
+	List<ProductVO> getHighPriceList();
 }

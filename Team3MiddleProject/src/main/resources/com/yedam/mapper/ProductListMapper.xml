@@ -56,4 +56,27 @@
 		ORDER BY product_price
 		FETCH FIRST 3 ROWS ONLY
 	</select>
+	
+	<select id="getFreshFoodList" resultType="product">
+		SELECT *
+		FROM tbl_product
+		WHERE maincategory = '채소'
+		   or maincategory='정육'
+		   or maincategory='수산'
+	</select>
+	
+	<select id="getFrozenFoodList" resultType="product">
+		SELECT *
+		FROM tbl_product
+		WHERE maincategory = '냉동볶음밥'
+		   or maincategory='냉동과일'
+		   or maincategory='튀김류'
+	</select>
+	
+	<select id="getHighPriceList" resultType="product">
+		SELECT *
+		FROM tbl_product
+		ORDER BY product_price desc
+		FETCH FIRST 6 ROWS ONLY
+	</select>
 </mapper>

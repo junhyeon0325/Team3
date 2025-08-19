@@ -20,11 +20,15 @@ public class MainControl implements Control{
 		
 		ProductListService prdService = new ProductListServiceImpl();
 		List<ProductVO> productList = prdService.selectAllProducts();
+		List<ProductVO> freshList = prdService.getFreshFoodList();
+		List<ProductVO> frozenList = prdService.getFrozenFoodList();
+		List<ProductVO> highList = prdService.getHighPriceList();
 		
 		req.setAttribute("productList", productList);
+		req.setAttribute("freshList", freshList);
+		req.setAttribute("frozenList", frozenList);
+		req.setAttribute("highList", highList);
 		
 		req.getRequestDispatcher("product/main.tiles").forward(req, resp);
-		
-		System.out.println("상품 개수: " + (productList == null ? "null" : productList.size()));
 	}
 }
