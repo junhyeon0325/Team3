@@ -94,7 +94,7 @@
 									<div class="col-lg-12">
 											<h4 class="mb-2">가격</h4>
 										<div class="mb-3" align="right">
-											<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="100000" 
+											<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="50000" 
 												value="${param.maxPrice != null ? param.maxPrice : 0}" step="1000"
 												oninput="amount.value=this.value">
 											<output id="amount" name="amount" for="maxPrice">

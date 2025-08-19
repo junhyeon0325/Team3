@@ -13,4 +13,5 @@ public interface ProductListMapper {
 	int countTotalProducts(@Param("maincategory") String maincategory);
 	List<ProductVO> getLowestPriceProducts();
 	List<ProductVO> getLowestPriceFrozenProducts();
+	List<ProductVO> selectAllProducts();
 }

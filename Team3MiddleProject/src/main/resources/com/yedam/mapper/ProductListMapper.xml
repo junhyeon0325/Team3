@@ -27,6 +27,11 @@
             AND ta.rn > #{startRow}
         ]]>
     </select>
+    
+    <select id="selectAllProducts" resultType="product">
+    	SELECT *
+    	FROM tbl_product
+    </select>
 
     <select id="countTotalProducts" resultType="int">
         SELECT COUNT(*)
