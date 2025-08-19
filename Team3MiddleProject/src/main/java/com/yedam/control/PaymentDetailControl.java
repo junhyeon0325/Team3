@@ -29,6 +29,7 @@ public class PaymentDetailControl implements Control {
                 
                 // 상세 내역 페이지로 이동 (WEB-INF/jsp/paymentDetail.jsp)
                 req.getRequestDispatcher("/WEB-INF/jsp/paymentDetail.jsp").forward(req, resp);
+                
             } catch (ServletException | IOException e) {
                 e.printStackTrace();
                 // 오류 발생 시 fail.jsp로 리디렉션하거나 오류 메시지 표시

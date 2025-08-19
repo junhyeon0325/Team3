@@ -76,13 +76,13 @@
 								type="button" onclick="sample3_execDaumPostcode()"
 								value="우편번호 찾기"><br> <br>우편번호<br> <input
 								class="form-control" type="text" id="sample3_postcode"
-								value="우편번호"><br>주소<br> <input
+								value=""><br>주소<br> <input
 								class="form-control" type="text" id="sample3_address"
 								value="${om.memberAddress }"><br>상세주소 <input
 								class="form-control" type="text" id="sample3_detailAddress"
-								value="상세주소"><br>참고항목 <input
+								value=""><br>참고항목 <input
 								class="form-control" type="text" id="sample3_extraAddress"
-								value="참고항목"><br>
+								value=""><br>
 							<div id="wrap"
 								style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
 								<img src="//t1.daumcdn.net/postcode/resource/images/close.png"

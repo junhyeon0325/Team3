@@ -85,15 +85,18 @@ document.addEventListener('input', (e) => {
 		let divone = e.target.closest('.divone');
 		let input = divone.querySelector('.orderPointInput');
 		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
-		//let top = document.querySelector('.totalOrderPrice').innerHTML;
-		//console.log('현재 결제 급액' + top);
+		let top = parseInt(document.querySelector('.totalOrderPrice').innerHTML.replace(/,/g, ""));
+		console.log('현재 결제 급액' + top);
 		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
 		console.log('포인트' + point);
 		if (Number(input.value) < 0) {
 			input.value = 0;
 		} else if (Number(input.value) > point){	// 현재 가지고 있는 포인트 값보다 크지 않게
 			input.value = 0;
-			alert('현재 포인트값보다 큽니다 다시적어주세요.');
+			alert('현재 적립금보다 많이 적었습니다. 다시입력해주세요.');
+		} else if (Number(input.value) > top){
+			input.value = 0;
+			alert('결제 금액보다 큰값을 입력했습니다. 다시입력해주세요.');
 		}
 		updateTotal();	
 	}	

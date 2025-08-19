@@ -8,4 +8,5 @@ public class OrderMemberVO {
 	private String memberName;
 	private String memberPhone;
 	private String memberAddress;
+	private int point;
 }

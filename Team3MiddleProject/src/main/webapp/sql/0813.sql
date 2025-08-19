@@ -1,3 +1,15 @@
+select count(*)
+		from tbl_order o
+		join tbl_member m
+		on m.member_no = o.member_no
+		join tbl_order_items i
+		on o.order_no = i.order_no
+		where m.member_id = jjh
+		and o.product_no = 4;
+        
+select *
+from tbl_order_items;
+
 ALTER TABLE TBL_ORDER DROP COLUMN PRODUCT_NO;
 
 select *
