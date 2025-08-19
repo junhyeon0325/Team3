@@ -61,12 +61,12 @@
 					<h4>배송지</h4>
 					<div class="divone">
 						<div class="form-item">
-							<label class="form-label orderlabel">받는이</label> <input
+							<label class="form-label orderlabel">받는이*</label> <input
 								class="form-control" type="text" name="name"
 								value="${om.memberName }">
 						</div>
 						<div class="form-item">
-							<label class="form-label orderlabel">전화번호</label> <input
+							<label class="form-label orderlabel">전화번호*</label> <input
 								class="form-control" type="tel" name="tel"
 								value="${om.memberPhone }">
 						</div>
@@ -76,13 +76,13 @@
 								type="button" onclick="sample3_execDaumPostcode()"
 								value="우편번호 찾기"><br> <br>우편번호<br> <input
 								class="form-control" type="text" id="sample3_postcode"
-								placeholder="우편번호"><br>주소<br> <input
+								value="우편번호"><br>주소<br> <input
 								class="form-control" type="text" id="sample3_address"
-								placeholder="${om.memberAddress }"><br>상세주소 <input
+								value="${om.memberAddress }"><br>상세주소 <input
 								class="form-control" type="text" id="sample3_detailAddress"
-								placeholder="상세주소"><br>참고항목 <input
+								value="상세주소"><br>참고항목 <input
 								class="form-control" type="text" id="sample3_extraAddress"
-								placeholder="참고항목"><br>
+								value="참고항목"><br>
 							<div id="wrap"
 								style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
 								<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
@@ -269,6 +269,66 @@
         .catch(error => {
             console.error("Error saving temporary order data:", error);
             alert("주문 정보를 저장하는 중 오류가 발생했습니다.");
+        });
+    });
+</script>
+
+<script>
+    document.getElementById("payment-button").addEventListener("click", function() {
+        // 1. 주문/결제 화면에서 사용자 입력 데이터 가져오기 (주소 필드 값 확인)
+        const postcode = document.getElementById("sample3_postcode").value; // 우편번호
+        const address = document.getElementById("sample3_address").value;     // 기본 주소
+        const detailAddress = document.getElementById("sample3_detailAddress").value; // 상세 주소
+        // const extraAddress = document.getElementById("sample3_extraAddress").value; // 참고 항목 (필요시 사용)
+
+        const orderRequest = document.querySelector('textarea[name="text"]').value;
+        const usedPoint = Number(document.querySelector('.orderPointInput').value);
+        
+        // memberNo는 서버(OrderFormControl)에서 세션에 저장했으므로, 여기서 가져올 필요 없음.
+        // cartList도 서버(OrderFormControl)에서 세션에 저장했으므로, 여기서 가져올 필요 없음.
+
+        // 2. 임시 저장할 데이터 객체 생성: 주소 필드 값들을 여기에 포함
+        const temporaryOrderData = {
+            postcode: postcode,           // 우편번호
+            orderAddress: address,        // 기본 주소
+            orderDetailAddress: detailAddress, // 상세 주소
+            // extraAddress: extraAddress, // 필요시 추가
+            orderRequest: orderRequest,
+            usedPoint: usedPoint
+        };
+
+        // 3. AJAX 요청으로 서버에 임시 주문 정보 저장
+        fetch(window.location.origin + "/Team3MiddleProject/saveTemporaryOrderData.do", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(temporaryOrderData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                console.log("임시 주문 정보 서버에 저장 성공:", data.message);
+                // 4. 임시 저장 성공 후, Toss Payments Widget 호출
+                const orderId = new Date().getTime().toString();
+                const orderName = "상품명 외 1건"; // 실제 상품명으로 변경
+
+                // customerName은 OrderMemberVO에서 가져온 ${om.memberName} 사용
+                paymentWidget.requestPayment({
+                    orderId: orderId,
+                    orderName: orderName,
+                    customerName: "${om.memberName}", 
+                    successUrl: window.location.origin + "/Team3MiddleProject/paymentSuccess.do",
+                    failUrl: window.location.origin + "/Team3MiddleProject/paymentFail.do",
+                });
+            } else {
+                alert("주문 정보를 저장하는 데 실패했습니다. 다시 시도해 주세요.");
+                console.error("임시 주문 정보 저장 실패:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error saving temporary order data:", error);
+            alert("주문 정보를 저장하는 중 오류가 발생했습니다. 자세한 내용은 콘솔을 확인해주세요.");
         });
     });
 </script>

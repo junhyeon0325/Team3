@@ -24,31 +24,63 @@ public class OrderTempSaveControl implements Control {
             String requestBody = req.getReader().lines().collect(Collectors.joining());
             JsonNode jsonNode = objectMapper.readTree(requestBody);
 
-            String orderAddressPart = jsonNode.has("orderAddress") ? jsonNode.get("orderAddress").asText() : "";
-            String orderDetailAddressPart = jsonNode.has("orderDetailAddress") ? jsonNode.get("orderDetailAddress").asText() : "";
-            String orderAddress = (orderAddressPart.trim() + " " + orderDetailAddressPart.trim()).trim();
+            // ====================================================================
+            // 시작: ORDER_ADDRESS 오류 해결을 위한 주소 파싱 및 조합 수정
+            // ====================================================================
+            // JSON에서 각 주소 필드를 안전하게 가져오고, 바로 trim() 처리합니다.
+            // null 체크 대신 has()를 사용하고, 값이 없으면 빈 문자열로 초기화합니다.
+            String postcode = jsonNode.has("postcode") ? jsonNode.get("postcode").asText().trim() : "";
+            String basicAddress = jsonNode.has("orderAddress") ? jsonNode.get("orderAddress").asText().trim() : "";
+            String detailAddress = jsonNode.has("orderDetailAddress") ? jsonNode.get("orderDetailAddress").asText().trim() : "";
             
-            String orderRequest = jsonNode.has("orderRequest") ? jsonNode.get("orderRequest").asText() : "";
+            // 디버깅: 각 주소 필드 값이 제대로 넘어오는지 확인
+            // 콘솔 인코딩 문제로 한글이 깨져 보여도, 실제 문자열 값은 제대로 넘어올 수 있습니다.
+            System.out.println("OrderTempSaveControl - Parsed Postcode: '" + postcode + "'");
+            System.out.println("OrderTempSaveControl - Parsed Basic Address: '" + basicAddress + "'");
+            System.out.println("OrderTempSaveControl - Parsed Detail Address: '" + detailAddress + "'");
+
+            // 최종 ORDER_ADDRESS 문자열을 조합합니다.
+            StringBuilder fullAddressBuilder = new StringBuilder();
+            
+            if (!postcode.isEmpty()) {
+                fullAddressBuilder.append("(").append(postcode).append(") ");
+            }
+            if (!basicAddress.isEmpty()) {
+                fullAddressBuilder.append(basicAddress);
+            }
+            if (!detailAddress.isEmpty()) {
+                // 기본 주소가 있으면 띄어쓰기 후 상세 주소 추가, 없으면 바로 추가
+                if (fullAddressBuilder.length() > 0 && !basicAddress.isEmpty()) { // 앞에 주소 내용이 있고, 기본 주소가 비어있지 않은 경우만 띄어쓰기
+                    fullAddressBuilder.append(" ");
+                }
+                fullAddressBuilder.append(detailAddress);
+            }
+            
+            String finalOrderAddress = fullAddressBuilder.toString().trim(); // 최종 주소 문자열 앞뒤 공백 제거
+            // ====================================================================
+            // 끝: ORDER_ADDRESS 오류 해결을 위한 주소 파싱 및 조합 수정
+            // ====================================================================
+
+            String orderRequest = jsonNode.has("orderRequest") ? jsonNode.get("orderRequest").asText().trim() : "";
             int usedPoint = jsonNode.has("usedPoint") ? jsonNode.get("usedPoint").asInt() : 0;
             
-            // 세션에서 memberNo 가져오기 (OrderFormControl에서 설정된 값)
             Integer memberNoObj = (Integer) session.getAttribute("memberNo"); 
-            int memberNo = (memberNoObj != null) ? memberNoObj : 0; // 세션에 없으면 0으로 설정 (주의: FK 오류 유발 가능)
+            int memberNo = (memberNoObj != null) ? memberNoObj : 0; 
 
-            // 세션에서 장바구니 목록 (cp_list) 가져오기
             @SuppressWarnings("unchecked")
             List<CartProductVO> cartList = (List<CartProductVO>) session.getAttribute("cp_list");
 
             OrderTempVO tempOrder = new OrderTempVO();
-            tempOrder.setOrderAddress(orderAddress);
+            tempOrder.setOrderAddress(finalOrderAddress); // <<--- 조합된 최종 주소 설정
             tempOrder.setOrderRequest(orderRequest);
             tempOrder.setUsedPoint(usedPoint);
-            tempOrder.setMemberNo(memberNo);      // 세션에서 가져온 memberNo 설정
-            tempOrder.setCartList(cartList);      // 세션에서 가져온 cartList 설정
+            tempOrder.setMemberNo(memberNo);      
+            tempOrder.setCartList(cartList);      
 
             session.setAttribute("tempOrderInfo", tempOrder);
 
-            System.out.println("Temporary order info saved to session: " + tempOrder); // 이 로그를 통해 실제 저장된 값 확인
+            // 디버깅: 최종 OrderTempVO에 저장된 값 확인
+            System.out.println("Temporary order info saved to session: " + tempOrder); 
 
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");

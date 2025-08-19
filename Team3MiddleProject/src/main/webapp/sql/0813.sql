@@ -1,3 +1,5 @@
+ALTER TABLE TBL_ORDER DROP COLUMN PRODUCT_NO;
+
 select *
 from   tbl_cart;
 
@@ -16,6 +18,22 @@ from   tbl_order;
 -- order_item_no 시퀀스 생성 (이 SQL은 DB에서 한 번만 실행합니다)
 CREATE SEQUENCE order_item_no_seq START WITH 1 INCREMENT BY 1;
 
+-- 결제 완료 후 생성되는 주문데이터 상세 테이블(수량) 새로만듬
+create table tbl_order_items(
+    -- DEFAULT를 먼저 지정하고 PRIMARY KEY를 나중에 지정합니다.
+    order_item_no number DEFAULT order_item_no_seq.NEXTVAL primary key, -- <<--- 이 부분 수정
+    product_pcs number not null,
+    product_no number not null,
+    order_no number not null, -- 이 컬럼이 활성화되어 있고 NOT NULL인지 다시 확인
+    
+    constraint fk_items_product
+    foreign key(product_no)
+    references tbl_product(product_no),
+    
+    constraint fk_items_order
+    foreign key(order_no)
+    references tbl_order(order_no)
+);
 -- 결제 완료 후 생성되는 주문데이터 상세 테이블(수량)
 create table tbl_order_items(
     order_item_no number primary key,
@@ -196,6 +214,13 @@ create table tbl_member(
     member_gender varchar2(10) not null,
     point number not null
 );
+
+select *
+from tbl_product;
+
+UPDATE tbl_product
+SET maincategory = '채소';
+
 
 create table tbl_product(                   -- 수정
     product_no number primary key,

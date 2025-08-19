@@ -114,27 +114,20 @@ public class PaymentConfirmControl implements Control {
 						orderVO.setOrderRequest(tempOrderInfo.getOrderRequest());
 						orderVO.setMemberNo(tempOrderInfo.getMemberNo());
 
-						// PRODUCT_NO 설정: 장바구니에서 첫 번째 상품의 productNo를 가져옵니다.
-						List<CartProductVO> cartList = tempOrderInfo.getCartList();
-						if (cartList != null && !cartList.isEmpty()) {
-							orderVO.setProductNo(cartList.get(0).getProductNo()); // <<--- 첫 번째 상품의 ProductNo 설정
-						} else {
-							// 장바구니가 비어있을 경우 (비정상 상황이지만, NullPointerException 방지)
-							System.err.println("경고: 장바구니 목록(cartList)이 비어 있어 대표 상품 번호를 설정할 수 없습니다. 기본값 0 또는 에러 처리 필요.");
-							orderVO.setProductNo(0); // 또는 적절한 기본값, 에러 코드
-						}
+						
 
 						// 2. tbl_order에 주문 정보 삽입
 						int orderResult = dao.insertOrder(orderVO);
 						System.out.println("tbl_order 삽입 결과: " + (orderResult > 0 ? "성공" : "실패"));
 
-						// 3. tbl_order_items에 주문 상세 항목 삽입
-						if (orderResult > 0 && cartList != null && !cartList.isEmpty()) { 
-							int orderItemsResult = dao.insertOrderItems(orderNo, cartList);
-							System.out.println("tbl_order_items 삽입 결과: " + orderItemsResult + "건 삽입");
-						} else {
-							System.out.println("경고: 장바구니 목록(cartList)이 비어 있거나 tbl_order 삽입 실패로 인해 주문 상세 항목을 저장하지 못했습니다.");
-						}
+						// tbl_order_items 삽입
+                        List<CartProductVO> cartList = tempOrderInfo.getCartList(); // 이 부분은 유지됩니다.
+                        if (orderResult > 0 && cartList != null && !cartList.isEmpty()) { 
+                            int orderItemsResult = dao.insertOrderItems(orderNo, cartList);
+                            System.out.println("tbl_order_items 삽입 결과: " + orderItemsResult + "건 삽입");
+                        } else {
+                            System.out.println("경고: 장바구니 목록(cartList)이 비어 있거나 tbl_order 삽입 실패로 인해 주문 상세 항목을 저장하지 못했습니다.");
+                        }
 						
 						session.removeAttribute("tempOrderInfo"); // 임시 정보 삭제
 						// =========================================================

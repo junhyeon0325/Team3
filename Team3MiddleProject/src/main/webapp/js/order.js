@@ -85,6 +85,8 @@ document.addEventListener('input', (e) => {
 		let divone = e.target.closest('.divone');
 		let input = divone.querySelector('.orderPointInput');
 		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
+		//let top = document.querySelector('.totalOrderPrice').innerHTML;
+		//console.log('현재 결제 급액' + top);
 		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
 		console.log('포인트' + point);
 		if (Number(input.value) < 0) {
