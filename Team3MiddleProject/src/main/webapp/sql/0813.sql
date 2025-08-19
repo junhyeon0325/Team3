@@ -1,3 +1,7 @@
+-- update Àû¸³±Ý
+update tbl_member
+set point = 10000;
+
 select count(*)
 		from tbl_order o
 		join tbl_member m
@@ -11,6 +15,7 @@ select *
 from tbl_order_items;
 
 ALTER TABLE TBL_ORDER DROP COLUMN PRODUCT_NO;
+drop table tbl_order_items;
 
 select *
 from   tbl_cart;

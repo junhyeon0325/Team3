@@ -200,14 +200,24 @@
         const originalTotalOrderPrice = currentCalculatedTotalPrice; // 적립금 사용 전 순수 총 결제 금액을 여기서 가져옵니다.
 
         let usedPoint = 0;
+        // 🌟 디버깅 로그 추가: 함수 시작 시 주요 값들 확인
+        console.log("--- updateFinalPaymentAmount() 호출 시작 ---");
+        console.log("  - 현재 계산된 총 상품 금액 (currentCalculatedTotalPrice):", originalTotalOrderPrice.toLocaleString() + "원");
+        console.log("  - 사용가능 적립금 (availablePoint):", availablePoint.toLocaleString() + "원");
+        console.log("  - 적립금 사용 체크박스 상태 (usePointCheckbox.checked):", usePointCheckbox.checked);
+        console.log("  - 적립금 입력 필드 값 (pointInput.value - 원본):", pointInput.value);
+
         if (usePointCheckbox.checked) {
             let inputPoint = Number(pointInput.value.replace(/[^0-9]/g, '')); 
+            // 🌟 디버깅 로그 추가: 입력된 적립금 값 파싱 후 확인
+            console.log("  - 적립금 입력 필드 값 (inputPoint - 파싱 후):", inputPoint.toLocaleString() + "원");
 
             // 1. 입력된 적립금이 사용 가능 금액을 초과하는지 체크
             if (inputPoint > availablePoint) {
                 inputPoint = availablePoint; 
                 pointInput.value = inputPoint; 
                 alert("사용 가능한 적립금을 초과했습니다. 최대 " + availablePoint.toLocaleString() + "원까지 사용할 수 있습니다.");
+                console.log("  - 🚨 적립금 초과! inputPoint 조정됨:", inputPoint.toLocaleString() + "원");
             }
 
             // 2. 최종 결제 금액이 0원 미만이 되는 것을 방지 (결제 금액보다 적립금이 많은 경우)
@@ -217,12 +227,14 @@
                 if (originalTotalOrderPrice > 0) { 
                     alert("결제 금액보다 많은 적립금을 사용할 수 없습니다. 최대 " + originalTotalOrderPrice.toLocaleString() + "원까지 사용할 수 있습니다.");
                 }
+                console.log("  - 🚨 결제 금액 초과! inputPoint 조정됨:", inputPoint.toLocaleString() + "원");
             }
             usedPoint = inputPoint;
 
         } else { // 체크박스가 해제된 경우
             usedPoint = 0;
-            pointInput.value = 0; // 입력 필드도 0으로 초기화
+            pointInput.value = "0"; // 🌟 다시 추가: 체크박스 해제 시 입력 필드 0으로 초기화
+            console.log("  - ✅ 체크박스 해제됨: usedPoint = 0");
         }
 
         const finalAmount = originalTotalOrderPrice - usedPoint;
@@ -231,9 +243,15 @@
         // 화면에 표시되는 '결제금액' (totalOrderPrice) 업데이트
         totalOrderPriceElement.innerText = finalAmount.toLocaleString() + '원';
         
+        // 🌟 디버깅 로그 추가: 최종 계산 결과 확인
+        console.log("  - 최종 사용 적립금 (usedPoint):", usedPoint.toLocaleString() + "원");
+        console.log("  - 최종 결제 금액 (finalAmount):", finalAmount.toLocaleString() + "원");
+        console.log("--- updateFinalPaymentAmount() 호출 종료 ---");
+
         // paymentWidget이 정의되었고 updatePaymentMethods 함수가 존재하는지 확인 후 호출
         if (typeof paymentWidget !== 'undefined' && typeof paymentWidget.updatePaymentMethods === 'function') {
             paymentWidget.updatePaymentMethods({ value: finalAmount });
+            console.log("  - 결제 위젯 금액 업데이트 요청됨:", finalAmount.toLocaleString() + "원");
         } else {
             console.warn("결제 위젯이 아직 초기화되지 않았거나 'updatePaymentMethods' 함수를 찾을 수 없습니다.");
         }
@@ -247,9 +265,11 @@
     
     // 3. 페이지 로드 시 초기 설정
     document.addEventListener('DOMContentLoaded', function() {
+        console.log("--- DOMContentLoaded 이벤트 발생 ---");
         // order.js의 updateTotal() 함수가 정의되었는지 확인하고 호출 (총 주문금액 계산)
         if (typeof updateTotal === 'function') { 
             updateTotal(); 
+            console.log("  - order.js의 updateTotal() 호출 완료.");
         } else {
             console.warn("order.js의 updateTotal() 함수가 정의되지 않았습니다. 총 금액 계산 로직을 확인하세요.");
         }
@@ -258,28 +278,40 @@
         const initialAmount = Number(document.querySelector('.totalCartPrice').innerText.replace(/[^0-9]/g, ''));
         paymentWidget.renderPaymentMethods('#payment-method', { value: initialAmount }, { variantKey: "DEFAULT" });
         paymentWidget.renderAgreement('#agreement', { variantKey: "DEFAULT" });
+        console.log("  - 결제 위젯 초기 렌더링 완료.");
         
-        // 🌟 오류 수정: paymentWidget 렌더링 완료 후 적립금 로직 초기 상태 설정 및 최종 금액 업데이트 호출을 지연
-        // 지연 시간을 100ms에서 500ms로 늘려봅니다.
+        // paymentWidget 렌더링 완료 후 적립금 로직 초기 상태 설정 및 최종 금액 업데이트 호출을 지연
         setTimeout(() => {
+            console.log("  - setTimeout 콜백 함수 실행 시작.");
+            pointInput.value = "0"; // 🌟 추가: 초기화 시 input 값 "0"으로 강제 설정
             pointInput.disabled = !usePointCheckbox.checked; // 체크박스 상태에 따라 활성화/비활성화
+            console.log("  - pointInput 초기값 및 disabled 상태 설정 완료.");
             updateFinalPaymentAmount(); // 적립금 초기 상태 반영 (0원 사용)
-        }, 500); // 🌟 수정: 짧은 지연 시간 (500ms로 증가)
+            console.log("  - updateFinalPaymentAmount() (초기값) 호출 완료.");
+        }, 500); 
     });
 
     // 4. 적립금 체크박스 및 입력 필드 이벤트 리스너
     usePointCheckbox.addEventListener('change', function() {
+        console.log("--- 적립금 체크박스 변경 이벤트 발생 ---");
         pointInput.disabled = !this.checked; // 체크박스 상태에 따라 활성화/비활성화
+        // 🌟 수정: 체크박스 해제 시 input 값도 "0"으로 초기화
+        if (!this.checked) {
+            pointInput.value = "0"; 
+            console.log("  - 체크박스 해제됨: pointInput.value를 0으로 초기화.");
+        }
         updateFinalPaymentAmount(); // 체크박스 변경 시 최종 금액 업데이트
     });
 
     pointInput.addEventListener('input', function() {
+        console.log("--- 적립금 입력 필드 변경 이벤트 발생 ---");
         this.value = this.value.replace(/[^0-9]/g, ''); // 숫자만 입력되도록 강제
         updateFinalPaymentAmount(); // 입력 필드 값 변경 시 최종 금액 업데이트
     });
 
     // 5. 결제 버튼 클릭 시 결제 요청
     document.getElementById("payment-button").addEventListener("click", function() {
+        console.log("--- 결제하기 버튼 클릭 이벤트 발생 ---");
         const orderAddress = document.getElementById("sample5_address").value; 
         const orderRequest = document.querySelector('textarea[name="text"]').value;
         
@@ -294,6 +326,8 @@
             usedPoint: usedPoint 
         };
         
+        console.log("  - 서버로 보낼 임시 주문 데이터:", temporaryOrderData);
+
         fetch(window.location.origin + "/Team3MiddleProject/saveTemporaryOrderData.do", {
             method: "POST",
             headers: {
@@ -309,90 +343,87 @@
         })
         .then(data => {
             if (data.status === "success") {
-                console.log("임시 주문 정보 서버에 저장 성공:", data.message);
+                console.log("  - 임시 주문 정보 서버 저장 성공:", data.message);
                 
+                // 🌟 중요: '결제금액' (totalOrderPriceElement)에서 최종 금액을 가져와 Toss에 전달합니다.
                 const finalAmountForToss = Number(totalOrderPriceElement.innerText.replace(/[^0-9]/g, ''));
+                
+                // 🌟�🌟 추가: Toss API 요청 직전, 최종 금액과 그 타입을 한번 더 로그로 확인
+                console.log("  - Toss API로 전송할 최종 결제 금액 (finalAmountForToss):", finalAmountForToss);
+                console.log("  - Toss API로 전송할 최종 결제 금액의 타입:", typeof finalAmountForToss);
+
 
                 paymentWidget.requestPayment({
                     orderId: new Date().getTime().toString(), 
                     orderName: "상품명 외 1건", 
                     customerName: "${om.memberName}",
-                    amount: finalAmountForToss, 
+                    amount: finalAmountForToss, // 🌟 최종 결제 금액을 전달
                     successUrl: window.location.origin + "/Team3MiddleProject/paymentSuccess.do",
                     failUrl: window.location.origin + "/Team3MiddleProject/paymentFail.do",
                 });
             } else {
-                alert("주문 정보를 저장하는 데 실패했습니다.");
+                alert("주문 정보를 저장하는 데 실패했습니다: " + data.message);
+                console.error("  - 임시 주문 정보 저장 실패:", data.message);
             }
         })
         .catch(error => {
-            console.error("Error saving temporary order data:", error);
+            console.error("  - Error saving temporary order data:", error);
             alert("주문 처리 중 오류가 발생했습니다.");
         });
     });
 </script>
 
+
 <!-- Kakao Map API 스크립트 (유지) -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c1ef6149adfa2169a2a57b60f170c60&libraries=services"></script>
 <script>
-// 전역 변수로 선언합니다. (유지)
-var mapContainer, map, geocoder, marker;
-
-// 페이지 로딩이 완료되면 이 코드가 실행됩니다. (유지)
-window.onload = function() {
-    mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
         };
 
     //지도를 미리 생성
-    map = new daum.maps.Map(mapContainer, mapOption);
+    var map = new daum.maps.Map(mapContainer, mapOption);
     //주소-좌표 변환 객체를 생성
-    geocoder = new daum.maps.services.Geocoder();
+    var geocoder = new daum.maps.services.Geocoder();
     //마커를 미리 생성
-    marker = new daum.maps.Marker({
+    var marker = new daum.maps.Marker({
         position: new daum.maps.LatLng(37.537187, 127.005476),
         map: map
     });
-};
 
 // 🌟 오류 수정: daum.Postcode가 로드될 때까지 기다리는 로직 강화
 // setTimeout 지연 시간을 200ms에서 500ms로 늘려봅니다.
 function sample5_execDaumPostcode() {
-    if (typeof daum === 'undefined' || typeof daum.Postcode === 'undefined') {
-        console.warn("daum.Postcode 스크립트가 아직 로드되지 않았습니다. 잠시 후 재시도합니다.");
-        setTimeout(sample5_execDaumPostcode, 500); // 🌟 수정: 500ms 후에 다시 시도
-        return;
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
     }
-
-    new daum.Postcode({
-        oncomplete: function(data) {
-            var addr = data.address; // 최종 주소 변수
-
-            // 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("sample5_address").value = addr;
-            // 주소로 상세 정보를 검색
-            geocoder.addressSearch(data.address, function(results, status) {
-                // 정상적으로 검색이 완료됐으면
-                if (status === daum.maps.services.Status.OK) {
-
-                    var result = results[0]; //첫번째 결과의 값을 활용
-
-                    // 해당 주소에 대한 좌표를 받아서
-                    var coords = new daum.maps.LatLng(result.y, result.x);
-                    // 지도를 보여준다.
-                    mapContainer.style.display = "block";
-                    map.relayout();
-                    // 지도 중심을 변경한다.
-                    map.setCenter(coords);
-                    // 마커를 결과값으로 받은 위치로 옮긴다.
-                    marker.setPosition(coords)
-                }
-            });
-        }
-    }).open();
-}
 </script>
 
 

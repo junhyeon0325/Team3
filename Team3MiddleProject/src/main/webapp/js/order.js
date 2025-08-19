@@ -45,25 +45,11 @@ function updateTotal() {
 	console.log(document.querySelectorAll('.cart'));
 	console.log(cartProductTotalPrice);
 	console.log(cartProductTotalPrice - totalOriginalPrice); // 변수명 변경 반영
-
-	// 🌟🌟🌟 수정: orderPointInput 클래스 대신 pointInput ID 사용 🌟🌟🌟
-	// 이 부분은 order.jsp의 인라인 스크립트에서 updateFinalPaymentAmount() 함수가 처리하도록
-	// order.js에서는 삭제하는 것이 올바른 역할 분리입니다.
-	// 따라서 아래 줄은 주석 처리 또는 삭제합니다.
-	// console.log(document.querySelector('.orderPointInput').value); 
-	
 	if (cartProductTotalPrice < 0) {
 		document.querySelector('.totalCartPrice').innerHTML = 0 + '원';
 		return;
 	}
-	
 	document.querySelector('.totalCartPrice').innerHTML = (cartProductTotalPrice).toLocaleString() + '원';
-	
-	// 🌟🌟🌟 수정: 이 부분도 order.jsp의 updateFinalPaymentAmount() 함수가 처리하도록 삭제합니다. 🌟🌟🌟
-	// document.querySelector('.totalOrderPrice').innerHTML = (cartProductTotalPrice - document.querySelector('.orderPointInput').value).toLocaleString() + '원';
-	// console.log(cartProductTotalPrice - document.querySelector('.orderPointInput').value);
-	// console.log(document.querySelector('.orderPointInput').value);
-
 } // end function
 
 updateTotal(); // 페이지 로드 시 초기 계산 실행
@@ -84,31 +70,7 @@ document.querySelectorAll('.cart').forEach(elem => {
 	}
 });
 
-// 🌟🌟🌟 수정: order.js에서 적립금 input 이벤트 리스너를 삭제합니다.
-// 이 로직은 order.jsp의 인라인 스크립트에서 updateFinalPaymentAmount() 함수가 처리합니다.
-/*
-document.addEventListener('input', (e) => {
-	if (e.target.classList.contains('orderPointInput')) { // 이 클래스는 이제 order.jsp에서 사용하지 않습니다.
-		let divone = e.target.closest('.divone');
-		let input = divone.querySelector('.orderPointInput'); // 이 선택자도 이제 사용하지 않습니다.
-		let point = parseInt(divone.querySelector('.orderpoint').innerHTML);
-		let top = parseInt(document.querySelector('.totalOrderPrice').innerHTML.replace(/,/g, ""));
-		console.log('현재 결제 급액' + top);
-		console.log('쿠폰 : ' + divone.querySelector('#coupon').innerHTML);
-		console.log('포인트' + point);
-		if (Number(input.value) < 0) {
-			input.value = 0;
-		} else if (Number(input.value) > point){
-			input.value = 0;
-			alert('현재 적립금보다 많이 적었습니다. 다시입력해주세요.');
-		} else if (Number(input.value) > top){
-			input.value = 0;
-			alert('결제 금액보다 큰값을 입력했습니다. 다시입력해주세요.');
-		}
-		updateTotal();	
-	}	
-});
-*/
+
 
 function addStrikethrough(element) {
 	element.style.textDecoration = "line-through";
