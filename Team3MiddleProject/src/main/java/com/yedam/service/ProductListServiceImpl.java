@@ -42,4 +42,19 @@ public class ProductListServiceImpl implements ProductListService{
 		return mapper.selectAllProducts();
 	}
 
+	@Override
+	public List<ProductVO> getFreshFoodList() {
+		return mapper.getFreshFoodList();
+	}
+
+	@Override
+	public List<ProductVO> getFrozenFoodList() {
+		return mapper.getFrozenFoodList();
+	}
+
+	@Override
+	public List<ProductVO> getHighPriceList() {
+		return mapper.getHighPriceList();
+	}
+
 }
