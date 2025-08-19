@@ -13,7 +13,7 @@
 			</div>
 			<div class="top-link pe-2">
 
-				<a href="#"
+				<a href="login_form.jsp"
 					onclick="document.getElementById('id01').style.display='block'"
 					class="text-white"> <small class="text-white mx-2">Login</small>/
 				</a>
@@ -38,7 +38,7 @@
 
 							<button type="submit">Login</button>
 							<label> <input type="checkbox" checked="checked"
-								name="remember"> Remember me
+								name="remember"> 자동저장
 							</label>
 						</div>
 

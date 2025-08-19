@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link href="./css/login.css" rel="stylesheet">
 
 <div id="id01" class="modal">
 
@@ -20,7 +21,7 @@
 			<label> <input type="checkbox" checked="checked" name="remember"> 기억하기 </label>
 		</div>
 
-		<div class="container-part" style="background-color: #f1f1f1">
+		<div class="container" style="background-color: #f1f1f1">
 			<button type="button" onclick="document.getElementById('id01').style.display='none'"
 					class="cancelbtn">취소</button>
 			<span class="psw">비밀번호를 <a href="#">잊으셨나요?</a></span>
