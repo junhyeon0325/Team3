@@ -31,7 +31,7 @@ public class OrderDAO {
 
     // 주문 정보 (tbl_order) 삽입 메서드
     public int insertOrder(OrderVO order) {
-        String sql = "INSERT INTO tbl_order (order_no, order_address, used_point, order_price, order_request, member_no) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tbl_order (order_no, order_address, used_point, order_price, order_request, member_no, product_no) VALUES (?, ?, ?, ?, ?, ?, ?)";
         int r = 0;
         try {
             conn = DataSource.getConnection();
@@ -42,6 +42,8 @@ public class OrderDAO {
             psmt.setInt(4, order.getOrderPrice());
             psmt.setString(5, order.getOrderRequest());
             psmt.setInt(6, order.getMemberNo());
+            psmt.setInt(7, order.getProductNo()); // <<--- 이 줄을 다시 추가합니다.
+
             
             r = psmt.executeUpdate();
         } catch (SQLException e) {
@@ -56,7 +58,9 @@ public class OrderDAO {
     // orderNo: 방금 삽입된 tbl_order의 order_no
     // cartItems: 사용자의 장바구니/주문 상품 목록 (CartProductVO 리스트)
     public int insertOrderItems(long orderNo, List<CartProductVO> cartItems) {
-        String sql = "INSERT INTO tbl_order_items (order_item_no, product_pcs, product_no, order_no) VALUES ((SELECT NVL(MAX(order_item_no),0)+1 FROM tbl_order_items), ?, ?, ?)"; // order_item_no 시퀀스
+    	// order_item_no는 시퀀스에서 자동 생성되므로 SQL에서 해당 부분을 제거합니다.
+        // ORA-00904 오류는 SQL 구문이나 바인딩 문제인데, 시퀀스 사용으로 변경하여 더 깔끔하게 처리합니다.
+        String sql = "INSERT INTO tbl_order_items (product_pcs, product_no, order_no) VALUES (?, ?, ?)";
         int r = 0;
         try {
             conn = DataSource.getConnection();

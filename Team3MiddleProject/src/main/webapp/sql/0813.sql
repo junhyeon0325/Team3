@@ -1,22 +1,37 @@
---
+select *
+from   tbl_cart;
+
+select *
+from   tbl_member;
+
+select *
+from tbl_order_items;
+
+drop table tbl_order_items;
+
+-- 
+select *
+from   tbl_order;
+
+-- order_item_no ½ÃÄö½º »ý¼º (ÀÌ SQLÀº DB¿¡¼­ ÇÑ ¹ø¸¸ ½ÇÇàÇÕ´Ï´Ù)
+CREATE SEQUENCE order_item_no_seq START WITH 1 INCREMENT BY 1;
 
 -- °áÁ¦ ¿Ï·á ÈÄ »ý¼ºµÇ´Â ÁÖ¹®µ¥ÀÌÅÍ »ó¼¼ Å×ÀÌºí(¼ö·®)
 create table tbl_order_items(
     order_item_no number primary key,
     product_pcs number not null,
     product_no number not null,
-    /*order_no number not null  --> ï¿½Ö¹ï¿½ ï¿½ó¼¼°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½È£ primary key ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿?
-    foreign keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼? ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ È®ï¿½ï¿½*/
+    order_no number not null  
     
     constraint fk_items_product
     foreign key(product_no)
     references tbl_product(product_no)
-    on delete cascade
+    on delete cascade,
     
-    /*constraint fk_items_order
+    constraint fk_items_order
     foreign key(order_no)
     references tbl_order(order_no)
-    on delete cascade*/
+    on delete cascade
 );
 
 -- °áÁ¦ ¿Ï·áÈÄ »ý¼ºµÇ´Â ÁÖ¹®µ¥ÀÌÅÍ Å×ÀÌºí

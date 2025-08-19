@@ -1,18 +1,17 @@
 package com.yedam.control;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.yedam.common.Control;
+import com.yedam.vo.CartProductVO;
+import com.yedam.vo.OrderTempVO;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yedam.common.Control;
-import com.yedam.vo.CartProductVO; // CartProductVO 임포트
-import com.yedam.vo.OrderTempVO; // OrderTempVO 임포트 (아래에서 정의)
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderTempSaveControl implements Control {
 
@@ -22,36 +21,35 @@ public class OrderTempSaveControl implements Control {
         HttpSession session = req.getSession();
 
         try {
-            // 클라이언트에서 보낸 JSON 데이터를 읽습니다.
             String requestBody = req.getReader().lines().collect(Collectors.joining());
             JsonNode jsonNode = objectMapper.readTree(requestBody);
 
-            // OrderTempVO에 담을 데이터를 파싱합니다.
-            String orderAddress = jsonNode.has("orderAddress") ? jsonNode.get("orderAddress").asText() : null;
-            String orderDetailAddress = jsonNode.has("orderDetailAddress") ? jsonNode.get("orderDetailAddress").asText() : null;
-            String orderRequest = jsonNode.has("orderRequest") ? jsonNode.get("orderRequest").asText() : null;
+            String orderAddressPart = jsonNode.has("orderAddress") ? jsonNode.get("orderAddress").asText() : "";
+            String orderDetailAddressPart = jsonNode.has("orderDetailAddress") ? jsonNode.get("orderDetailAddress").asText() : "";
+            String orderAddress = (orderAddressPart.trim() + " " + orderDetailAddressPart.trim()).trim();
+            
+            String orderRequest = jsonNode.has("orderRequest") ? jsonNode.get("orderRequest").asText() : "";
             int usedPoint = jsonNode.has("usedPoint") ? jsonNode.get("usedPoint").asInt() : 0;
-            // memberNo는 이미 세션에 있다고 가정합니다. (로그인된 사용자)
-            int memberNo = session.getAttribute("memberNo") != null ? (Integer) session.getAttribute("memberNo") : 0; // 예시: 실제 로그인 memberNo 사용
+            
+            // 세션에서 memberNo 가져오기 (OrderFormControl에서 설정된 값)
+            Integer memberNoObj = (Integer) session.getAttribute("memberNo"); 
+            int memberNo = (memberNoObj != null) ? memberNoObj : 0; // 세션에 없으면 0으로 설정 (주의: FK 오류 유발 가능)
 
-            // 장바구니 목록은 이미 세션에 있다고 가정합니다.
+            // 세션에서 장바구니 목록 (cp_list) 가져오기
             @SuppressWarnings("unchecked")
             List<CartProductVO> cartList = (List<CartProductVO>) session.getAttribute("cp_list");
 
-            // 임시 주문 정보를 OrderTempVO 객체에 담습니다.
             OrderTempVO tempOrder = new OrderTempVO();
-            tempOrder.setOrderAddress(orderAddress + " " + orderDetailAddress);
+            tempOrder.setOrderAddress(orderAddress);
             tempOrder.setOrderRequest(orderRequest);
             tempOrder.setUsedPoint(usedPoint);
-            tempOrder.setMemberNo(memberNo);
-            tempOrder.setCartList(cartList); // 장바구니 목록도 임시 정보로 함께 저장
+            tempOrder.setMemberNo(memberNo);      // 세션에서 가져온 memberNo 설정
+            tempOrder.setCartList(cartList);      // 세션에서 가져온 cartList 설정
 
-            // 세션에 임시 주문 정보를 저장합니다.
             session.setAttribute("tempOrderInfo", tempOrder);
 
-            System.out.println("Temporary order info saved to session: " + tempOrder);
+            System.out.println("Temporary order info saved to session: " + tempOrder); // 이 로그를 통해 실제 저장된 값 확인
 
-            // 성공 응답
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write("{\"status\":\"success\", \"message\":\"Temporary order data saved.\"}");
