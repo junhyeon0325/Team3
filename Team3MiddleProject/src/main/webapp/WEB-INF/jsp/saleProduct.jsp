@@ -13,7 +13,7 @@
 <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
-                <h1 class="mb-4">Fresh fruits shop</h1>
+                <h1 class="mb-4">임박상품 <br> 특가코너!</h1>
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="row g-4">
@@ -23,36 +23,54 @@
                                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
+                            
+                            
                             <div class="col-6"></div>
                             <div class="col-xl-3">
                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">정렬 기준:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
-                                    </select>
+                                    <form id="fruitform" action="saleProduct.do" method="get">
+			    							<input type="hidden" name="page" value="${currentPage}">
+										<label for="fruits">정렬 기준:</label>
+										<select id="fruits" name="sort" class="border-0 form-select-sm bg-light me-3" form="fruitform" onchange="this.form.submit()">
+											<option value="createdDate" <c:if test="${sort eq 'createdDate'}">selected</c:if>>등록순</option>
+											<option value="price" <c:if test="${sort eq 'price'}">selected</c:if>>가격순</option>
+										</select>
+									</form>
                                 </div>
                             </div>
                         </div>
                         
-                 <!-- 가격필터 -->       
                         <div class="row g-4">
+                        
+                 <!-- 가격필터 -->       
                             <div class="col-lg-3">
                                 <div class="row g-4">
+                 		<form action="saleProduct.do" method="get" id="filterForm">
+								<input type="hidden" name="maincategory" value="${currentCategory}">
+							    <input type="hidden" name="page" value="1">
+							    <input type="hidden" name="sort" value="${sort}">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-value="0" max-value="500" for="rangeInput">0</output>
+                                            <h4 class="mb-2">가격 범위</h4>
+                                            <div class="mb-3" align="right">
+												<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="50000" 
+													value="${param.maxPrice != null ? param.maxPrice : 0}" step="1000"
+													oninput="amount.value=this.value">
+												<output id="amount" name="amount" for="maxPrice">
+													<c:out value="${empty param.maxPrice ? 0 : param.maxPrice}"/>
+												</output>원
+											</div>
+											<div align="right">
+												<button type="submit" class="btn btn-primary btn-sm">적용</button>
+											</div>
                                         </div>
                                     </div>
+                        </form>            
                                     <div class="col-lg-12">
                                         <div class="position-relative">
                                             <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                                             <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <h2 class="text-secondary fw-bold">Food <br> Big <br> Sale</h2>
+                                                <h2 class="text-secondary fw-bold">Big <br> Sale <br> Festival</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -84,14 +102,16 @@
                        <!-- 페이징 -->             
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">
-                                          <c:if test="${currentPage > 1 }">
-                                            <a href="saleProduct.do?page=${currentPage -1 }" class="rounded">&laquo;</a>
+                                        
+                                        
+                                          <c:if test="${startPage > 1 }">
+                                            <a href="saleProduct.do?page=${startPage -1 }" class="rounded">&laquo;</a>
                                           </c:if>
-                                          <c:forEach begin="1" end="${totalSalePage }" var="i">
+                                          <c:forEach begin="${startPage }" end="${endPage }" var="i">
                                             <a href="saleProduct.do?page=${i }" class="rounded ${i == currentPage ? 'active' : ''}">${i }</a>
                                           </c:forEach>
-                                          <c:if test="${currentPage < totalSalePage }">  
-                                            <a href="saleProduct.do?page=${currentPage +1 }" class="rounded">&raquo;</a>
+                                          <c:if test="${endPage < totalSalePage }">  
+                                            <a href="saleProduct.do?page=${endPage +1 }" class="rounded">&raquo;</a>
                                           </c:if>
                                         </div>
                                     </div>

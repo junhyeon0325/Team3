@@ -183,14 +183,14 @@
 					<!-- 페이징 -->
 					<div class="col-12">
 						<div class="pagination d-flex justify-content-center mt-5">
-							<c:if test="${currentPage > 1}">
-							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
+							<c:if test="${startPage > 1}">
+							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${startPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
 							</c:if>
-							<c:forEach begin="1" end="${totalPages}" var="i">
+							<c:forEach begin="${startPage }" end="${endPage}" var="i">
 							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 							</c:forEach>
-							<c:if test="${currentPage < totalPages}">
-							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
+							<c:if test="${endPage < totalPages}">
+							<a href="frozenProductList.do?maincategory=${currentCategory }&page=${endPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
 							</c:if>
 						</div>
 					</div>

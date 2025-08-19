@@ -15,6 +15,14 @@
 	    			FROM tbl_product
 	    			WHERE expiration_date >= TRUNC(SYSDATE)
 	    	  		AND expiration_date < TRUNC(SYSDATE) +3
+	  ]]>
+                    <if test="maxPrice != null">
+			          AND product_price &lt;= #{maxPrice}
+			        </if>
+	  <![CDATA[
+                  ORDER BY
+                  	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
+                	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC
 	    	     ) p
 	         ) ta
 	    WHERE ta.rn > #{startRow}

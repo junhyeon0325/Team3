@@ -10,7 +10,8 @@
         SELECT ta.*
         FROM (
             SELECT /* + index_desc(b pk_product) */ ROWNUM rn, p.*
-            FROM (SELECT *
+            FROM (
+            	  SELECT *
                   FROM tbl_product
                   WHERE maincategory = #{maincategory}
          ]]>

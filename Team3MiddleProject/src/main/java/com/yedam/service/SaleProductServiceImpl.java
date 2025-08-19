@@ -14,10 +14,10 @@ public class SaleProductServiceImpl implements SaleProductService{
 	
 	
 	@Override
-	public List<ProductVO> selectSaleProductList(int page, int pageSize) {
+	public List<ProductVO> selectSaleProductList(int page, int pageSize, String sort, Integer maxPrice) {
 		int startRow = (page-1) * pageSize;
 		//int endRow = startRow + pageSize;
-		return mapper.selectSaleProductList(startRow, pageSize);
+		return mapper.selectSaleProductList(startRow, pageSize, sort, maxPrice);
 	}
 
 

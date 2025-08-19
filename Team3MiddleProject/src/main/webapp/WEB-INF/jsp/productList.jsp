@@ -36,10 +36,11 @@
 						<div class="input-group w-100 mx-auto d-flex">
 							<input type="search" class="form-control p-3"
 								placeholder="keywords" aria-describedby="search-icon-1">
-							<span id="search-icon-1" class="input-group-text p-3"><i
-								class="fa fa-search"></i></span>
+							<span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
 						</div>
 					</div>
+					
+					
 					<div class="col-6"></div>
 					<div class="col-xl-3">
 						<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
@@ -92,7 +93,7 @@
 							    <input type="hidden" name="sort" value="${sort}">
 							    
 									<div class="col-lg-12">
-											<h4 class="mb-2">가격</h4>
+											<h4 class="mb-2">가격 범위</h4>
 										<div class="mb-3" align="right">
 											<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="50000" 
 												value="${param.maxPrice != null ? param.maxPrice : 0}" step="1000"
@@ -203,14 +204,14 @@
 					<!-- 페이징 -->
 					<div class="col-12">
 						<div class="pagination d-flex justify-content-center mt-5">
-							<c:if test="${currentPage > 1}">
-								<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
+							<c:if test="${startPage > 1}">
+								<a href="productList.do?maincategory=${currentCategory }&page=${startPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
 							</c:if>
-							<c:forEach begin="1" end="${totalPages}" var="i">
+							<c:forEach begin="${startPage}" end="${endPage}" var="i">
 								<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 							</c:forEach>
-							<c:if test="${currentPage < totalPages}">
-								<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
+							<c:if test="${endPage < totalPages}">
+								<a href="productList.do?maincategory=${currentCategory }&page=${endPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
 							</c:if>
 						</div>
 					</div>
