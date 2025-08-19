@@ -9,8 +9,10 @@
 		from tbl_order o
 		join tbl_member m
 		on m.member_no = o.member_no
-		where m.member_id = #{member_id}
-		and o.product_no = #{product_no}
+		join tbl_order_items i
+		on o.order_no = i.order_no
+		where m.member_id = #{memberId}
+		and i.product_no = #{productNo}
 	</select>
 	
     <insert id="insertReview" parameterType="com.yedam.vo.ReviewVO">
@@ -18,11 +20,9 @@
         SELECT review_seq.nextval FROM dual
     </selectKey>
    		 INSERT INTO tbl_review 
-        (review_no, review_score, review_content, review_image, review_date, product_no, order_no, member_name)
+        (review_no, review_score, review_content, review_date, review_image, product_no, member_name)
    		 VALUES 
-        (#{reviewNo}, #{reviewScore}, #{reviewContent}, #{reviewImage}, SYSDATE, #{productNo}, #{orderNo}, #{memberName})
+        (#{reviewNo}, #{reviewScore}, #{reviewContent}, SYSDATE, #{reviewImage}, #{productNo}, #{memberName})
 	</insert>
 	
-	
-
 </mapper>

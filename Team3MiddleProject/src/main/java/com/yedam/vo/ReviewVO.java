@@ -10,7 +10,6 @@ public class ReviewVO {
 	private String reviewImage;
 	private String reviewDate;
 	private int productNo;
-	private int orderNo;
 	private String memberName;
 	private String memberId;
 }
