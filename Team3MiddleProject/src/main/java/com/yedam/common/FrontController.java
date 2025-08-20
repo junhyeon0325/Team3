@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.CartListControl;
+import com.yedam.control.CheckIdControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
+import com.yedam.control.LoginControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
@@ -28,6 +30,8 @@ import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
+import com.yedam.control.SignFormControl;
+import com.yedam.control.SignUpControl;
 import com.yedam.control.ReviewListControl;
 
 public class FrontController extends HttpServlet{
@@ -41,6 +45,12 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
+		//map.put("/login.do", new LoginFormControl());
+		map.put("/signup.do", new SignUpControl());
+		map.put("/loginForm.do", new LoginControl());
+		map.put("/signForm.do", new SignFormControl());
+		map.put("/checkId.do", new CheckIdControl());
+		
 		map.put("/productList.do", new ProductListControl());
 		
 		//상세페이지
@@ -70,7 +80,8 @@ public class FrontController extends HttpServlet{
 	}
 	
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp)// 
+			throws ServletException, IOException {
 		String uri = req.getRequestURI();
 		String context = req.getContextPath();
 		String path = uri.substring(context.length());

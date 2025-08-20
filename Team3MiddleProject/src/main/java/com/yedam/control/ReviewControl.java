@@ -25,9 +25,11 @@ public class ReviewControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		HttpSession session = req.getSession();
 		
-		String memberId = "kimy01";
-		String memberName = "김영희";
-		/* String memberName = (String)session.getAttribute("member_name"); */
+		//String memberId = "jjh";
+		//String memberName = "장준현";
+		String memberName = (String)session.getAttribute("logName");
+		String memberId = (String)session.getAttribute("logId");
+		System.out.println("id : " + memberId);
 		
 		Map<String, Object> map = new HashMap<>();
 		

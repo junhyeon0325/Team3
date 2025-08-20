@@ -14,6 +14,7 @@
   	<typeAlias alias= "review" type="com.yedam.vo.ReviewVO"/>
   	<typeAlias alias= "order" type="com.yedam.vo.OrderVO"/>
     <!-- <typeAlias alias=" " type=""/>  -->
+    <typeAlias alias="member" type = "com.yedam.vo.MemberVO"/>
     <typeAlias alias="cp" type="com.yedam.vo.CartProductVO"/>
     <typeAlias alias="om" type="com.yedam.vo.OrderMemberVO"/>
     <typeAlias alias="search" type="com.yedam.vo.SearchVO"/>
@@ -24,7 +25,11 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+<<<<<<< HEAD
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+=======
+        <property name="url" value="jdbc:oracle:thin:@192.168.0.51:1521:xe"/> <!-- localhost --> <!-- 192.168.0.51 -->
+>>>>>>> refs/remotes/origin/장준현
         <property name="username" value="dev"/>
         <property name="password" value="dev"/>
       </dataSource>
@@ -32,6 +37,7 @@
   </environments>
 
   <mappers>
+  	<mapper resource="com/yedam/mapper/MemberMapper.xml"/>
     <mapper resource="com/yedam/mapper/DetailMapper.xml"/>
     <mapper resource="com/yedam/mapper/ReviewMapper.xml"/>
     <mapper resource="com/yedam/mapper/ProductListMapper.xml"/>

@@ -17,7 +17,7 @@ public class MainControl implements Control{
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp)// 
 			throws ServletException, IOException {
-		
+	
 		ProductListService prdService = new ProductListServiceImpl();
 		List<ProductVO> productList = prdService.selectAllProducts();
 		List<ProductVO> freshList = prdService.getFreshFoodList();
@@ -31,4 +31,6 @@ public class MainControl implements Control{
 		
 		req.getRequestDispatcher("product/main.tiles").forward(req, resp);
 	}
+	
 }
+
