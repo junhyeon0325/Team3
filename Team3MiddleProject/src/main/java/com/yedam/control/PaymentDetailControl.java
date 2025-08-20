@@ -13,6 +13,8 @@ public class PaymentDetailControl implements Control {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/json;charset=utf-8");
+
         // PaymentController의 showPaymentDetail 메서드 로직을 여기에 옮깁니다.
         // 세션에서 결제 상세 정보를 가져와서 request 속성에 저장하고 JSP로 포워드합니다.
         JsonNode paymentDetail = (JsonNode) req.getSession().getAttribute("paymentDetail");

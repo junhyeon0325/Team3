@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.CartListAddControl;
 import com.yedam.control.CartListControl;
+import com.yedam.control.CartListCountControl;
 import com.yedam.control.CheckIdControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
@@ -62,6 +64,8 @@ public class FrontController extends HttpServlet{
 		map.put("/search.do", new SearchControl());
 		
 		// 장바구니
+		map.put("/cartListAdd.do", new CartListAddControl()); // 장바구니에 담기
+		map.put("/cartListCount.do", new CartListCountControl()); // 장바구니 상품개수새기
 		map.put("/cartlistform.do", new CartListControl());	// 장바구니 목록 출력
 		map.put("/modifyCartProductPcs.do", new ModifyCartProductPcsControl());	// 장바구니 수량 수정 
 		map.put("/removeCartListSingle.do", new RemoveCartListSingleControl());	// 장바구니 목록 한줄 삭제

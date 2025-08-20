@@ -172,7 +172,7 @@
 	                            <p>${prd.productAbout }</p>
 	                            <div class="d-flex justify-content-between flex-lg-wrap">
 	                                <p class="text-dark fs-5 fw-bold mb-0">${prd.productPrice }원</p>
-	                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
+	                                <a href="#" onclick="addToCart(${prd.productNo });" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -227,7 +227,7 @@
 	                            <p>${prd.productAbout }</p>
 	                            <div class="d-flex justify-content-between flex-lg-wrap">
 	                                <p class="text-dark fs-5 fw-bold mb-0">${prd.productPrice }원</p>
-	                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
+	                                <a href="cartlistform.do" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -276,5 +276,23 @@
 
 
     </body>
-
+<script>
+function addToCart(productNo) {
+	fetch('cartListAdd.do?productNo=' + productNo + '&productPcs=1')
+	.then(resolve => resolve.json())
+	.then(result => {
+		if( result.retCode == 'loginNo') {
+			alert('로그인을 해주세요.');
+		} else if( result.retCode == 'OK' ) {
+			cartListCount();
+			alert('장바구니에 상품을 담았습니다.');
+		} else if( result.retCode == 'NG' ) {
+			alert('처리중 예외 발생')
+		} else {
+			alert('알수 없는 코드')
+		}
+	})
+	.catch(err => console.error(err));	
+}
+</script>
 </html>

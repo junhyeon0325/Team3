@@ -20,11 +20,11 @@ public class CartListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//resp.setContentType("text/json;charset=utf-8");
+		resp.setContentType("text/json;charset=utf-8");
 		
 		// 저장된 id세션을 가져오기
-		//HttpSession session = req.getSession();	
-		String memberId = "jjh";//(String) session.getAttribute("logId");
+		HttpSession session = req.getSession();	
+		String memberId = (String) session.getAttribute("logId");
 
 		// 서비스 호출
 		CartService svc = new CartServiceImpl();

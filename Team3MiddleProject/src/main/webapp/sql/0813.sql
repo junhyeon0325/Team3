@@ -1,3 +1,79 @@
+-- tbl_order_items Á¶È¸
+select *
+from   tbl_order_items;
+
+select *
+from tbl_order;
+
+select *
+from tbl_cart;
+
+-- Àå¹Ù±¸´Ï¿¡ ³ÖÀ¸¸é ¾ó¸¶³ª ÀÖ´ÂÁö °³¼ö ¼¼´Â Äõ¸®
+select count(*)
+from tbl_cart
+where member_no = (select member_no
+                   from   tbl_member
+                   where  member_id = 'jjh' );
+
+-- Àå¹Ù±¸´Ï¿¡ µ¥ÀÌÅÍ ³Ö´Â Äõ¸®¹®
+insert into tbl_cart(cart_no,
+                             product_pcs,
+                             product_no,
+                             member_no)
+        values(CART_NO.nextval,
+               1, 
+               1,
+               (select member_no
+                from   tbl_member
+                where  member_id = #{memberId} ));
+
+-- tbl_cartÁ¶È¸
+select *
+from   tbl_cart;
+
+-- ½ÃÄö½º °´Ã¼ »ý¼º
+create sequence cart_no;
+
+-- tbl_cart¿¡ µ¥ÀÌÅÍ ³Ö±â(Àå¹Ù±¸´Ï µ¥ÀÌÅÍ ³Ö±â)
+insert into tbl_cart(cart_no,
+                     product_pcs,
+                     product_no,
+                     member_no)
+values(CART_NO.nextval, -- ½ÃÄö½º ³Ö±â
+       1, -- ºó°ø°£Àº ±âº»°ª1
+       1,
+       (select member_no
+        from   tbl_member
+        where  member_id = 'jjh' ));
+
+-- ÀÔ·Â¹ÞÀº member_id¿¡ ÇØ´çÇÏ´Â member_noÁ¶È¸
+select member_no
+from   tbl_member
+where  member_id = 'jjh';
+
+-- tbl_memberÁ¶È¸
+select *
+from   tbl_member;
+
+select *
+from tbl_cart;
+
+select *
+from tbl_product;
+
+alter table tbl_product add discount_rate number default 0;
+alter table tbl_product add discount_price number;
+
+
+CREATE SEQUENCE review_seq;
+INSERT INTO tbl_order_items values(1,1,34,1);
+insert into tbl_order values(20,'jjh',100,'2025-08-20',20000,'asdf',1);
+select *
+from tbl_order;
+select *
+from tbl_order_items;
+select *
+from tbl_member;
 create table tbl_product(                   
     product_no number primary key,
     product_name varchar2(100) not null,
@@ -9,14 +85,21 @@ create table tbl_product(
     product_about varchar2(500),
     maincategory varchar2(100) not null
 );
+
+select *
+from tbl_review;
+alter table tbl_review
+add member_name varchar2(100);
+alter table tbl_review
+add review_score number;
 create table tbl_review(
     review_no number primary key,
     review_content varchar2(1000) not null,
     review_image varchar2(100),
-    --review_score number,  tbl_productï¿½ï¿½ product_score ï¿½Ö´Âµï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? È®ï¿½ï¿½
+    review_score number,  tbl_productï¿½ï¿½ product_score ï¿½Ö´Âµï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? È®ï¿½ï¿½
     review_date date default sysdate,             --default ï¿½ï¿½ sysdate
     product_no number not null,
-    order_no number not null,
+    
     
     constraint fk_review_product
     foreign key(product_no)
@@ -161,7 +244,7 @@ create table tbl_order(
     order_price number not null,
     order_request varchar2(100),          -- ï¿½ï¿½ï¿½ï¿½
     member_no number not null,
-    product_no number not null,
+    
     
     constraint fk_order_member
     foreign key(member_no)
@@ -352,3 +435,5 @@ create table tbl_cart(
     references tbl_product(product_no)
     on delete cascade
 );
+
+

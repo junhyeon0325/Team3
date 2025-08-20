@@ -12,6 +12,8 @@ public class PaymentSuccessControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/json;charset=utf-8");
+
 		try {
             // success.jsp로 포워드
             req.getRequestDispatcher("/WEB-INF/jsp/success.jsp").forward(req, resp);
