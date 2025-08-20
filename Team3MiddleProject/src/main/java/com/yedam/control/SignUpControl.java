@@ -45,12 +45,12 @@ public class SignUpControl implements Control {
 		MemberService svc = new MemberServiceImpl();
 		if ( svc.insertMember(param)) {
 			// 목록이동
-			req.getRequestDispatcher("/WEB-INF/jsp/signup_Complete.jsp")
+			req.getRequestDispatcher("product/signup_Complete.tiles")
 			.forward(req, resp);
 		} else {
 			System.out.println("Error발생");
 			req.setAttribute("msg", "회원가입실패");
-			req.getRequestDispatcher("/WEB-INF/jsp/signup_form.jsp")
+			req.getRequestDispatcher("product/signup_form.tiles")
 			.forward(req, resp);
 		}
 	}

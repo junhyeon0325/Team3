@@ -116,21 +116,7 @@ function checkIdDuplicate() {
     let message = document.getElementById("idMessage");
 
     if (userId.length > 0) {
-        // AJAX를 사용해 서버에 요청
-        // 이 부분은 실제로 동작하는 서버 API가 있어야 합니다.
-        // 여기서는 임시로 'user1'과 'admin'을 중복 ID로 가정합니다.
-        const existingIds = ["user1", "admin", "testuser"];
-        
-        if (existingIds.includes(userId)) {
-            message.style.color = "red";
-            message.textContent = "같은 ID가 있습니다.";
-        } else {
-            message.style.color = "green";
-            message.textContent = "ID 등록이 가능합니다.";
-        }
-
-        // 실제 fetch를 사용하는 경우 (주석 해제 후 사용)
-        /*
+        // 실제 fetch를 사용해 서버에 요청
         fetch("checkId.do?id=" + userId)
             .then(response => response.json())
             .then(data => {
@@ -147,7 +133,6 @@ function checkIdDuplicate() {
                 message.style.color = "red";
                 message.textContent = "ID 중복 확인 중 오류가 발생했습니다.";
             });
-        */
     } else {
         message.textContent = "";
     }

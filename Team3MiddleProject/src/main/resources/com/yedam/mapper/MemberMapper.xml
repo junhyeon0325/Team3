@@ -33,4 +33,10 @@
      WHERE id = #{id}
 </update>
 
+<select id="checkId" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM tbl_member
+		WHERE member_id = #{id}
+	</select>
+	
 </mapper>

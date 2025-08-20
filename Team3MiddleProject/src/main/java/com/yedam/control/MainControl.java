@@ -17,11 +17,7 @@ public class MainControl implements Control{
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp)// 
 			throws ServletException, IOException {
-		//req.getRequestDispatcher("index.jsp").forward(req, resp);
-		req.getRequestDispatcher("product/signup_form.tiles")
-		.forward(req, resp);
-	//	req.getRequestDispatcher("product/cart.tiles").forward(req, resp);
-		
+	
 		ProductListService prdService = new ProductListServiceImpl();
 		List<ProductVO> productList = prdService.selectAllProducts();
 		

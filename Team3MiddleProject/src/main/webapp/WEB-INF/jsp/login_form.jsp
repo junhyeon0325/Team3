@@ -4,7 +4,7 @@
 <link href="./css/login.css" rel="stylesheet">
 
 <div id="id01" class="modal">
-	<form class="modal-style" action="login.do" method="post">
+	<form class="modal-style" action="loginForm.do" method="post">
 		<div class="imgcontainer">
 			<span onclick="document.getElementById('id01').style.display='none'"
 				class="out" title="Out Modal">&times;</span>
@@ -20,7 +20,7 @@
 
 			<button type="submit">Login</button>
 			<label> 
-				<input type="checkbox" checked="checked" name="remember"> 저장할끼가
+				<input type="checkbox" checked="checked" name="remember"> 아이디를 저장하시겠습니까?
 			</label>
 		</div>
 		<div class="jstyle" style="background-color: #f1f1f1">

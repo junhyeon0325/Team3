@@ -1,11 +1,8 @@
 package com.yedam.control;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import com.yedam.common.Control;
 import com.yedam.service.MemberService;
@@ -14,27 +11,29 @@ import com.yedam.vo.MemberVO;
 
 public class LoginControl implements Control {
 
-	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// param : uname, psw
-		String id = req.getParameter("uname");
-		String pwd = req.getParameter("pwd");
-		
-		// DB 처리
-		MemberService svc = new MemberServiceImpl();
-		MemberVO member = svc.userCheck(id, pwd);
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // JSP에서 넘어오는 파라미터명과 맞춰야 함!
+        String id = req.getParameter("id");
+        String pwd = req.getParameter("pwd");
 
-		//세션정보활용
-		if (member == null) {
-			
-		} else {
-			// 세션을 활용하여 정보저장
-			// 정상적으로 id, pw를 입력했다는 의미
-			HttpSession session = req.getSession();	//쿠키정보를 확인해서 session객체를 만들어줌
-			session.setAttribute("logId", id);	// logid라는 속성 = 로그인아이디
-			session.setAttribute("auth", member.getGetResponsibility());  // user / 관리자
-			resp.sendRedirect("login.do");
-		}
-	}
+        MemberService svc = new MemberServiceImpl();
+        MemberVO member = svc.userCheck(id, pwd);
 
+        if (member != null) { // ✅ 로그인 성공
+            HttpSession session = req.getSession();
+            session.setAttribute("logId", member.getMemberId());
+            session.setAttribute("logSuccess", true);
+
+            resp.sendRedirect("main.do"); // 메인 페이지로 이동
+        } else { // ❌ 로그인 실패
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.getWriter().println("<script>");
+            resp.getWriter().println("alert('아이디 또는 비밀번호가 올바르지 않습니다.');");
+            resp.getWriter().println("location.href='loginForm.do';"); 
+            resp.getWriter().println("</script>");
+        }
+    }
 }
+
+

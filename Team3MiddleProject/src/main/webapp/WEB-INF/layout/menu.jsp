@@ -16,18 +16,15 @@
 
 				<a href="#"
 					onclick="document.getElementById('id01').style.display='block'"
-					class="text-white"> <small class="text-white mx-2">Login</small>/
+					class="text-white"> <small class="text-white mx-2">로그인</small>/
 				</a>
 
 
 				<%@ include file="/WEB-INF/jsp/login_form.jsp" %>
 
 
-				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
+				<a href="signup.do" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
 				<a href="#" class="text-white"><small class="text-white ms-2">고객센터</small></a>
-				<a href="#" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
-				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
-				<a href="#" class="text-white"><small class="text-white ms-2">게시판</small></a>
 
 			</div>
 		</div>

@@ -14,7 +14,7 @@ public class SignFormControl implements Control {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		req.getRequestDispatcher("WEB-INF/html/signup_form.jsp")
+		req.getRequestDispatcher("product/signup_form.tiles")
 		.forward(req, resp);
 	}
 
