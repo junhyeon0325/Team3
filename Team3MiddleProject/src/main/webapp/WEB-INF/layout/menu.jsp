@@ -42,15 +42,13 @@
 				<div class="navbar-nav mx-auto">
 					<a href="productList.do?maincategory=채소" class="nav-item nav-link ${param.maincategory == '채소' ? 'active' : ''}">식품관</a>
     				<a href="frozenProductList.do?maincategory=냉동볶음밥"  class="nav-item nav-link ${param.maincategory == '냉동볶음밥' ? 'active' : ''}">냉동식품관</a>
-					<a href="productList.do?maincategory=수산·해산·건어물" class="nav-item nav-link ${param.maincategory == '수산·해산·건어물' ? 'active' : ''}">미정</a>
+					
 					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown">이벤트</a>
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">이벤트</a>
 						<div class="dropdown-menu m-0 bg-secondary rounded-0">
-							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a> <a
-								href="chackout.html" class="dropdown-item">임박 상품 특가</a> <a
-								href="testimonial.html" class="dropdown-item">미정</a> <a
-								href="404.html" class="dropdown-item">미정</a>
+							<a href="cart.html" class="dropdown-item">오늘의 이벤트</a>
+							<a href="chackout.html" class="dropdown-item">임박 상품 특가</a>
+							<a href="testimonial.html" class="dropdown-item">미정</a>
 						</div>
 					</div>
 					<a href="contact.html" class="nav-item nav-link">게시판</a>
@@ -86,13 +84,36 @@
 			</div>
 			<div class="modal-body d-flex align-items-center">
 				<div class="input-group w-75 mx-auto d-flex">
-					<input type="search" class="form-control p-3"
-						placeholder="keywords" aria-describedby="search-icon-1"> <span
-						id="search-icon-1" class="input-group-text p-3"><i
-						class="fa fa-search"></i></span>
+					<form id="myFrom" action="search.do" method="get">
+						<input type="text" id="inputValue" class="form-control p-3"
+							placeholder="keywords" aria-describedby="search-icon-1" value=""> 
+							<button type="button" onclick="submitForm()">검색</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- Modal Search End -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">상품 검색</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function submitForm() {
+	  const inputValue = document.getElementById("inputValue").value;
+	  window.location.href = "search.do?value=" + inputValue;
+}
+</script>

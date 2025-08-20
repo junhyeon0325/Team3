@@ -10,7 +10,8 @@
 
 <body>
 
-<h2>Welcome to Friutable !!!(made by 3조)</h2>
+<jsp:forward page="main.do"></jsp:forward>
+<h2>Hello World!</h2>
 </body>
 
 </html>
