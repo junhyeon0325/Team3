@@ -40,8 +40,4 @@ public class SaleProductServiceImpl implements SaleProductService{
 	public int countTotalSaleProducts() {
 		return mapper.countTotalSaleProducts();
 	}
-
-
-
-
 }
