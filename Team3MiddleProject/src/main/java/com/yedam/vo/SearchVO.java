@@ -6,10 +6,6 @@ import lombok.Data;
 
 @Data
 public class SearchVO {
-	private int id;
-	private String description;
-	private int categoryId;
-	private Date createdAt;
 	
 	private int productNo;
 	private String productName;
