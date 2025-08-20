@@ -1,6 +1,5 @@
 package com.yedam.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	//페이징 리뷰목록
 	@Override
-	public List<ReviewVO> reviewList(int productNo, int page) {
-		int start = (page - 1)* 5 + 1;
-		int end = start + 4;
-		Map<String, Object> param = new HashMap<>();
-		param.put("productNo", productNo);
-		param.put("start", start);
-		param.put("end", end);
+	public List<ReviewVO> reviewList(Map<String, Object> param) {
 		return mapper.selectReviewList(param);
 	}
 	

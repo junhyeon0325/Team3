@@ -31,25 +31,15 @@
 	<select id="selectReviewList" parameterType="map" resultType="com.yedam.vo.ReviewVO">
 		SELECT *
    		FROM (
-        SELECT ROWNUM rn, a.*
-        FROM (
-             SELECT review_no, product_no, review_content, review_score, review_date, writer
+      	  SELECT ROWNUM rn, a.*
+      	  FROM (
+             SELECT review_no, review_score, review_content, review_date, review_image, product_no, member_name
              FROM tbl_review
              WHERE product_no = #{productNo}
              ORDER BY review_date DESC
     	     ) a
 	   	 )
-	  	  WHERE rn BETWEEN #{start} AND #{end}SELECT *
-   	   FROM (
-       SELECT ROWNUM rn, a.*
-       FROM (
-            SELECT review_no, product_no, review_content, review_score, review_date, writer
-            FROM tbl_review
-            WHERE product_no = #{productNo}
-            ORDER BY review_date DESC
-         ) a
-     )
-     WHERE rn BETWEEN #{start} AND #{end}
+	  	  WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 리뷰 수 카운트 -->
