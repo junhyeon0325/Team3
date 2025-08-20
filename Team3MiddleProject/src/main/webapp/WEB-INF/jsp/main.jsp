@@ -164,7 +164,9 @@
 	                 <c:forEach var="prd" items="${productList }">
 	                    <div class="border border-primary rounded position-relative vesitable-item">
 	                        <div class="vesitable-img">
+	                        <a href="detailPage.do?productNo=${prd.productNo}">
 	                            <img src="${prd.productImage }" class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt="">
+	                        </a>
 	                        </div>
 	                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">All</div>
 	                        <div class="p-4 rounded-bottom">
@@ -213,7 +215,9 @@
 	                 <c:forEach var="prd" items="${frozenList }">
 	                    <div class="border border-primary rounded position-relative vesitable-item">
 	                        <div class="vesitable-img">
+	                        <a href="detailPage.do?productNo=${prd.productNo}">
 	                            <img src="${prd.productImage }" class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt="">
+	                        </a>
 	                        </div>
 	                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Frozen</div>
 	                        <div class="p-4 rounded-bottom">
@@ -263,7 +267,9 @@
 	                 <c:forEach var="prd" items="${freshList }">
 	                    <div class="border border-primary rounded position-relative vesitable-item">
 	                        <div class="vesitable-img">
+	                        <a href="detailPage.do?productNo=${prd.productNo}">
 	                            <img src="${prd.productImage }" class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt="">
+	                        </a>
 	                        </div>
 	                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Fresh</div>
 	                        <div class="p-4 rounded-bottom">
@@ -317,7 +323,9 @@
                         <div class="p-4 rounded bg-light">
                             <div class="row align-items-center">
                                 <div class="col-6">
+                                <a href="detailPage.do?productNo=${high.productNo}">
                                     <img src="${high.productImage }" class="img-fluid rounded-circle w-100 " style="height:150px; object-fit:cover;" alt="">
+                                </a>
                                 </div>
                                 <div class="col-6">
                                     <a href="detailPage.do?productNo=${high.productNo }" class="h5">${high.productName }</a>

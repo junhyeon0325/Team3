@@ -165,7 +165,7 @@
 										Fresh
 									</div>
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
-										<h4>${product.productName }</h4>
+										<a href="detailPage.do?productNo=${product.productNo }" class="h4">${product.productName }</a>
 										<p>${product.productAbout }</p>
 										<div class="d-block justify-content-between flex-lg-wrap" >
 											<p class="text-dark fs-5 fw-bold mb-0" align="center">${product.productPrice }원</p>

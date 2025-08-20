@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
@@ -84,12 +86,14 @@
 	                                    <div class="col-md-6 col-lg-6 col-xl-4">
 	                                        <div class="rounded position-relative fruite-item">
 	                                            <div class="fruite-img">
+	                                            <a href="detailPage.do?productNo=${sale.productNo}">
 	                                                <img src="${sale.productImage }" class="img-fluid w-100 rounded-top" style="height:300px; object-fit:cover;" alt="">
+	                                            </a>
 	                                            </div>
 	                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">!!임박특가!!</div>
 	                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${sale.discountRate }%</div>
 	                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-	                                                <h4>${sale.productName }</h4>
+	                                                <a href="detailPage.do?productNo=${sale.productNo }" class="h4">${sale.productName }</a>
 	                                                <p>${sale.productAbout }</p>
 	           <!-- 평점 -->			
 						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">

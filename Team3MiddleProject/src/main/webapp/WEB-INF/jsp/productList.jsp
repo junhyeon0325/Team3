@@ -180,7 +180,7 @@
 										Fresh
 									</div>
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
-										<h4>${product.productName }</h4>
+										<a href="detailPage.do?productNo=${product.productNo }" class="h4">${product.productName }</a>
 				<!-- 평점 -->			
 						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
 						    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
