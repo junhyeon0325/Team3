@@ -26,8 +26,8 @@
 		<div class="jstyle" style="background-color: #f1f1f1">
 			<button type="button"
 				onclick="document.getElementById('id01').style.display='none'"
-				class="outbtn">Cancel</button>
-			<span class="psw">Forgot <a href="#">password?</a></span>
+				class="outbtn">취소</button>
+			<span class="psw">혹시 <a href="find.do">비밀번호를 잊으셨나요?</a></span>
 		</div>
 	</form>
 </div>

@@ -23,7 +23,7 @@
 				<%@ include file="/WEB-INF/jsp/login_form.jsp" %>
 
 
-				<a href="signup.do" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
+				<a href="signForm.do" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
 				<a href="#" class="text-white"><small class="text-white ms-2">고객센터</small></a>
 
 			</div>
