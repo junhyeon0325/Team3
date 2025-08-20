@@ -251,7 +251,7 @@
                         <div class="p-4 rounded bg-light">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <img src="${high.productImage }" class="img-fluid rounded-circle w-100" alt="">
+                                    <img src="${high.productImage }" class="img-fluid rounded-circle w-100 " style="height:150px; object-fit:cover;" alt="">
                                 </div>
                                 <div class="col-6">
                                     <a href="detailPage.do?productNo=${high.productNo }" class="h5">${high.productName }</a>
@@ -262,8 +262,9 @@
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star"></i>
                                     </div>
-                                    <h4 class="mb-3">${high.productPrice }</h4>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
+                                    <h4 class="mb-3">${high.productPrice }원</h4>
+                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                    <i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
                                 </div>
                             </div>
                         </div>
