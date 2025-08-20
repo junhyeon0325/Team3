@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 
@@ -43,7 +45,7 @@
 					<div class="col-6"></div>
 					<div class="col-xl-3">
 						<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-							<form id="fruitform" action="productList.do" method="get">
+							<form id="fruitform" action="frozenProductList.do" method="get">
 								<input type="hidden" name="maincategory" value="${currentCategory}">
     							<input type="hidden" name="page" value="${currentPage}">
 									<label for="fruits">정렬 기준:</label>
@@ -116,13 +118,28 @@
 												</div>
 												<div>
 														<h6 class="mb-2">${lowest.productName }</h6>
-														<div class="d-flex mb-2">
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star"></i>
-														</div>
+				<!-- 평점 -->			
+						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${lowest.productScore - (lowest.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${lowest.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        <!-- ${product.productScore} -->
+						    </p>
+						</div>
+				<!-- 평점end -->
 														<div class="d-flex mb-2">
 															<h5 class="fw-bold me-2">${lowest.productPrice }원</h5>
 														</div>
@@ -130,7 +147,7 @@
 											</div>
 										</c:forEach>
 											<div class="d-flex justify-content-center my-4">
-												<a href="productList.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+												<a href="forzenProductList.do?maincategory=냉동과일&page=1&sort=price" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>
 											</div>
 							</div>
 															<!-- <h5 class="text-danger text-decoration-line-through">4.11원</h5> -->
@@ -166,6 +183,28 @@
 									</div>
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
 										<a href="detailPage.do?productNo=${product.productNo }" class="h4">${product.productName }</a>
+				<!-- 평점 -->			
+						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${product.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        <!-- ${product.productScore} -->
+						    </p>
+						</div>
+				<!-- 평점end -->
 										<p>${product.productAbout }</p>
 										<div class="d-block justify-content-between flex-lg-wrap" >
 											<p class="text-dark fs-5 fw-bold mb-0" align="center">${product.productPrice }원</p>

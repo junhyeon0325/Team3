@@ -14,7 +14,7 @@
 			<div class="top-link pe-2">
 				<a href="#" class="text-white"><small class="text-white mx-2">로그인</small>/</a>
 				<a href="#" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
-				<a href="#" class="text-white"><small class="text-white ms-2">게시판</small></a>
+				<a href="#" class="text-white"><small class="text-white ms-2">마이페이지</small></a>
 			</div>
 		</div>
 	</div>
@@ -29,10 +29,9 @@
 			
 			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
 				<div class="navbar-nav mx-auto">
-					<a href="productList.do?maincategory=채소" class="nav-item nav-link ${param.maincategory == '채소' ? 'active' : ''}">식품관</a>
+					<a href="productList.do?maincategory=채소" class="nav-item nav-link ${param.maincategory == '채소' || '정육' || '수산' ? 'active' : ''}">식품관</a>
     				<a href="frozenProductList.do?maincategory=냉동볶음밥"  class="nav-item nav-link ${param.maincategory == '냉동볶음밥' ? 'active' : ''}">냉동식품관</a>
 					<a href="saleProduct.do" class="nav-item nav-link">임박상품특가</a>
-					<a href="contact.html" class="nav-item nav-link">게시판</a>
 				</div>
 				<div class="d-flex m-3 me-0">
 					<button

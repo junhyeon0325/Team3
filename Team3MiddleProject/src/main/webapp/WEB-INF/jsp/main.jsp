@@ -328,7 +328,7 @@
                                 </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="detailPage.do?productNo=${high.productNo }" class="h5">${high.productName }</a>
+                                    <a href="detailPage.do?productNo=${high.productNo }" class="h2">${high.productName }</a>
                                     <div class="d-flex my-3">
                 <!-- 평점 -->			
 						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
@@ -353,7 +353,7 @@
 						</div>
 				<!-- 평점end -->
                                     </div>
-                                    <h4 class="mb-3">${high.productPrice }원</h4>
+                                    <h3 class="mb-3">${high.productPrice }원</h3>
                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
                                     <i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
                                 </div>

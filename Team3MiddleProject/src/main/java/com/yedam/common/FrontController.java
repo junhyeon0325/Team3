@@ -41,6 +41,7 @@ public class FrontController extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
 		map.put("/productList.do", new ProductListControl());
+		map.put("/frozenProductList.do", new FrozenProductListControl());
 		
 		//상세페이지
 		map.put("/detailPage.do", new DetailSelectcontrol());

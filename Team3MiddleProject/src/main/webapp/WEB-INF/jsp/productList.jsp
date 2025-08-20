@@ -147,7 +147,7 @@
 											</div>
 										</c:forEach>
 											<div class="d-flex justify-content-center my-4">
-												<a href="productList.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+												<a href="productList.do?maincategory=채소&page=1&sort=price" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>
 											</div>
 							</div>
 							
