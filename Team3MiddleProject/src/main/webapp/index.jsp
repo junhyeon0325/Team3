@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+<jsp:forward page="main.do"></jsp:forward>
 <h2>Hello World!</h2>
 </body>
 
