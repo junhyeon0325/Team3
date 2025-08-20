@@ -91,6 +91,28 @@
 	                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
 	                                                <h4>${sale.productName }</h4>
 	                                                <p>${sale.productAbout }</p>
+	           <!-- 평점 -->			
+						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${sale.productScore - (sale.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${sale.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        <!-- ${product.productScore} -->
+						    </p>
+						</div>
+				<!-- 평점end -->
 	                                                <div class="d-flex justify-content-between flex-lg-wrap">
 	                                                    <p class="text-decoration-line-through">${sale.productPrice }원</p>
 	                                                    <p class="text-danger fs-1 fw-bold mb-0">${sale.discountPrice }원</p>

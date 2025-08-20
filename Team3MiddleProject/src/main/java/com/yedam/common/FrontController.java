@@ -14,9 +14,6 @@ import com.yedam.control.CartListControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.MainControl;
-import com.yedam.control.ProductListControl;
-import com.yedam.control.ProductSelectControl;
-import com.yedam.control.SearchControl;
 import com.yedam.control.ModifyCartProductPcsControl;
 import com.yedam.control.OrderFormControl;
 import com.yedam.control.OrderTempSaveControl;
@@ -28,11 +25,9 @@ import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
-<<<<<<< HEAD
-import com.yedam.control.SaleProductControl;
-=======
 import com.yedam.control.ReviewListControl;
->>>>>>> refs/heads/main
+import com.yedam.control.SaleProductControl;
+import com.yedam.control.SearchControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
