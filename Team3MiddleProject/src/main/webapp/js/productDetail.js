@@ -1,3 +1,5 @@
+
+
 // 상품번호 (hidden input#productNo 가 페이지에 있어야 함)
 const productNo = document.querySelector("#productNo").value;
 

@@ -23,7 +23,10 @@ public class LoginControl implements Control {
         if (member != null) { //  로그인 성공 시
             HttpSession session = req.getSession();
             session.setAttribute("logId", member.getMemberId());
+            session.setAttribute("logName", member.getMemberName());
             session.setAttribute("logSuccess", true);
+            System.out.println("로그인 id : " + session.getAttribute("logId"));
+            System.out.println("로그인 name : " + session.getAttribute("logName"));
 
             resp.setContentType("text/html; charset=UTF-8");
             resp.getWriter().println("<script>");

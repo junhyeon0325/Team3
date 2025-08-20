@@ -110,7 +110,7 @@
 								class="d-flex justify-content-between align-items-center mb-3">
 								<!-- 작성자 -->
 								<input type="text" id="member_name"
-									value="장준현<%-- ${sessionScope.member_name} --%>"
+									value=${sessionScope.member_name}>
 									class="form-control border-0 me-4" readonly
 									style="width: 150px;" />
 
