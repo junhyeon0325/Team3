@@ -28,6 +28,7 @@ import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
+import com.yedam.control.ReviewListControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -40,10 +41,12 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
-
 		map.put("/productList.do", new ProductListControl());
+		
+		//상세페이지
 		map.put("/detailPage.do", new DetailSelectcontrol());
 		map.put("/review.do", new ReviewControl());
+		map.put("/reviewList.do", new ReviewListControl());
 		
 		map.put("/productSelect.do", new ProductSelectControl());
 		map.put("/search.do", new SearchControl());

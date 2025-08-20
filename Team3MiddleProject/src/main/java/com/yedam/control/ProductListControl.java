@@ -47,9 +47,7 @@ public class ProductListControl implements Control {
         	sort = "createdDate";
         }
 
-		
         List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category, maxPrice);
-        
         
         int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
@@ -66,9 +64,6 @@ public class ProductListControl implements Control {
         req.setAttribute("fishCnt", fishCnt);
         req.setAttribute("lowestProduct", lowestProduct);
         
-        
-        
-
         req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
         
     }
