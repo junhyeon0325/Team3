@@ -8,5 +8,7 @@ public interface SearchMapper {
 	
 		public List<SearchVO> productList();
 		
-		public SearchVO selectProduct(); 
+		public SearchVO selectProduct();
+
+		public List<SearchVO> searchProducts(String pd); 
 }

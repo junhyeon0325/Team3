@@ -16,7 +16,6 @@ import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
-import com.yedam.control.SalesControl;
 import com.yedam.control.SearchControl;
 import com.yedam.control.ModifyCartProductPcsControl;
 import com.yedam.control.OrderFormControl;
@@ -47,7 +46,6 @@ public class FrontController extends HttpServlet{
 		map.put("/review.do", new ReviewControl());
 		
 		map.put("/productSelect.do", new ProductSelectControl());
-		map.put("/sales.do", new SalesControl());
 		map.put("/search.do", new SearchControl());
 		
 		// 장바구니
