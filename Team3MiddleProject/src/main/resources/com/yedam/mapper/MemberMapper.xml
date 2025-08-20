@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.MemberMapper">
+
+	<insert id = "insertMember" parameterType="member">
+		insert into  tbl_member (member_no, member_name, member_id, 
+								member_pwd, member_phone, member_email,
+								member_birth,member_address, member_gender, point)
+			values            (member_seq.nextval, #{memberName}, #{memberId},
+							   #{memberPwd}, #{memberPhone}, #{memberEmail},
+							   #{memberBirth},#{memberAddress}, #{memberGender}, 1000)
+	</insert>
+	
+	<select id="selectMember" parameterType="string" resultType="member">
+		select *
+		from tbl_member
+		where member_id = #{id}
+		and member_pwd = #{pwd}
+	</select>
+
+
+<update id="updateMember" parameterType="com.yedam.vo.MemberVO">
+   UPDATE tbl_member
+     SET 	pwd = #{pwd},
+           name = #{name},
+           phone = #{phone},
+           gender = #{gender},
+           email = #{email},
+           birth = #{birth},
+           address = #{address}
+     WHERE id = #{id}
+</update>
+
+<select id="checkId" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM tbl_member
+		WHERE member_id = #{id}
+	</select>
+	
+</mapper>

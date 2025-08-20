@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Full-width input fields */
+.modal-style input[type=text],  
+.modal-style input[type=password] {
+	width: 80%;  /* 모달 가로의 80%만 차지 */
+	max-width: 400px; /* 너무 커지지 않게 제한 */
+	padding: 6px;
+	margin: 8px 0;
+	display: block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+/* Set a style for all buttons */
+button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 10px 18px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: auto;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+	position: relative;
+}
+
+img.avatar {
+	width: 40%;
+	border-radius: 50%;
+}
+
+.jstyle {
+	padding: 8px;
+    display: flex;
+    flex-direction: column; /* 위에서 아래로 쌓기 */
+    align-items: center;    /* 수평 가운데 정렬 */
+    justify-content: center; /* 수직 가운데 정렬 (modal-content 높이에 따라) */
+}
+
+span.psw {
+	float: right;
+	padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	padding-top: 30px;
+}
+
+/* Modal Content/Box */
+.modal-style {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 상하좌우 가운데 */
+    border: 1px solid #888;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* The Close Button (x) */
+.out {
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.out:hover, .out:focus {
+	color: red;
+	cursor: pointer;
+}
+
+/* Add Zoom Animation */
+/* Zoom 애니메이션 */
+.animate {
+  animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+	span.psw {
+		display: block;
+		float: none;
+	}
+	.outbtn {
+		width: 100%;
+	}
+}
