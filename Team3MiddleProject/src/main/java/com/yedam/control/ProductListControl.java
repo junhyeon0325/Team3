@@ -48,9 +48,7 @@ public class ProductListControl implements Control {
         }
         
 
-		
         List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category, maxPrice);
-        
         
         int totalProducts = prdService.getTotalProductCount(category);
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
@@ -78,9 +76,6 @@ public class ProductListControl implements Control {
         req.setAttribute("endPage", endPage);
         req.setAttribute("currentCategory", category);
         
-        
-        
-
         req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
         
     }

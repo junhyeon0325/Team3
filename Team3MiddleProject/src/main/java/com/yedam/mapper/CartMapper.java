@@ -12,5 +12,9 @@ public interface CartMapper {
 	public int deleteCartListSingle(int cartNo);	// 장바구니 상품 목록 삭제
 
 	public int updateCartListSingle(@Param("productPcs")int productPcs, @Param("cartNo")int cartNo);	// 장바구니 수량 수정
+
+	public int deleteCartByMemberId(String memberId);
+
+	public int deleteCartByMemberNo(int memberNo);
 	
 }

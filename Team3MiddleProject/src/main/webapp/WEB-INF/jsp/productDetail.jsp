@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -24,43 +25,58 @@
 				<div class="row g-4">
 					<div class="col-lg-6">
 						<div class="border rounded">
-							<a href="#"><img src=${product.productImage } class="img-fluid rounded" alt="Image"></a>
+							<a href="#"><img src=${product.productImage }
+								class="img-fluid rounded" alt="Image"></a>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<h4 class="fw-bold mb-3">${product.productName}</h4>
 						<p class="mb-3">${product.maincategory}</p>
-						<h5 class="fw-bold mb-3"><fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true"/>원</h5>
+						<h5 class="fw-bold mb-3">
+							<fmt:formatNumber value="${product.productPrice}" type="number"
+								groupingUsed="true" />
+							원
+						</h5>
 						<div class="d-flex mb-4 align-items-center" style="gap: 4px;">
-					<div class="d-flex mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
-					    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
-					    <c:set var="hasHalfStar" value="${product.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
-					    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
-					    <!-- 꽉 찬 별 -->
-					    <c:forEach begin="1" end="${fullStars}">
-					        <i class="fa-solid fa-star text-warning"></i>
-					    </c:forEach>
-					    <!-- 반쪽 별 -->
-					    <c:if test="${hasHalfStar}">
-					        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-					    </c:if>
-					    <!-- 빈 별 -->
-					    <c:forEach begin="1" end="${emptyStars}">
-					        <i class="fa-regular fa-star text-warning"></i>
-					    </c:forEach>
-					    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
-					        ${product.productScore}점
-					    </p>
-					</div>
+							<div class="d-flex mb-4 align-items-center"
+								style="font-size: 20px; gap: 1px;">
+								<c:set var="fullStars"
+									value="${product.productScore - (product.productScore % 1)}" />
+								<!-- 정수 부분 -->
+								<c:set var="hasHalfStar"
+									value="${product.productScore % 1 >= 0.5}" />
+								<!-- 0.5 이상이면 반쪽 별 -->
+								<c:set var="emptyStars"
+									value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" />
+								<!-- 빈 별 개수 -->
+								<!-- 꽉 찬 별 -->
+								<c:forEach begin="1" end="${fullStars}">
+									<i class="fa-solid fa-star text-warning"></i>
+								</c:forEach>
+								<!-- 반쪽 별 -->
+								<c:if test="${hasHalfStar}">
+									<i class="fa-solid fa-star-half-stroke text-warning"></i>
+								</c:if>
+								<!-- 빈 별 -->
+								<c:forEach begin="1" end="${emptyStars}">
+									<i class="fa-regular fa-star text-warning"></i>
+								</c:forEach>
+								<p class="mb-0 ms-2"
+									style="margin-left: 6px; position: relative;">
+									${product.productScore}점</p>
+							</div>
 						</div>
 						<p class="mb-8">${product.productAbout}</p>
 						<div class="input-group quantity mb-5" style="width: 100px;">
 							<div class="input-group-btn">
-								<button class="btn btn-sm btn-minus rounded-circle bg-light border">
+								<button
+									class="btn btn-sm btn-minus rounded-circle bg-light border">
 									<i class="fa fa-minus"></i>
 								</button>
 							</div>
-							<input type="text" class="form-control form-control-sm text-center border-0" value="1">
+							<input type="text"
+								class="form-control form-control-sm text-center border-0"
+								value="1">
 							<div class="input-group-btn">
 								<button
 									class="btn btn-sm btn-plus rounded-circle bg-light border">
@@ -75,163 +91,60 @@
 					<div class="col-lg-12">
 						<nav>
 							<div class="nav nav-tabs mb-3">
-								<button class="nav-link active border-white border-bottom-0"
-									type="button" role="tab" id="nav-about-tab"
-									data-bs-toggle="tab" data-bs-target="#nav-about"
-									aria-controls="nav-about" aria-selected="true">Description</button>
 								<button class="nav-link border-white border-bottom-0"
 									type="button" role="tab" id="nav-mission-tab"
 									data-bs-toggle="tab" data-bs-target="#nav-mission"
 									aria-controls="nav-mission" aria-selected="false">Reviews</button>
 							</div>
 						</nav>
-						<div class="tab-content mb-5">
-							<div class="tab-pane active" id="nav-about" role="tabpanel"
-								aria-labelledby="nav-about-tab">
-								<p>The generated Lorem Ipsum is therefore always free from
-									repetition injected humour, or non-characteristic words etc.
-									Susp endisse ultricies nisi vel quam suscipit</p>
-								<p>Sabertooth peacock flounder; chain pickerel hatchetfish,
-									pencilfish snailfish filefish Antarctic icefish goldeye
-									aholehole trumpetfish pilot fish airbreathing catfish, electric
-									ray sweeper.</p>
-								<div class="px-2">
-									<div class="row g-4">
-										<div class="col-6">
-											<div
-												class="row bg-light align-items-center text-center justify-content-center py-2">
-												<div class="col-6">
-													<p class="mb-0">Weight</p>
-												</div>
-												<div class="col-6">
-													<p class="mb-0">1 kg</p>
-												</div>
-											</div>
-											<div
-												class="row text-center align-items-center justify-content-center py-2">
-												<div class="col-6">
-													<p class="mb-0">Country of Origin</p>
-												</div>
-												<div class="col-6">
-													<p class="mb-0">Agro Farm</p>
-												</div>
-											</div>
-											<div
-												class="row bg-light text-center align-items-center justify-content-center py-2">
-												<div class="col-6">
-													<p class="mb-0">Quality</p>
-												</div>
-												<div class="col-6">
-													<p class="mb-0">Organic</p>
-												</div>
-											</div>
-											<div
-												class="row text-center align-items-center justify-content-center py-2">
-												<div class="col-6">
-													<p class="mb-0">Сheck</p>
-												</div>
-												<div class="col-6">
-													<p class="mb-0">Healthy</p>
-												</div>
-											</div>
-											<div
-												class="row bg-light text-center align-items-center justify-content-center py-2">
-												<div class="col-6">
-													<p class="mb-0">Min Weight</p>
-												</div>
-												<div class="col-6">
-													<p class="mb-0">250 Kg</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="nav-mission" role="tabpanel"
-								aria-labelledby="nav-mission-tab">
-								<div class="d-flex">
-									<img src="./img/avatar.jpg"
-										class="img-fluid rounded-circle p-3"
-										style="width: 100px; height: 100px;" alt="">
-									<div class="">
-										<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-										<div class="d-flex justify-content-between">
-											<h5>Jason Smith</h5>
-											<div class="d-flex mb-3">
-												<i class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star"></i>
-											</div>
-										</div>
-										<p>The generated Lorem Ipsum is therefore always free from
-											repetition injected humour, or non-characteristic words etc.
-											Susp endisse ultricies nisi vel quam suscipit</p>
-									</div>
-								</div>
-								<div class="d-flex">
-									<img src="./img/avatar.jpg"
-										class="img-fluid rounded-circle p-3"
-										style="width: 100px; height: 100px;" alt="">
-									<div class="">
-										<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-										<div class="d-flex justify-content-between">
-											<h5>Sam Peters</h5>
-											<div class="d-flex mb-3">
-												<i class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star text-secondary"></i> <i
-													class="fa fa-star"></i> <i class="fa fa-star"></i>
-											</div>
-										</div>
-										<p class="text-dark">The generated Lorem Ipsum is
-											therefore always free from repetition injected humour, or
-											non-characteristic words etc. Susp endisse ultricies nisi vel
-											quam suscipit</p>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="nav-vision" role="tabpanel">
-								<p class="text-dark">Tempor erat elitr rebum at clita. Diam
-									dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
-									labore. 3</p>
-								<p class="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu
-									diam amet diam et eos labore. Clita erat ipsum et lorem et sit</p>
-							</div>
-						</div>
+						<div id="reviewList" class="mb-5"></div>
+						<div id="pagination" class="text-center mb-5"></div>
 					</div>
+
 					<div class="review-box">
-					<h4 class="mb-5 fw-bold">리뷰 남기기</h4>
-					<form id="reviewForm" action="#">
-						<div class="row g-4">
-							<div class="col-lg-2">
-								<div class="border-bottom rounded">
-									<input type="text" id= "writer" value= "<%-- ${sessionScope.member_name} --%>woong" class="form-control border-0 me-4" readonly>
+						<h4 class="mb-4 fw-bold">리뷰 남기기</h4>
+						<form id="reviewForm" enctype="multipart/form-data" method="post"
+							action="#">
+							<!-- 작성자 + 별점 -->
+							<div
+								class="d-flex justify-content-between align-items-center mb-3">
+								<!-- 작성자 -->
+								<input type="text" id="member_name"
+									value="김영희<%-- ${sessionScope.member_name} --%>"
+									class="form-control border-0 me-4" readonly
+									style="width: 150px;" />
+
+								<!-- 별점 -->
+								<div class="rating text-end" style="font-size: 15px; gap: 1px;">
+									<i class="fa-regular fa-star text-muted"></i> <i
+										class="fa-regular fa-star text-muted"></i> <i
+										class="fa-regular fa-star text-muted"></i> <i
+										class="fa-regular fa-star text-muted"></i> <i
+										class="fa-regular fa-star text-muted"></i>
 								</div>
 							</div>
-							<div class="col-lg-12">
-								<div class="border-bottom rounded my-4">
-									<textarea name="reviewContent" id="reviewContent" class="form-control border-0" cols="30"
-										rows="8" placeholder="리뷰를 등록하세요." spellcheck="false"></textarea>
-								</div>
+
+							<!-- 리뷰 작성 -->
+							<div class="col-lg-12 mb-3">
+								<textarea name="reviewContent" id="reviewContent"
+									class="form-control border-0" cols="30" rows="6"
+									placeholder="리뷰를 등록하세요." spellcheck="false"
+									style="border: 1px solid #90EE90; border-radius: 6px;"></textarea>
 							</div>
-							<div class="col-lg-12">
-								<div class="d-flex justify-content-between py-3 mb-5">
-									<div class="d-flex align-items-center">
-										<p class="mb-0 me-3">별점:</p>
-										  <div class="d-flex align-items-center rating" style="font-size: 20px; gap: 2px">
-   											 <i class="fa-regular fa-star text-muted"></i>
- 										     <i class="fa-regular fa-star text-muted"></i>
-   											 <i class="fa-regular fa-star text-muted"></i>
-   											 <i class="fa-regular fa-star text-muted"></i>
-   											 <i class="fa-regular fa-star text-muted"></i>
-										  </div>
-										</div>
-										<button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3">등록</button>
-									</div>
+
+							<!-- 사진 첨부 + 등록 버튼 -->
+							<div
+								class="col-lg-12 d-flex justify-content-between align-items-center mb-3">
+								<div>
+									<label for="image" class="btn btn-green btn-icon"> <i
+										class="fa-solid fa-camera"></i>
+									</label> <input type="file" id="image" name="reviewImage"
+										class="d-none">
 								</div>
+
+								<button type="submit" class="btn btn-green px-4 py-2">등록</button>
 							</div>
+							<input type="hidden" id="productNo" name="productNo" value=${product.productNo } />
 						</form>
 					</div>
 				</div>
@@ -593,5 +506,4 @@
 		</div>
 	</div>
 </div>
-
 <!-- Single Product End -->
