@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.CartListControl;
 import com.yedam.control.CheckIdControl;
+import com.yedam.control.DeleteRivewControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.MainControl;
-import com.yedam.control.ProductListControl;
-import com.yedam.control.ProductSelectControl;
-import com.yedam.control.SearchControl;
 import com.yedam.control.ModifyCartProductPcsControl;
 import com.yedam.control.OrderFormControl;
 import com.yedam.control.OrderTempSaveControl;
@@ -30,9 +28,10 @@ import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
+import com.yedam.control.ReviewListControl;
+import com.yedam.control.SearchControl;
 import com.yedam.control.SignFormControl;
 import com.yedam.control.SignUpControl;
-import com.yedam.control.ReviewListControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -57,6 +56,7 @@ public class FrontController extends HttpServlet{
 		map.put("/detailPage.do", new DetailSelectcontrol());
 		map.put("/review.do", new ReviewControl());
 		map.put("/reviewList.do", new ReviewListControl());
+		map.put("/deleteReview.do", new DeleteRivewControl());
 		
 		map.put("/productSelect.do", new ProductSelectControl());
 		map.put("/search.do", new SearchControl());

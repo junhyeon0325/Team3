@@ -25,11 +25,8 @@ public class ReviewControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		HttpSession session = req.getSession();
 		
-		//String memberId = "jjh";
-		//String memberName = "장준현";
 		String memberName = (String)session.getAttribute("logName");
 		String memberId = (String)session.getAttribute("logId");
-		System.out.println("id : " + memberId);
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -73,6 +70,8 @@ public class ReviewControl implements Control {
 		if(result) {
 			map.put("status", "SUCCESS");
 			map.put("review", vo);
+			double updatedScore = svc.getProductScore(vo.getProductNo());
+		    map.put("productScore", updatedScore);
 		} else {
 			map.put("status", "NO_ORDER");
 		}

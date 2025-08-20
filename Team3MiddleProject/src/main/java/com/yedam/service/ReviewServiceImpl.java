@@ -36,5 +36,27 @@ public class ReviewServiceImpl implements ReviewService {
 	public int countReview(int productNo) {
 		return mapper.countReview(productNo);
 	}
+
+	public ReviewVO selectReviewNo(int reviewNo) {
+		return mapper.selectReviewNo(reviewNo);
+		
+	}
+	//리뷰삭제
+	public boolean deleteReview(int reviewNo) {
+	    ReviewVO review = mapper.selectReviewNo(reviewNo);
+	    if (review == null) return false;
+	    int r = mapper.deleteReview(reviewNo);
+	    if (r > 0) {
+	        mapper.updateProductScore(review.getProductNo());
+	        sqlSession.commit();
+	        return true;
+	    }
+	    return false;
+	}
+	
+	public double getProductScore(int productNo) {
+	    Double r = mapper.getProductScore(productNo);
+	    return r != null ? r : 0.0;
+	}
 	
 }

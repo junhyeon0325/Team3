@@ -53,7 +53,7 @@ function renderReviewList(reviews) {
 
     reviewEl.innerHTML = `
       <div class="d-flex">
-        <img src="./upload/${review.reviewImage}"
+        <img src="./upload/${review.reviewImage ? review.reviewImage : 'default.png'}""
              class="img-fluid rounded-circle p-3"
              style="width: 100px; height: 100px;" alt="">
         <div>
@@ -63,8 +63,11 @@ function renderReviewList(reviews) {
           <p>${review.reviewContent}</p>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline-danger" style="height: 30px;"
-              onclick="alert('삭제기능 미구현.')">X</button>
+	  <button class="btn btn-sm btn-outline-danger"
+	          style="height: 30px;"
+			  data-review-no="${review.reviewNo}"
+			  data-writer-id="${review.memberId}"
+	          onclick="handleDeleteReview(this)">X</button>
     `;
     container.appendChild(reviewEl);
   });
@@ -191,6 +194,10 @@ document.querySelector("#reviewForm").addEventListener("submit", async function 
       updateStars();
       // 새로고침 없이 목록 갱신
       loadReviewList(currentPage);
+	  
+	  if (result.productScore !== undefined) {
+	      renderProductStars(result.productScore);
+	    }
     } else {
       alert("리뷰 등록에 실패했습니다.");
     }
@@ -199,3 +206,51 @@ document.querySelector("#reviewForm").addEventListener("submit", async function 
     alert("통신 중 오류가 발생했습니다.");
   }
 });
+
+//리뷰삭제
+function handleDeleteReview(button) {
+  const reviewNo = button.dataset.reviewNo;
+  const writerId = button.dataset.writerId;
+
+  if (logId !== writerId) {
+    alert("본인이 작성한 리뷰만 삭제할 수 있습니다.");
+    return;
+  }
+
+  if (!confirm("리뷰를 삭제하시겠습니까?")) return;
+
+  fetch("deleteReview.do?reviewNo=" + reviewNo)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "SUCCESS") {
+        alert("리뷰가 삭제되었습니다.");
+        if (data.productScore !== undefined) {
+          renderProductStars(data.productScore);
+	      loadReviewList(currentPage);
+        }
+      } else {
+        alert("리뷰 삭제에 실패했습니다.");
+      }
+    });
+}
+
+function renderProductStars(score) {
+  const fullStars = Math.floor(score);
+  const hasHalfStar = score % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+  const box = document.querySelector("#productScoreBox");
+  box.innerHTML = "";
+
+  for (let i = 0; i < fullStars; i++) {
+    box.innerHTML += `<i class="fa-solid fa-star text-warning"></i>`;
+  }
+  if (hasHalfStar) {
+    box.innerHTML += `<i class="fa-solid fa-star-half-stroke text-warning"></i>`;
+  }
+  for (let i = 0; i < emptyStars; i++) {
+    box.innerHTML += `<i class="fa-regular fa-star text-warning"></i>`;
+  }
+
+  box.innerHTML += `<p class="mb-0 ms-2" style="margin-left: 6px; position: relative;">${score}점</p>`;
+}

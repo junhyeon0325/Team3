@@ -9,5 +9,8 @@ public interface ReviewService {
 	boolean addReview(ReviewVO review);
 	List<ReviewVO> reviewList(Map<String, Object> param);
 	int countReview(int productNo);
+	boolean deleteReview(int reviewNo);
+	ReviewVO selectReviewNo(int reviewNo);
+	double getProductScore(int productNo);
 }
 //실행

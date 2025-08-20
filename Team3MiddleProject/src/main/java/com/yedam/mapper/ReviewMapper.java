@@ -11,6 +11,9 @@ public interface ReviewMapper {
 	List<ReviewVO> selectReviewList(Map<String, Object>param);
 	int countReview(int productNo);
 	int updateProductScore(int productNo);
+	ReviewVO selectReviewNo(int reviewNo);
+	int deleteReview(int reviewNo);
+	double getProductScore(int productNo);
 }
 
 //db랑 연결

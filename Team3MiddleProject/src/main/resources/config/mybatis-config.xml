@@ -25,11 +25,7 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-<<<<<<< HEAD
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-=======
-        <property name="url" value="jdbc:oracle:thin:@192.168.0.51:1521:xe"/> <!-- localhost --> <!-- 192.168.0.51 -->
->>>>>>> refs/remotes/origin/장준현
         <property name="username" value="dev"/>
         <property name="password" value="dev"/>
       </dataSource>
@@ -44,6 +40,7 @@
   	<mapper resource="com/yedam/mapper/CartMapper.xml"/>
   	<mapper resource="com/yedam/mapper/OrderMapper.xml"/>
   	<mapper resource="com/yedam/mapper/SearchMapper.xml"/>
+  	<mapper resource="com/yedam/mapper/SalesMapper.xml"/>
   </mappers>
 
 </configuration>

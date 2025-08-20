@@ -22,9 +22,9 @@
         SELECT review_seq.nextval FROM dual
     </selectKey>
    		 INSERT INTO tbl_review 
-        (review_no, review_score, review_content, review_date, review_image, product_no, member_name)
+        (review_no, review_score, review_content, review_date, review_image, product_no, member_name, member_id)
    		 VALUES 
-        (#{reviewNo}, #{reviewScore}, #{reviewContent}, SYSDATE, #{reviewImage}, #{productNo}, #{memberName})
+        (#{reviewNo}, #{reviewScore}, #{reviewContent}, SYSDATE, #{reviewImage}, #{productNo}, #{memberName}, #{memberId})
 	</insert>
 	
 	<!-- 리뷰 리스트 페이징 -->
@@ -33,7 +33,7 @@
    		FROM (
       	  SELECT ROWNUM rn, a.*
       	  FROM (
-             SELECT review_no, review_score, review_content, review_date, review_image, product_no, member_name
+             SELECT review_no, review_score, review_content, review_date, review_image, product_no, member_name, member_id
              FROM tbl_review
              WHERE product_no = #{productNo}
              ORDER BY review_date DESC
@@ -49,14 +49,28 @@
    		WHERE product_no = #{productNo}
 	</select>
 	
+	<!-- 리뷰평점 평균으로 상품평점 구하기 -->
 	<update id="updateProductScore" parameterType="int">
-    UPDATE tbl_product p
-    SET p.product_score = (
-        SELECT ROUND(AVG(r.review_score), 1)
-        FROM tbl_review r
-        WHERE r.product_no = #{productNo}
-    )
-    WHERE p.product_no = #{productNo}
+	    UPDATE tbl_product p
+	    SET p.product_score = (
+	        SELECT NVL(ROUND(AVG(r.review_score), 1), 0)
+	        FROM tbl_review r
+	        WHERE r.product_no = #{productNo}
+	    )
+	    WHERE p.product_no = #{productNo}
 	</update>
+	
+	<select id="selectReviewNo" parameterType="int" resultType="com.yedam.vo.ReviewVO">
+    SELECT * FROM tbl_review WHERE review_no = #{reviewNo}
+	</select>
+	
+	
+	<delete id="deleteReview" parameterType="int" >
+    DELETE FROM tbl_review WHERE review_no = #{reviewNo}
+	</delete>
+	
+	<select id="getProductScore" parameterType="int" resultType="double">
+    SELECT product_score FROM tbl_product WHERE product_no = #{productNo}
+	</select>
 	
 </mapper>

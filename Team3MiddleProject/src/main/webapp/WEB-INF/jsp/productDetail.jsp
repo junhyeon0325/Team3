@@ -37,7 +37,7 @@
 								groupingUsed="true" />
 							원
 						</h5>
-						<div class="d-flex mb-4 align-items-center" style="gap: 4px;">
+						<div id="productScoreBox" class="d-flex mb-4 align-items-center" style="gap: 4px;">
 							<div class="d-flex mb-4 align-items-center"
 								style="font-size: 20px; gap: 1px;">
 								<c:set var="fullStars"
@@ -109,10 +109,7 @@
 							<div
 								class="d-flex justify-content-between align-items-center mb-3">
 								<!-- 작성자 -->
-								<input type="text" id="member_name"
-									value=${sessionScope.member_name}>
-									class="form-control border-0 me-4" readonly
-									style="width: 150px;" />
+								<input type="text" id="member_name" value="${sessionScope.logName}" class="form-control border-0 me-4" readonly style="width: 150px;" />
 
 								<!-- 별점 -->
 								<div class="rating text-end" style="font-size: 15px; gap: 1px;">
@@ -507,3 +504,6 @@
 	</div>
 </div>
 <!-- Single Product End -->
+<script>
+  const logId = "${sessionScope.logId}";
+</script>
