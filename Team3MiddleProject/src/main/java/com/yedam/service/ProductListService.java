@@ -6,6 +6,12 @@ import com.yedam.vo.ProductVO;
 import com.yedam.vo.SalesVO;
 
 public interface ProductListService {
-	List<ProductVO> getProductList();
-	
+	List<ProductVO> getProductList(int page, int pageSize, String sort, String maincategory, Integer maxPrice);
+    int getTotalProductCount(String maincategory);
+    List<ProductVO> getLowestPriceProducts();
+    List<ProductVO> getLowestPriceFrozenProducts();
+    List<ProductVO> selectAllProducts();
+    List<ProductVO> getFreshFoodList();
+    List<ProductVO> getFrozenFoodList();
+    List<ProductVO> getHighPriceList();
 }

@@ -13,8 +13,11 @@ public interface CartService {
 	
 	public boolean removeCartListSingle(int cartNo);	// 장바구니 리스트 단건 삭제
 
-
-
+	// 장바구니 모두 삭제 메서드 추가 (회원 ID를 기준으로)
+    public int removeCart(String memberId);
+    // 만약 memberNo를 사용해야 한다면:
+    // public int removeCart(int memberNo);
+    public int removeCart(int memberNo); 
 
 
 }
