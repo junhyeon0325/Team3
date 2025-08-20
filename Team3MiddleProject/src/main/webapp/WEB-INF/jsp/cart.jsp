@@ -135,10 +135,7 @@
 <!-- Cart Page End -->
 
 <script>
-	const cartList = $
-	{
-		cp_list
-	};
+	const cartList = ${cp_list};
 </script>
 <script src="js/cart.js"></script>
 
