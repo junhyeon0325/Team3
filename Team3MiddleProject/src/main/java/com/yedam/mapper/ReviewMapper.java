@@ -10,6 +10,7 @@ public interface ReviewMapper {
 	int insertReview(ReviewVO review);
 	List<ReviewVO> selectReviewList(Map<String, Object>param);
 	int countReview(int productNo);
+	int updateProductScore(int productNo);
 }
 
 //db랑 연결

@@ -49,4 +49,14 @@
    		WHERE product_no = #{productNo}
 	</select>
 	
+	<update id="updateProductScore" parameterType="int">
+    UPDATE tbl_product p
+    SET p.product_score = (
+        SELECT ROUND(AVG(r.review_score), 1)
+        FROM tbl_review r
+        WHERE r.product_no = #{productNo}
+    )
+    WHERE p.product_no = #{productNo}
+	</update>
+	
 </mapper>

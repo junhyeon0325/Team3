@@ -18,6 +18,7 @@ public class ReviewServiceImpl implements ReviewService {
 		int r = mapper.authorityReview(review);
 		if (r > 0) {
 			mapper.insertReview(review);
+			mapper.updateProductScore(review.getProductNo());
 			sqlSession.commit();
 			return true;
 		}
