@@ -11,10 +11,10 @@
       	FROM (
 	    	SELECT /* + index_desc(b pk_product) */ ROWNUM rn, p.*
 	    	FROM ( 
-	    			SELECT *
+	    			SELECT  *
 	    			FROM tbl_product
 	    			WHERE expiration_date >= TRUNC(SYSDATE)
-	    	  		AND expiration_date < TRUNC(SYSDATE) +3
+	    	  		AND expiration_date < TRUNC(SYSDATE) +5
 	  ]]>
                     <if test="maxPrice != null">
 			          AND product_price &lt;= #{maxPrice}
@@ -39,17 +39,21 @@
 	  ]]>
     </select>
     
+    <update id="discountUpdate">
+	    <![CDATA[
+	    UPDATE tbl_product
+	    SET discount_rate = CASE
+	            WHEN expiration_date <= SYSDATE + 3 THEN 50
+	            WHEN expiration_date <= SYSDATE + 5 THEN 30
+	            ELSE 0
+	        END,
+	        discount_price = CASE
+	            WHEN expiration_date <= SYSDATE + 3 THEN product_price * 0.5
+	            WHEN expiration_date <= SYSDATE + 5 THEN product_price * 0.7
+	            ELSE product_price
+	        END
+	    WHERE expiration_date <= SYSDATE + 5
+	    ]]>
+	</update>
     
-    <select id="selectAllProducts" resultType="product">
-    	SELECT *
-    	FROM tbl_product
-    </select>
-
-
-	<select id="getLowestPriceProducts" resultType="product">
-		SELECT *
-		FROM tbl_product
-		ORDER BY product_price
-		FETCH FIRST 3 ROWS ONLY
-	</select>
 </mapper>

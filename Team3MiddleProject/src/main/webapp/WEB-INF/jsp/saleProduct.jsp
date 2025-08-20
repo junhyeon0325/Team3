@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                    <!-- 가격필터 end -->         
-                            
+                   <!-- 상품 리스트 start -->
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center">
                                 	<c:forEach var="sale" items="${saleList }">
@@ -87,18 +87,23 @@
 	                                                <img src="${sale.productImage }" class="img-fluid w-100 rounded-top" style="height:300px; object-fit:cover;" alt="">
 	                                            </div>
 	                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">!!임박특가!!</div>
+	                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">${sale.discountRate }%</div>
 	                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
 	                                                <h4>${sale.productName }</h4>
 	                                                <p>${sale.productAbout }</p>
 	                                                <div class="d-flex justify-content-between flex-lg-wrap">
-	                                                    <p class="text-dark fs-5 fw-bold mb-0">${sale.productPrice }원</p>
+	                                                    <p class="text-decoration-line-through">${sale.productPrice }원</p>
+	                                                    <p class="text-danger fs-1 fw-bold mb-0">${sale.discountPrice }원</p>
+	                                                  <div class="w-100 mt-3 d-flex justify-content-center">
 	                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
 	                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
+	                                                  </div>
 	                                                </div>
 	                                            </div>
 	                                        </div>
 	                                    </div>
                                     </c:forEach>
+                        <!-- 상품 리스트 end -->
                        <!-- 페이징 -->             
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">

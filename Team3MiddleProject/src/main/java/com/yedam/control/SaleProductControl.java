@@ -24,6 +24,7 @@ public class SaleProductControl implements Control {
 		int totalSalePage = (int)Math.ceil((double)totalSaleProduct/pageSize);
 		int pageBlockSize = 5; // 페이지 버튼 몇개씩 보여줄지
 							   // pageBlockSize를 Control에 만들어서 여러 JSP 한번에 관리도 가능 단점으로는 하나의 jsp만 변경하기는 어렵지만 보통 페이징은 동일하게 설정해서 괜춘
+		
         
 		Integer maxPrice = null;
 		
@@ -44,8 +45,9 @@ public class SaleProductControl implements Control {
         {
         	page = Integer.parseInt(pageParam);
         }
+        
 		
-        List<ProductVO> saleList = spd.selectSaleProductList(page, pageSize, sort, maxPrice);
+        List<ProductVO> saleList = spd.getSaleProducts(page, pageSize, sort, maxPrice);
         
         // startPage, endPage 계산
         int currentBlock = (int)Math.ceil((double) page / pageBlockSize);
