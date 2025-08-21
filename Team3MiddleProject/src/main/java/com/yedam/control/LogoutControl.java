@@ -20,7 +20,7 @@ public class LogoutControl implements Control {
 		session.invalidate();
 		
 		resp.sendRedirect("main.do");
-
+ 
 	}
 
 }
