@@ -9,8 +9,13 @@
 	  from tbl_product
 	  where product_no = #{productNo}
 	</select>
-
-
-
+	
+	<!-- 관련상품 쿼리 -->
+	<select id="relatedSelect" parameterType="map" resultType="com.yedam.vo.ProductVO">
+ 	   select *
+ 	   from tbl_product
+ 	   where maincategory = #{maincategory}
+ 	   and product_no != #{productNo}
+	</select>
 
 </mapper>
