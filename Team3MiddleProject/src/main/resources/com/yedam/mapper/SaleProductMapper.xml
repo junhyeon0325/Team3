@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedam.mapper.SaleProductMapper">
+    
+    <select id="selectSaleProductList" resultType="product">
+      <![CDATA[
+      	SELECT ta.*
+      	FROM (
+	    	SELECT /* + index_desc(b pk_product) */ ROWNUM rn, p.*
+	    	FROM ( 
+	    			SELECT  *
+	    			FROM tbl_product
+	    			WHERE expiration_date >= TRUNC(SYSDATE)
+	    	  		AND expiration_date < TRUNC(SYSDATE) +5
+	  ]]>
+                    <if test="maxPrice != null">
+			          AND product_price &lt;= #{maxPrice}
+			        </if>
+	  <![CDATA[
+                  ORDER BY
+                  	  CASE WHEN #{sort} = 'price' THEN product_price END ASC,
+                	  CASE WHEN #{sort} = 'createdDate' THEN product_no END DESC
+	    	     ) p
+	         ) ta
+	    WHERE ta.rn > #{startRow}
+	    AND   ta.rn <= #{startRow} + #{pageSize}
+      ]]>
+    </select>
+    
+    <select id="countTotalSaleProducts" resultType="int">
+      <![CDATA[
+        SELECT COUNT(*)
+        FROM tbl_product
+        WHERE expiration_date >= TRUNC(SYSDATE)
+	    AND expiration_date < TRUNC(SYSDATE) +3
+	  ]]>
+    </select>
+    
+    <update id="discountUpdate">
+	    <![CDATA[
+	    UPDATE tbl_product
+	    SET discount_rate = CASE
+	            WHEN expiration_date <= SYSDATE + 3 THEN 50
+	            WHEN expiration_date <= SYSDATE + 5 THEN 30
+	            ELSE 0
+	        END,
+	        discount_price = CASE
+	            WHEN expiration_date <= SYSDATE + 3 THEN product_price * 0.5
+	            WHEN expiration_date <= SYSDATE + 5 THEN product_price * 0.7
+	            ELSE product_price
+	        END
+	    WHERE expiration_date <= SYSDATE + 5
+	    ]]>
+	</update>
+    
+</mapper>

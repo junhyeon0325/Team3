@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 
@@ -36,10 +37,11 @@
 						<div class="input-group w-100 mx-auto d-flex">
 							<input type="search" class="form-control p-3"
 								placeholder="keywords" aria-describedby="search-icon-1">
-							<span id="search-icon-1" class="input-group-text p-3"><i
-								class="fa fa-search"></i></span>
+							<span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
 						</div>
 					</div>
+					
+					
 					<div class="col-6"></div>
 					<div class="col-xl-3">
 						<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
@@ -92,7 +94,7 @@
 							    <input type="hidden" name="sort" value="${sort}">
 							    
 									<div class="col-lg-12">
-											<h4 class="mb-2">가격</h4>
+											<h4 class="mb-2">가격 범위</h4>
 										<div class="mb-3" align="right">
 											<input type="range" class="form-range w-100" id="maxPrice" name="maxPrice" min="0" max="50000" 
 												value="${param.maxPrice != null ? param.maxPrice : 0}" step="1000"
@@ -115,14 +117,29 @@
 													<img src="${lowest.productImage }" class="img-fluid rounded" style="width: 100px; height: 100px; padding=5px;" alt="">
 												</div>
 												<div>
-														<h6 class="mb-2">${lowest.productName }</h6>
-														<div class="d-flex mb-2">
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star text-secondary"></i>
-															<i class="fa fa-star"></i>
-														</div>
+												<a href="detailPage.do?productNo=${lowest.productNo }" class="h4">${lowest.productName }</a>
+				<!-- 평점 -->			
+						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${lowest.productScore - (lowest.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${lowest.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        <!-- ${product.productScore} -->
+						    </p>
+						</div>
+				<!-- 평점end -->	
 														<div class="d-flex mb-2">
 															<h5 class="fw-bold me-2">${lowest.productPrice }원</h5>
 														</div>
@@ -130,11 +147,9 @@
 											</div>
 										</c:forEach>
 											<div class="d-flex justify-content-center my-4">
-												<a href="productList.do" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+												<a href="productList.do?maincategory=채소&page=1&sort=price" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>
 											</div>
 							</div>
-															<!-- <h5 class="text-danger text-decoration-line-through">4.11원</h5> -->
-							
 							
 							<div class="col-lg-12">
 								<div class="position-relative">
@@ -142,9 +157,9 @@
 										class="img-fluid w-100 rounded" alt="">
 									<div class="position-absolute"
 										style="top: 50%; right: 10px; transform: translateY(-50%);">
-										<h3 class="text-secondary fw-bold">
-											Fresh <br> Foods <br> Banner
-										</h3>
+										<h2 class="text-secondary fw-bold">
+											Fresh <br> Delicious <br> Foods
+										</h2>
 									</div>
 								</div>
 							</div>
@@ -159,13 +174,35 @@
 								<div class="rounded position-relative fruite-item">
 									<div class="fruite-img">
 									<a href="detailPage.do?productNo=${product.productNo}">
-										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:200px; object-fit:cover;" alt=""></a>
+										 <img src=${product.productImage } class="img-fluid w-100 rounded-top" style="height:300px; object-fit:cover;" alt=""></a>
 									</div>
 									<div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
 										Fresh
 									</div>
 									<div class="p-4 border border-secondary border-top-0 rounded-bottom" align="center">
-										<h4>${product.productName }</h4>
+										<a href="detailPage.do?productNo=${product.productNo }" class="h4">${product.productName }</a>
+				<!-- 평점 -->			
+						<div class="d-flex justify-content-center mb-4 align-items-center" style="font-size: 20px; gap: 1px;">
+						    <c:set var="fullStars" value="${product.productScore - (product.productScore % 1)}" /> <!-- 정수 부분 -->
+						    <c:set var="hasHalfStar" value="${product.productScore % 1 >= 0.5}" /> <!-- 0.5 이상이면 반쪽 별 -->
+						    <c:set var="emptyStars" value="${5 - fullStars - (hasHalfStar ? 1 : 0)}" /> <!-- 빈 별 개수 -->
+						    <!-- 꽉 찬 별 -->
+						    <c:forEach begin="1" end="${fullStars}">
+						        <i class="fa-solid fa-star text-warning"></i>
+						    </c:forEach>
+						    <!-- 반쪽 별 -->
+						    <c:if test="${hasHalfStar}">
+						        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+						    </c:if>
+						    <!-- 빈 별 -->
+						    <c:forEach begin="1" end="${emptyStars}">
+						        <i class="fa-regular fa-star text-warning"></i>
+						    </c:forEach>
+						    <p class="mb-0 ms-2" style="margin-left:6px; position: relative;">
+						        <!-- ${product.productScore} -->
+						    </p>
+						</div>
+				<!-- 평점end -->	
 										<p>${product.productAbout }</p>
 										<div class="d-block justify-content-between flex-lg-wrap" >
 											<p class="text-dark fs-5 fw-bold mb-0" align="center">${product.productPrice }원</p>
@@ -183,14 +220,14 @@
 					<!-- 페이징 -->
 					<div class="col-12">
 						<div class="pagination d-flex justify-content-center mt-5">
-							<c:if test="${currentPage > 1}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
+							<c:if test="${startPage > 1}">
+								<a href="productList.do?maincategory=${currentCategory }&page=${startPage - 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&laquo;</a>
 							</c:if>
-							<c:forEach begin="1" end="${totalPages}" var="i">
-							<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
+							<c:forEach begin="${startPage}" end="${endPage}" var="i">
+								<a href="productList.do?maincategory=${currentCategory }&page=${i}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded ${i == currentPage ? 'active' : ''}">${i}</a>
 							</c:forEach>
-							<c:if test="${currentPage < totalPages}">
-							<a href="productList.do?maincategory=${currentCategory }&page=${currentPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
+							<c:if test="${endPage < totalPages}">
+								<a href="productList.do?maincategory=${currentCategory }&page=${endPage + 1}&sort=${sort}&maxPrice=${param.maxPrice}" class="rounded">&raquo;</a>
 							</c:if>
 						</div>
 					</div>

@@ -21,6 +21,7 @@ public class ProductListControl implements Control {
 		int page = 1;
         int pageSize = 6;
         Integer maxPrice = null;
+        int pageBlockSize = 5; // 페이지 버튼 몇 개씩 보여줄지
         
         int vegetableCnt = prdService.getTotalProductCount("채소");
         int meatCnt = prdService.getTotalProductCount("정육");
@@ -33,6 +34,11 @@ public class ProductListControl implements Control {
             maxPrice = Integer.parseInt(maxPriceParam);
         }
         
+        String sort = req.getParameter("sort");
+        if(sort == null || (!sort.equals("price") && !sort.equals("createdDate")))
+        {
+        	sort = "createdDate";
+        }
         
         // page 파라미터가 있으면 파싱
         String pageParam = req.getParameter("page");
@@ -41,11 +47,6 @@ public class ProductListControl implements Control {
         	page = Integer.parseInt(pageParam);
         }
         
-        String sort = req.getParameter("sort");
-        if(sort == null || (!sort.equals("price") && !sort.equals("createdDate")))
-        {
-        	sort = "createdDate";
-        }
 
         List<ProductVO> productList = prdService.getProductList(page, pageSize, sort, category, maxPrice);
         
@@ -53,16 +54,27 @@ public class ProductListControl implements Control {
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         
         List<ProductVO> lowestProduct = prdService.getLowestPriceProducts();
-
+        
+        
+     //  startPage, endPage 계산
+        int currentBlock = (int)Math.ceil((double)page / pageBlockSize);
+        int startPage = (currentBlock - 1) * pageBlockSize + 1;
+        int endPage = Math.min(currentBlock * pageBlockSize, totalPages);
+        
+        
         req.setAttribute("productList", productList);
-        req.setAttribute("currentPage", page);
-        req.setAttribute("totalPages", totalPages);
-        req.setAttribute("sort", sort);
-        req.setAttribute("currentCategory", category);
         req.setAttribute("vegetableCnt", vegetableCnt);
         req.setAttribute("meatCnt", meatCnt);
         req.setAttribute("fishCnt", fishCnt);
         req.setAttribute("lowestProduct", lowestProduct);
+        req.setAttribute("sort", sort);
+        req.setAttribute("maxPrice", maxPrice);
+        
+        req.setAttribute("currentPage", page);
+        req.setAttribute("totalPages", totalPages);
+        req.setAttribute("startPage", startPage);
+        req.setAttribute("endPage", endPage);
+        req.setAttribute("currentCategory", category);
         
         req.getRequestDispatcher("product/productList.tiles").forward(req, resp);
         

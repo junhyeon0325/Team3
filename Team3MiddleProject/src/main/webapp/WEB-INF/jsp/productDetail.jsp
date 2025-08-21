@@ -157,38 +157,32 @@
 							<span id="search-icon-1" class="input-group-text p-3"><i
 								class="fa fa-search"></i></span>
 						</div>
-						<div class="mb-4">
-							<h4>Categories</h4>
-							<ul class="list-unstyled fruite-categorie">
-								<li>
-									<div class="d-flex justify-content-between fruite-name">
-										<a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a> <span>(3)</span>
-									</div>
-								</li>
-								<li>
-									<div class="d-flex justify-content-between fruite-name">
-										<a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a> <span>(5)</span>
-									</div>
-								</li>
-								<li>
-									<div class="d-flex justify-content-between fruite-name">
-										<a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-										<span>(2)</span>
-									</div>
-								</li>
-								<li>
-									<div class="d-flex justify-content-between fruite-name">
-										<a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a> <span>(8)</span>
-									</div>
-								</li>
-								<li>
-									<div class="d-flex justify-content-between fruite-name">
-										<a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a> <span>(5)</span>
-									</div>
-								</li>
-							</ul>
-						</div>
+						<ul class="list-unstyled fruite-categorie">
+										<li>
+											<div class="d-flex justify-content-between fruite-name">
+												<a href="productList.do?maincategory=채소" class="${currentCategory eq '채소' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Vegetable</a>
+												<!-- <span>(${vegetableCnt })</span> -->
+											</div>
+										</li>
+										<li>
+											<div class="d-flex justify-content-between fruite-name">
+												<a href="productList.do?maincategory=정육" class="${currentCategory eq '정육' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Meat</a>
+												<!-- <span>(${meatCnt })</span> -->
+											</div>
+										</li>
+										<li>
+											<div class="d-flex justify-content-between fruite-name">
+												<a href="productList.do?maincategory=수산" class="${currentCategory eq '수산' ? 'active text-white bg-secondary rounded px-2' : ''}">
+													<i class="fas fa-apple-alt me-2"></i>Fish</a>
+												<!-- <span>(${fishCnt })</span> -->
+											</div>
+										</li>
+									</ul>
 					</div>
+					
+					
 					<div class="col-lg-12">
 						<h4 class="mb-4">Featured products</h4>
 						<div class="d-flex align-items-center justify-content-start">

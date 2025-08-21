@@ -13,5 +13,6 @@ public class ProductVO {
 	private String productImage;
 	private String productAbout;
 	private String expirationDate;
-	private String productDesc;
+	private int discountRate;     // 할인율 (%)
+	private int discountPrice;    // 할인된 금액
 }

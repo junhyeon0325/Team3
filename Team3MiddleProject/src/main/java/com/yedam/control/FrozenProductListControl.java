@@ -21,6 +21,7 @@ public class FrozenProductListControl implements Control {
 		int page = 1;
         int pageSize = 6;
         Integer maxPrice = null;
+        int pageBlockSize = 5;
         
         int riceCnt = prdService.getTotalProductCount("냉동볶음밥");
         int fruitCnt = prdService.getTotalProductCount("냉동과일");
@@ -53,17 +54,24 @@ public class FrozenProductListControl implements Control {
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         
         List<ProductVO> lowestFrozenProduct = prdService.getLowestPriceFrozenProducts();
+        
+        int currentBlock = (int)Math.ceil((double)page / pageBlockSize);
+        int startPage = (currentBlock - 1) * pageBlockSize + 1;
+        int endPage = Math.min(currentBlock * pageBlockSize, totalPages);
 
         req.setAttribute("productList", productList);
-        req.setAttribute("currentPage", page);
-        req.setAttribute("totalPages", totalPages);
-        req.setAttribute("sort", sort);
         req.setAttribute("currentCategory", category);
+        req.setAttribute("sort", sort);
         req.setAttribute("riceCnt", riceCnt);
         req.setAttribute("fruitCnt", fruitCnt);
         req.setAttribute("friedCnt", friedCnt);
         req.setAttribute("lowestFrozenProduct", lowestFrozenProduct);
+        req.setAttribute("maxPrice", maxPrice);
         
+        req.setAttribute("currentPage", page);
+        req.setAttribute("totalPages", totalPages);
+        req.setAttribute("startPage", startPage);
+        req.setAttribute("endPage", endPage);
         
 
         req.getRequestDispatcher("product/frozenProductList.tiles").forward(req, resp);

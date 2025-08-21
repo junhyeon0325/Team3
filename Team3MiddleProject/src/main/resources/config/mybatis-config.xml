@@ -40,6 +40,7 @@
     <mapper resource="com/yedam/mapper/ProductListMapper.xml"/>
   	<mapper resource="com/yedam/mapper/CartMapper.xml"/>
   	<mapper resource="com/yedam/mapper/OrderMapper.xml"/>
+  	<mapper resource="com/yedam/mapper/SaleProductMapper.xml"/>
   	<mapper resource="com/yedam/mapper/SearchMapper.xml"/>
   	<mapper resource="com/yedam/mapper/SalesMapper.xml"/>
   </mappers>

@@ -34,6 +34,8 @@ import com.yedam.control.ReviewListControl;
 import com.yedam.control.SearchControl;
 import com.yedam.control.SignFormControl;
 import com.yedam.control.SignUpControl;
+import com.yedam.control.SaleProductControl;
+import com.yedam.control.SearchControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -53,10 +55,12 @@ public class FrontController extends HttpServlet{
 		map.put("/checkId.do", new CheckIdControl());
 		
 		map.put("/productList.do", new ProductListControl());
+		map.put("/frozenProductList.do", new FrozenProductListControl());
 		
 		//상세페이지
 		map.put("/detailPage.do", new DetailSelectcontrol());
 		map.put("/review.do", new ReviewControl());
+		map.put("/saleProduct.do", new SaleProductControl());
 		map.put("/reviewList.do", new ReviewListControl());
 		map.put("/deleteReview.do", new DeleteRivewControl());
 		
