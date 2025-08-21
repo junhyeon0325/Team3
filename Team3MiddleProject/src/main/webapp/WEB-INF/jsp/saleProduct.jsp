@@ -121,7 +121,7 @@
 	                                                    <p class="text-decoration-line-through">${sale.productPrice }원</p>
 	                                                    <p class="text-danger fs-1 fw-bold mb-0">${sale.discountPrice }원</p>
 	                                                  <div class="w-100 mt-3 d-flex justify-content-center">
-	                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+	                                                    <a href="#" onclick="addToCart(${sale.productNo });" class="btn border border-secondary rounded-pill px-3 text-primary">
 	                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
 	                                                  </div>
 	                                                </div>
@@ -155,3 +155,23 @@
             </div>
         </div>
         <!-- Fruits Shop End-->
+        
+<script>
+function addToCart(productNo) {
+	fetch('cartListAdd.do?productNo=' + productNo + '&productPcs=1')
+	.then(resolve => resolve.json())
+	.then(result => {
+		if( result.retCode == 'loginNo') {
+			alert('로그인을 해주세요.');
+		} else if( result.retCode == 'OK' ) {
+			cartListCount();
+			alert('장바구니에 상품을 담았습니다.');
+		} else if( result.retCode == 'NG' ) {
+			alert('처리중 예외 발생')
+		} else {
+			alert('알수 없는 코드')
+		}
+	})
+	.catch(err => console.error(err));	
+}
+</script>
