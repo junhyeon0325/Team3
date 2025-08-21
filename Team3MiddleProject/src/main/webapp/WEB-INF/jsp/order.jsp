@@ -126,10 +126,10 @@
 										<td class="py-5 ordertd">
 											<p class="orderProductPrice"><fmt:formatNumber value="${cp.productPrice }" type="number" />원</p>
 											<p class="mb-0 productSalePercent"
-												style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>
+												style="color: red; font-size: 20px; font-weight: bold">${cp.discountRate}%</p>
 											<!-- 할인율 -->
 											<p class="mb-0 productSale"
-												style="color: red; font-size: 20px; font-weight: bold"></p>
+												style="color: red; font-size: 20px; font-weight: bold">${cp.discountPrice}원</p>
 										</td>
 										<td class="py-5 orderProductPcs">${cp.productPcs }</td>
 										<td class="py-5 ordertotalPrice">총 가격</td>

@@ -20,5 +20,6 @@ public class CartProductVO {
 	private int memberNo;
 	private int point;
 	private int eventNo;
-	private double sale;
+	private int discountRate;
+	private int discountPrice;
 }
