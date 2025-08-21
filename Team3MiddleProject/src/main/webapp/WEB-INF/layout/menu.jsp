@@ -14,16 +14,28 @@
 			</div>
 			<div class="top-link pe-2">
 
-				<a href="#"
-					onclick="document.getElementById('id01').style.display='block'"
-					class="text-white"> <small class="text-white mx-2">로그인</small>/
-				</a>
+				<c:choose>
+    <!-- 로그인 상태 -->
+    <c:when test="${not empty sessionScope.loginMember}">
+        <a href="logout.do" class="text-white">
+            <small class="text-white mx-2">로그아웃</small>
+        </a>
+    </c:when>
+
+    <!-- 로그아웃 상태 -->
+    <c:otherwise>
+        <a href="#" onclick="document.getElementById('id01').style.display='block'"
+           class="text-white">
+           <small class="text-white mx-2">로그인</small>
+        </a>
+        <%@ include file="/WEB-INF/jsp/login_form.jsp" %>
+        <a href="signForm.do" class="text-white">
+            <small class="text-white mx-2">회원가입</small>
+        </a>
+    </c:otherwise>
+</c:choose>
 
 
-				<%@ include file="/WEB-INF/jsp/login_form.jsp" %>
-
-
-				<a href="signForm.do" class="text-white"><small class="text-white mx-2">회원가입</small>/</a>
 				<a href="#" class="text-white"><small class="text-white ms-2">고객센터</small></a>
 
 			</div>
@@ -63,7 +75,7 @@
 						class="fa fa-shopping-bag fa-2x"></i> <span
 						class="CartListCount position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
 						style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-					</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
+					</a> <a href="mypage.do" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 					</a>
 				</div>
 			</div>
