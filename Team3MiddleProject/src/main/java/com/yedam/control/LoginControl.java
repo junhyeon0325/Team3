@@ -25,6 +25,9 @@ public class LoginControl implements Control {
             session.setAttribute("logId", member.getMemberId());
             session.setAttribute("logName", member.getMemberName());
             session.setAttribute("logSuccess", true);
+            
+            session.setAttribute("loginMember", member);
+            
             System.out.println("로그인 id : " + session.getAttribute("logId"));
             System.out.println("로그인 name : " + session.getAttribute("logName"));
 

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
 	<div class="container topbar bg-primary d-none d-lg-block">
@@ -14,25 +17,30 @@
 			</div>
 			<div class="top-link pe-2">
 				<c:choose>
-    <!-- 로그인 상태 -->
-    <c:when test="${not empty sessionScope.loginMember}">
-        <a href="logout.do" class="text-white">
-            <small class="text-white mx-2">로그아웃</small>
-        </a>
-    </c:when>
-
-    <!-- 로그아웃 상태 -->
-    <c:otherwise>
-        <a href="#" onclick="document.getElementById('id01').style.display='block'"
-           class="text-white">
-           <small class="text-white mx-2">로그인</small>
-        </a>
-        <%@ include file="/WEB-INF/jsp/login_form.jsp" %>
-        <a href="signForm.do" class="text-white">
-            <small class="text-white mx-2">회원가입</small>
-        </a>
-    </c:otherwise>
-</c:choose>
+				    
+				    
+				    <c:when test="${not empty sessionScope.loginMember}">
+				        <a href="logout.do" class="text-white">
+				            <small class="text-white mx-2">로그아웃</small>
+				        </a>
+				    </c:when>
+				
+				    
+				    
+				    
+				    <c:otherwise>
+				        <a href="#" onclick="document.getElementById('id01').style.display='block'"
+				           class="text-white">
+				           <small class="text-white mx-2">로그인</small>
+				        </a>
+				        
+				        <jsp:include page="/WEB-INF/jsp/login_form.jsp" />
+				        
+				        <a href="signForm.do" class="text-white">
+				            <small class="text-white mx-2">회원가입</small>
+				        </a>
+				    </c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
@@ -83,8 +91,7 @@
 			<div class="modal-body d-flex align-items-center">
 				<div class="input-group w-75 mx-auto d-flex">
 					<form id="myFrom" action="search.do" method="get">
-						<input type="text" id="inputValue" class="form-control p-3"
-							placeholder="keywords" aria-describedby="search-icon-1" value=""> 
+						<input type="text" id="inputValue" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" value=""> 
 							<button type="button" onclick="submitForm()">검색</button>
 					</form>
 				</div>
