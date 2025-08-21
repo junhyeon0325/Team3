@@ -2,6 +2,7 @@ package com.yedam.service;
 
 import java.util.List;
 
+import com.yedam.vo.AddCartVO;
 import com.yedam.vo.CartProductVO;
 import com.yedam.vo.OrderMemberVO;
 
@@ -17,7 +18,11 @@ public interface CartService {
     public int removeCart(String memberId);
     // 만약 memberNo를 사용해야 한다면:
     // public int removeCart(int memberNo);
-    public int removeCart(int memberNo); 
+    public int removeCart(int memberNo);
+
+	public boolean AddCartList(AddCartVO vo);
+
+	public int CountCartList(String memberId); 
 
 
 }

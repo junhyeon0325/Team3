@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yedam.vo.AddCartVO;
 import com.yedam.vo.CartProductVO;
 
 public interface CartMapper {
@@ -16,5 +17,9 @@ public interface CartMapper {
 	public int deleteCartByMemberId(String memberId);
 
 	public int deleteCartByMemberNo(int memberNo);
+
+	public int insertCartList(AddCartVO vo);
+
+	public int SelectCartList(String memberId);
 	
 }

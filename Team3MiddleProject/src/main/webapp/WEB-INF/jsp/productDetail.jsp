@@ -67,26 +67,28 @@
 							</div>
 						</div>
 						<p class="mb-8">${product.productAbout}</p>
-						<div class="input-group quantity mb-5" style="width: 100px;">
+						<div class="input-group quantity mb-5 cart" style="width: 100px;">
 							<div class="input-group-btn">
 								<button
 									class="btn btn-sm btn-minus rounded-circle bg-light border">
-									<i class="fa fa-minus"></i>
+									➖
+									<!-- 수량감소버튼 -->
 								</button>
 							</div>
 							<input type="text"
-								class="form-control form-control-sm text-center border-0"
+								class="ProductPcs form-control form-control-sm text-center border-0"
 								value="1">
 							<div class="input-group-btn">
 								<button
 									class="btn btn-sm btn-plus rounded-circle bg-light border">
-									<i class="fa fa-plus"></i>
+									➕
+									<!-- 수량증가버튼 -->
 								</button>
 							</div>
 						</div>
-						<a href="#"
+						<a href="#" onclick="addToCart(${product.productNo });" 
 							class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-							class="fa fa-shopping-bag me-2 text-primary"></i> 장바구니 담기</a>
+							class="fa fa-shopping-bag me-2 text-primary"></i>장바구니 담기</a>
 					</div>
 					<div class="col-lg-12">
 						<nav>
@@ -506,4 +508,63 @@
 <!-- Single Product End -->
 <script>
   const logId = "${sessionScope.logId}";
+</script>
+<script>
+let pcs = 1;
+
+document.addEventListener('click', (e) => {
+	// +버튼
+	if (e.target.classList.contains('btn-plus')) {
+		let cart = e.target.closest('.cart');
+		let input = cart.querySelector('.ProductPcs');
+		input.value = Number(input.value);	// 수량
+
+		pcs = input.value;	// productPcs
+		console.log('+버튼 눌렀을때' + pcs);
+	}	// end if
+
+	// -버튼
+	if (e.target.classList.contains('btn-minus')) {
+		let cart = e.target.closest('.cart');
+		//console.log(cart);
+		let input = cart.querySelector('.ProductPcs');
+		if (Number(input.value) > 0) {
+			input.value = Number(input.value);
+		} else {
+			return
+		} // end if
+
+		pcs = input.value;	// productPcs
+		console.log('-버튼 눌렀을때' + pcs);
+	}	// end if
+})
+
+document.addEventListener('input', (e) => {
+	if (e.target.classList.contains('ProductPcs')) {
+		let cart = e.target.closest('.cart');
+		let input = cart.querySelector('.ProductPcs')
+		if (Number(input.value) < 0) {
+			input.value = 0;
+		}
+	}
+})
+console.log(document.querySelector('.ProductPcs').value);
+pcs = document.querySelector('.ProductPcs').value;
+function addToCart(productNo) {
+	fetch('cartListAdd.do?productNo=' + productNo + '&productPcs=' + pcs)
+	.then(resolve => resolve.json())
+	.then(result => {
+		if( result.retCode == 'loginNo') {
+			alert('로그인을 해주세요.');
+		} else if( result.retCode == 'OK' ) {
+			cartListCount();
+			alert('장바구니에 상품을 담았습니다.');
+		} else if( result.retCode == 'NG' ) {
+			alert('처리중 예외 발생')
+		} else {
+			alert('알수 없는 코드')
+		}
+	})
+	.catch(err => console.error(err));	
+}
 </script>

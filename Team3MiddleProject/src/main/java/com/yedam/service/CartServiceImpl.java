@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession; // SqlSession 임포트 유지
 
 import com.yedam.common.DBUtil; // DBUtil 임포트 유지
 import com.yedam.mapper.CartMapper; // CartMapper 임포트 유지
+import com.yedam.vo.AddCartVO;
 import com.yedam.vo.CartProductVO; // CartProductVO 임포트 유지
 
 public class CartServiceImpl implements CartService {
@@ -16,14 +17,14 @@ public class CartServiceImpl implements CartService {
 	//       더 효율적인 방법은 SqlSession을 필드로 두고, 각 트랜잭션마다 commit/rollback/close를 관리하는 것입니다.
 
 	// 이전에 전역 변수로 선언했던 SqlSession은 각 메서드마다 새로운 세션을 열어야 하므로 삭제합니다.
-	// SqlSession sqlSession = DBUtil.getInstance().openSession();
-	// CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-
+	SqlSession sqlSession = DBUtil.getInstance().openSession();
+	CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+	
 	// 장바구니 상품 목록 조회
 	@Override
 	public List<CartProductVO> CartProductList(String memberId) {
-		SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
+		//SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
+		//CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
 		try {
 			return mapper.selectCartProductList(memberId);
 		} finally {
@@ -34,8 +35,8 @@ public class CartServiceImpl implements CartService {
 	// 장바구니 상품 목록 삭제 (단건)
 	@Override
 	public boolean removeCartListSingle(int cartNo) {
-		SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
+		//SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
+		//CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
 		try {
 			int r = mapper.deleteCartListSingle(cartNo);
 			if (r > 0) {
@@ -51,8 +52,8 @@ public class CartServiceImpl implements CartService {
 	// 장바구니 상품 목록 수정
 	@Override
 	public boolean modifyCartProductPcs(int productPcs, int cartNo) {
-		SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
+		//SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
+		//CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
 		try {
 			int r = mapper.updateCartListSingle(productPcs, cartNo);
 			if (r > 0) {
@@ -68,8 +69,8 @@ public class CartServiceImpl implements CartService {
 	// 장바구니 전체 삭제 (회원 ID 기준)
 	@Override
 	public int removeCart(String memberId) {
-        SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-        CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
+        //SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
+        //CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
         try {
             int result = mapper.deleteCartByMemberId(memberId);
             if (result > 0) {
@@ -88,8 +89,8 @@ public class CartServiceImpl implements CartService {
 	// 장바구니 전체 삭제 (회원 번호 기준)
 	@Override
 	public int removeCart(int memberNo) {
-        SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-        CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
+        //SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
+        //CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
         try {
             int result = mapper.deleteCartByMemberNo(memberNo);
             if (result > 0) {
@@ -103,5 +104,22 @@ public class CartServiceImpl implements CartService {
         } finally {
             sqlSession.close(); // 🌟 추가: 세션 닫기
         }
+	}
+
+	@Override
+	public boolean AddCartList(AddCartVO vo) {
+		int r = mapper.insertCartList(vo);
+		if ( r > 0 ) {
+			sqlSession.commit();
+			return true;
+		} else {
+			return false;			
+		}
+	}
+
+	@Override
+	public int CountCartList(String memberId) {
+		int r = mapper.SelectCartList(memberId);
+		return r;
 	}
 }

@@ -17,6 +17,8 @@ public class OrderTempSaveControl implements Control {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/json;charset=utf-8");
+
         ObjectMapper objectMapper = new ObjectMapper();
         HttpSession session = req.getSession();
 

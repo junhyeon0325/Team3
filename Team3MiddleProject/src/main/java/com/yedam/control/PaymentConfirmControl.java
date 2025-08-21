@@ -33,6 +33,8 @@ public class PaymentConfirmControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setContentType("text/json;charset=utf-8");
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode payload = null;
 		HttpSession session = req.getSession();

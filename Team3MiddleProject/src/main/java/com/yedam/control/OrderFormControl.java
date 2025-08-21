@@ -20,7 +20,8 @@ public class OrderFormControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		resp.setContentType("text/json;charset=utf-8");
+		
 		HttpSession session = req.getSession(); // 세션 객체 가져오기
 		String memberId = (String) session.getAttribute("logId"); // 실제 로그인 ID를 세션에서 가져옴
 		if (memberId == null) {

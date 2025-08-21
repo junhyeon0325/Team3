@@ -59,9 +59,9 @@
 						data-bs-toggle="modal" data-bs-target="#searchModal">
 						<i class="fas fa-search text-primary"></i>
 					</button>
-					<a href="#" class="position-relative me-4 my-auto"> <i
+					<a href="cartlistform.do" class="position-relative me-4 my-auto"> <i
 						class="fa fa-shopping-bag fa-2x"></i> <span
-						class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+						class="CartListCount position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
 						style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
 					</a> <a href="#" class="my-auto"> <i class="fas fa-user fa-2x"></i>
 					</a>
@@ -116,4 +116,21 @@ function submitForm() {
 	  const inputValue = document.getElementById("inputValue").value;
 	  window.location.href = "search.do?value=" + inputValue;
 }
+document.addEventListener('DOMContentLoaded', function() {
+    cartListCount();
+});
+function cartListCount(){
+    const logId = "${logId}"; 
+
+	fetch('cartListCount.do?logId=' + logId)
+	.then(resolve => resolve.json())
+	.then(result => {
+		countElement = document.querySelector('.CartListCount');
+		if(countElement) {
+			countElement.innerHTML = result.count;
+		}
+	})
+	.catch(err => console.error(err));
+}
+cartListCount();
 </script>

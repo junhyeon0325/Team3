@@ -41,6 +41,27 @@
         DELETE FROM tbl_cart
         WHERE member_no = #{memberNo}
     </delete>
+    
+    <insert id="insertCartList" parameterType="ac">
+    	insert into tbl_cart(cart_no,
+                             product_pcs,
+                             product_no,
+                             member_no)
+        values(CART_NO.nextval,
+               #{productPcs}, 
+               #{productNo},
+               (select member_no
+                from   tbl_member
+                where  member_id = #{memberId} ))
+    </insert>
+    
+    <select id="SelectCartList" resultType="int">
+    	select count(*)
+        from   tbl_cart
+        where  member_no = (select member_no
+                            from   tbl_member
+                            where  member_id = #{memberId} )
+    </select>
 	
 </mapper>
 
