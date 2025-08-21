@@ -1,5 +1,8 @@
 package com.yedam.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DBUtil;
@@ -14,6 +17,11 @@ public class DetailServiceImpl implements DetailService {
 	@Override
 	public ProductVO productDetail(int prductNo) {
 		return mapper.selectDetail(prductNo);
+	}
+	
+	@Override
+	public List<ProductVO> relatedProducts(Map<String, Object>param) {
+		return mapper.relatedSelect(param);
 	}
 
 }

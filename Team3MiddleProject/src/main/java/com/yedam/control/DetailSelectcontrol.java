@@ -1,6 +1,9 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,13 @@ public class DetailSelectcontrol implements Control {
 		ProductVO product = svc.productDetail(prno); 
 		
 		req.setAttribute("product", product);
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("maincategory", product.getMaincategory());
+		param.put("productNo", prno);
+		
+		List<ProductVO> related = svc.relatedProducts(param);
+        req.setAttribute("related", related);
 		
 		req.getRequestDispatcher("product/productDetail.tiles")
 		.forward(req, resp);
