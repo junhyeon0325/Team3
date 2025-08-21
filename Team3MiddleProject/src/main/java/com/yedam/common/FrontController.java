@@ -18,6 +18,7 @@ import com.yedam.control.DeleteRivewControl;
 import com.yedam.control.DetailSelectcontrol;
 import com.yedam.control.FrozenProductListControl;
 import com.yedam.control.LoginControl;
+import com.yedam.control.LogoutControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.ModifyCartProductPcsControl;
 import com.yedam.control.OrderFormControl;
@@ -31,11 +32,10 @@ import com.yedam.control.ProductSelectControl;
 import com.yedam.control.RemoveCartListSingleControl;
 import com.yedam.control.ReviewControl;
 import com.yedam.control.ReviewListControl;
+import com.yedam.control.SaleProductControl;
 import com.yedam.control.SearchControl;
 import com.yedam.control.SignFormControl;
 import com.yedam.control.SignUpControl;
-import com.yedam.control.SaleProductControl;
-import com.yedam.control.SearchControl;
 
 public class FrontController extends HttpServlet{
 	Map<String, Control> map;
@@ -53,7 +53,7 @@ public class FrontController extends HttpServlet{
 		map.put("/loginForm.do", new LoginControl());
 		map.put("/signForm.do", new SignFormControl());
 		map.put("/checkId.do", new CheckIdControl());
-		
+		map.put("/logout.do", new LogoutControl());
 		map.put("/productList.do", new ProductListControl());
 		map.put("/frozenProductList.do", new FrozenProductListControl());
 		
