@@ -45,7 +45,7 @@ public class SignUpControl implements Control {
 		MemberService svc = new MemberServiceImpl();
 		if ( svc.insertMember(param)) {
 			// 목록이동
-			req.getRequestDispatcher("product/signup_Complete.tiles")
+			req.getRequestDispatcher("product/aftersignup.tiles")
 			.forward(req, resp);
 		} else {
 			System.out.println("Error발생");
