@@ -61,8 +61,8 @@
 
 							<td class=pricetd>
 								<p class="mb-0 productPrice"><fmt:formatNumber value="${cp.productPrice}" type="number" />원</p>
-								<p class="mb-0 productSalePercent" style="color: red; font-size: 20px; font-weight: bold">${cp.sale * 100 }%</p>	<!-- 할인율 -->
-								<p class="mb-0 productSale" style="margin-bottom: 20px; color: red; font-size: 20px; font-weight: bold"></p>
+								<p class="mb-0 productSalePercent" style="color: red; font-size: 20px; font-weight: bold">${cp.discountRate }%</p>	<!-- 할인율 -->
+								<p class="mb-0 productSale" style="margin-bottom: 20px; color: red; font-size: 20px; font-weight: bold">${cp.discountPrice}원</p>
 							</td>
 							<td>
 								<div class="input-group mt-4" style="width: 100px;">
