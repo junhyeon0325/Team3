@@ -117,7 +117,7 @@
 									<tr class="cart">
 										<th scope="row">
 											<div class="d-flex align-items-center mt-2">
-												<img src="images/${cp.productImage }"
+												<img src="${cp.productImage }"
 													class="img-fluid rounded-circle"
 													style="width: 90px; height: 90px;" alt="">
 											</div>

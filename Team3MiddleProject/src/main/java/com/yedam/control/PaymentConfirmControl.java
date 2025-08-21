@@ -133,17 +133,13 @@ public class PaymentConfirmControl implements Control {
                             int orderItemsResult = orderDao.insertOrderItems(orderNo, cartList);
                             System.out.println("tbl_order_items 삽입 결과: " + orderItemsResult + "건 삽입");
                             
-                            // 🌟🌟🌟 추가: 장바구니 데이터 삭제 로직 🌟🌟🌟
-                            if (orderItemsResult > 0) { // 주문 상세 항목이 성공적으로 삽입되었다면
-                                if (memberId != null && !memberId.isEmpty()) {
-                                    int deletedCartItems = cartService.removeCart(memberId);
-                                    System.out.println("장바구니에서 " + deletedCartItems + "개의 항목이 삭제되었습니다. (회원 ID: " + memberId + ")");
-                                } else if (memberNo != null && memberNo > 0) { // memberId가 없으면 memberNo 사용 (DB 스키마에 따라 선택)
-                                	// 🌟 수정: memberNo를 사용하여 removeCart 메서드 호출 (int value로 변환)
-                                    int deletedCartItems = cartService.removeCart(memberNo.intValue()); 
+                         // 🌟🌟🌟 수정: 장바구니 데이터 삭제 로직 단순화 - memberNo로만 삭제 시도 🌟🌟🌟
+                            if (orderItemsResult > 0) { 
+                                if (memberNo != null && memberNo > 0) { // 회원 번호가 있다면
+                                    int deletedCartItems = cartService.removeCart(memberNo.intValue()); // memberNo로 장바구니 삭제
                                     System.out.println("장바구니에서 " + deletedCartItems + "개의 항목이 삭제되었습니다. (회원 번호: " + memberNo + ")");
                                 } else {
-                                    System.err.println("경고: 로그인된 회원 정보를 찾을 수 없어 장바구니를 비우지 못했습니다.");
+                                    System.err.println("경고: 로그인된 회원 정보를 찾을 수 없어 장바구니를 비우지 못했습니다. (회원 번호 없음)");
                                 }
                                 // 세션에 저장된 장바구니 목록도 삭제
                                 session.removeAttribute("cp_list"); 

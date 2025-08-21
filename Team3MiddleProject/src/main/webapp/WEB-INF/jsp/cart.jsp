@@ -50,7 +50,7 @@
 							<!-- <td><input type="checkbox"></td> -->
 							<th scope="row">
 								<div class="d-flex align-items-center">
-									<img src="imges/${cp.productImage}"
+									<img src="${cp.productImage}"
 										class="img-fluid me-5 rounded-circle"
 										style="width: 80px; height: 80px;" alt="">
 								</div>

@@ -66,25 +66,7 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
-	// 장바구니 전체 삭제 (회원 ID 기준)
-	@Override
-	public int removeCart(String memberId) {
-        //SqlSession sqlSession = DBUtil.getInstance().openSession(); // 🌟 추가: 메서드 시작 시 SqlSession 열기
-        //CartMapper mapper = sqlSession.getMapper(CartMapper.class); // 🌟 추가: Mapper 얻기
-        try {
-            int result = mapper.deleteCartByMemberId(memberId);
-            if (result > 0) {
-                sqlSession.commit(); // 🌟 추가: 커밋!
-            }
-            return result;
-        } catch (Exception e) {
-            System.err.println("장바구니(ID) 삭제 중 오류 발생: " + e.getMessage());
-            sqlSession.rollback(); // 🌟 추가: 오류 시 롤백
-            return 0; // 실패를 나타내는 값 반환
-        } finally {
-            sqlSession.close(); // 🌟 추가: 세션 닫기
-        }
-	}
+	
 
 	// 장바구니 전체 삭제 (회원 번호 기준)
 	@Override

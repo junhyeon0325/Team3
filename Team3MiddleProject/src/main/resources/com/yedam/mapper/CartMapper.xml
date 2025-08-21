@@ -32,10 +32,7 @@
 		where  cart_no = #{cartNo}
 	</update>
 	
-	<delete id="deleteCartByMemberId" parameterType="string">
-        DELETE FROM tbl_cart
-        WHERE member_id = #{memberId}
-    </delete>
+	
     
     <delete id="deleteCartByMemberNo" parameterType="int">
         DELETE FROM tbl_cart
