@@ -10,9 +10,11 @@
 <logger name="com.yedam.mapper.ReplyMapper">
 <level value="debug"/>
 </logger>
+<!-- 
 <logger name="com.yedam.mapper.ProductListMapper">
 <level value="debug"/>
 </logger>
+ -->
 <root level="error">
 <appender-ref ref="stdout"/>
 </root>
